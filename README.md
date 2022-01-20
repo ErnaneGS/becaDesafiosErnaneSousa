@@ -17,5 +17,5 @@ funcionalidades para o controle de aplivcação de atividades, notas e resultado
 4) Commit do código na branch “main” junto com o arquivo README.md
 
 ## Diagrama:
-![Diagrama](https://user-images.githubusercontent.com/97994560/150258734-5f3d5257-60af-4633-8b42-a47b1e3e80c9.png)
+![Diagrama](https://user-images.githubusercontent.com/97994560/150349524-5a3264b9-8b7d-4c73-aa14-5b7fada3a5a0.png)
 
