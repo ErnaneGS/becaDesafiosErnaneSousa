@@ -8,7 +8,7 @@ notas e resultados de cada aluno e sua respectiva turma.
 + Status: Em desenvolvimento ⚠️
 
 ## Desenvolvimento:
-+ Desafio 01 (Em desenvolvimento ⚠️)
++ Desafio 01 (Concluído 20/01/2021 ✅)
 1) Criação da modelagem e um pequeno resumo sobre a API
 2) Criação de um projeto Spring Boot e implementação das classes da modelagem
 3) Criação de um repositório no git onde será utilizado para a entrega de todos os desafios
