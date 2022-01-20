@@ -10,12 +10,12 @@ funcionalidades para o controle de aplivcação de atividades, notas e resultado
 + Status: Em desenvolvimento ⚠️
 
 ## Desenvolvimento:
-+ Desafio 01 (Em desenvolvimento)
++ Desafio 01 (Em desenvolvimento ⚠️)
 1) Criação da modelagem e um pequeno resumo sobre oque será baseada sua API
 2) Criação de um projeto Spring Boot e implemntação das classes da modelagem
 3) Criação de um repositório no git onde será utilizado para a entrega de todos os desafios
 4) Commit do código branch “main” junto com o arquivo README.md
 
 ## Diagrama:
-
+![Diagrama](https://user-images.githubusercontent.com/97994560/150258734-5f3d5257-60af-4633-8b42-a47b1e3e80c9.png)
 
