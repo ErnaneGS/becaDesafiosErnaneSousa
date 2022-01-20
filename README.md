@@ -14,6 +14,14 @@ notas e resultados de cada aluno e sua respectiva turma.
 3) Criação de um repositório no git onde será utilizado para a entrega de todos os desafios
 4) Commit do código na branch “main” junto com o arquivo README.md
 
++ Desafio 02 (Em andamento ⚠️)
+1) Criar uma nova branch com o nome “desafio2”, a partir da branch “main” como base, atualizar todas as modificações feitas na  api nesta banch no documento README.md
+2) Crie as classes de controllers na API (CRUD)
+3) Implementar o OpenAPI na Spring Rest API
+4) Implementar ResponseEntity nos retornos das suas chamadas
+5) Subir o código na branch “desafio2”, em seguida mergear com a branch “main”
+
+
 ## Diagrama:
 ![Untitled Diagram](https://user-images.githubusercontent.com/97994560/150408938-ced88ec0-be6c-4ac8-bd92-513067208028.jpg)
 
