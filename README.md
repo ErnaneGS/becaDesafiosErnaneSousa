@@ -3,7 +3,8 @@
 ## Projeto:
 + Nome do projeto: Sistema de Gestão Educacional (SISGED) 
 + Descrição: O projeto consiste em oito desafios com o objetivo final de desenvolver um Sistema de Gestão Educacional 
-+ Resumo da aplicação: A aplicação tem como objetivo a automatização de tarefas manuais e simplificação dos principais processos burocráticos que integram a sala de aula e a diretoria de uma escola. Em sua primeira versão o sistema deverá permitir o cadastro da escola e do seu diretor responsável, além do cadastro de cursos e professores. Através do cadastro de turmas e alunos, a API deverá permitir o gerenciamento de todos as matrículas, além de disponibilizar funcionalidades para o controle de aplicação de atividades, notas e resultados de cada aluno e sua respectiva turma.
++ Resumo da aplicação: A aplicação tem como objetivo a automatização de tarefas manuais e simplificação dos principais processos burocráticos que integram a sala de aula e a diretoria de uma escola. Em sua primeira versão o sistema deverá permitir o cadastro da escola e do seu diretor responsável, além do cadastro de cursos e professores. Através do cadastro de turmas e alunos, a API deverá permitir o gerenciamento de todos as matrículas, além de disponibilizar funcionalidades para o controle de aplicação de atividades, 
+notas e resultados de cada aluno e sua respectiva turma.
 + Status: Em desenvolvimento ⚠️
 
 ## Desenvolvimento:
