@@ -15,5 +15,5 @@ notas e resultados de cada aluno e sua respectiva turma.
 4) Commit do código na branch “main” junto com o arquivo README.md
 
 ## Diagrama:
-![Diagrama](https://user-images.githubusercontent.com/97994560/150349524-5a3264b9-8b7d-4c73-aa14-5b7fada3a5a0.png)
+![Untitled Diagram](https://user-images.githubusercontent.com/97994560/150408938-ced88ec0-be6c-4ac8-bd92-513067208028.jpg)
 
