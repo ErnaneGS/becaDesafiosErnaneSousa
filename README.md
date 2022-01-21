@@ -23,5 +23,6 @@ notas e resultados de cada aluno e sua respectiva turma.
 
 
 ## Diagrama:
-![Untitled Diagram](https://user-images.githubusercontent.com/97994560/150408938-ced88ec0-be6c-4ac8-bd92-513067208028.jpg)
+![Untitled Diagram](https://user-images.githubusercontent.com/97994560/150442637-4a12295c-94f3-487e-a2db-14aff275eafb.jpg)
+
 
