@@ -2,7 +2,7 @@ package io.github.becaErnaneSousa.desafios.administracao;
 
 public class Escola {
 
-    private int idEscola = 0001;
+    private int idEscola;
     private String nome;
     private String endereco;
     private String cnpj;
