@@ -1,20 +1,20 @@
-package io.github.becaErnaneSousa.desafios.pessoas;
+package io.github.becaErnaneSousa.desafios.entity.pessoas;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Alunos extends Pessoa {
+public class Aluno extends Pessoa {
 
     String nomePai;
 
-    List<Alunos> listaAlunos = new ArrayList<>();
+    List<Aluno> listaAlunos = new ArrayList<>();
 
-    public Alunos(String nome, String cpf, String endereco, String telefone, int dataNascimento, String nomePai) {
+    public Aluno(String nome, String cpf, String endereco, String telefone, String dataNascimento, String nomePai) {
         super(nome, cpf, endereco, telefone, dataNascimento);
         this.nomePai = nomePai;
     }
 
-    public Alunos() {
+    public Aluno() {
     }
 
     public String getNomePai() {
@@ -25,7 +25,7 @@ public class Alunos extends Pessoa {
         this.nomePai = nomePai;
     }
 
-    public void cadastrarAluno(Alunos aluno) {
+    public void cadastrarAluno(Aluno aluno) {
         listaAlunos.add(aluno);
     }
 

@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.administracao;
+package io.github.becaErnaneSousa.desafios.entity.administracao;
 
 import java.util.ArrayList;
 import java.util.List;

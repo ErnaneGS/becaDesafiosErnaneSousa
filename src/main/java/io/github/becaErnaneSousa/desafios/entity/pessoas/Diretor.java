@@ -1,8 +1,8 @@
-package io.github.becaErnaneSousa.desafios.pessoas;
+package io.github.becaErnaneSousa.desafios.entity.pessoas;
 
-public class Diretor extends Pessoa{
+public class Diretor extends Pessoa {
 
-    public Diretor(String nome, String cpf, String endereco, String telefone, int dataNascimento) {
+    public Diretor(String nome, String cpf, String endereco, String telefone, String dataNascimento) {
         super(nome, cpf, endereco, telefone, dataNascimento);
     }
 
