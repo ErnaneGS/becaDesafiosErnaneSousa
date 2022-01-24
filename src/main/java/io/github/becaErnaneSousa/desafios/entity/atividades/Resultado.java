@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.atividades;
+package io.github.becaErnaneSousa.desafios.entity.atividades;
 
 public class Resultado {
 

@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.pessoas;
+package io.github.becaErnaneSousa.desafios.entity.pessoas;
 
 public class Pessoa {
 
@@ -7,9 +7,9 @@ public class Pessoa {
     private String cpf;
     private String endereco;
     private String telefone;
-    private int dataNascimento;
+    private String dataNascimento;
 
-    public Pessoa(String nome, String cpf, String endereco, String telefone, int dataNascimento) {
+    public Pessoa(String nome, String cpf, String endereco, String telefone, String dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
@@ -60,12 +60,23 @@ public class Pessoa {
         this.telefone = telefone;
     }
 
-    public int getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(int dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", dataNascimento='" + dataNascimento + '\'' +
+                '}';
+    }
 }

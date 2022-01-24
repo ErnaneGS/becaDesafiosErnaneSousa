@@ -1,27 +1,37 @@
-package io.github.becaErnaneSousa.desafios.administracao;
+package io.github.becaErnaneSousa.desafios.entity.administracao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Turmas {
+public class Turma {
 
     private int idTurma;
+    private String nome;
     private int quantidadeAluno;
-    private int dataInicio;
-    private int dataFim;
+    private String dataInicio;
+    private String dataFim;
     private boolean status;
 
-    List<Turmas> listaTurmas = new ArrayList<>();
+    List<Turma> listaTurmas = new ArrayList<>();
 
-    public Turmas(int quantidadeAluno, int dataInicio, int dataFim, boolean status) {
+    public Turma(String nome, int quantidadeAluno, String dataInicio, String dataFim, boolean status) {
+        this.nome = nome;
         this.quantidadeAluno = quantidadeAluno;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
-        this.status = true;
+        this.status = status;
     }
 
-    public Turmas() {
+    public Turma() {
 
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public int getIdTurma() {
@@ -40,19 +50,19 @@ public class Turmas {
         this.quantidadeAluno = quantidadeAluno;
     }
 
-    public int getDataInicio() {
+    public String getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(int dataInicio) {
+    public void setDataInicio(String dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public int getDataFim() {
+    public String getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(int dataFim) {
+    public void setDataFim(String dataFim) {
         this.dataFim = dataFim;
     }
 
@@ -64,12 +74,12 @@ public class Turmas {
         this.status = status;
     }
 
-    public void cadastrarTurmas(Turmas turma) {
+    public void cadastrarTurmas(Turma turma) {
         listaTurmas.add(turma);
         turma.status = true;
     }
 
-    public void encerrarTurma(Turmas turma) {
+    public void encerrarTurma(Turma turma) {
         turma.status = false;
     }
 

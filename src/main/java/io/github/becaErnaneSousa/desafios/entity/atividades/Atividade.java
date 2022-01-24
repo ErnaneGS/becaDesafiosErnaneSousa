@@ -1,26 +1,24 @@
-package io.github.becaErnaneSousa.desafios.atividades;
-
-import io.github.becaErnaneSousa.desafios.pessoas.Alunos;
+package io.github.becaErnaneSousa.desafios.entity.atividades;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Atividades {
+public class Atividade {
 
     private int idAtividade;
     private String nome;
     private String descricao;
     private double nota;
 
-    List<Atividades> listaAtividades = new ArrayList<>();
+    List<Atividade> listaAtividades = new ArrayList<>();
 
-    public Atividades(String nome, String descricao, double nota) {
+    public Atividade(String nome, String descricao, double nota) {
         this.nome = nome;
         this.descricao = descricao;
         this.nota = nota;
     }
 
-    public Atividades() {
+    public Atividade() {
     }
 
     public int getIdAtividade() {
@@ -55,7 +53,7 @@ public class Atividades {
         this.nota = nota;
     }
 
-    public void cadastrarAtividade(Atividades atividade) {
+    public void cadastrarAtividade(Atividade atividade) {
         listaAtividades.add(atividade);
     }
 

@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.pessoas;
+package io.github.becaErnaneSousa.desafios.entity.pessoas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ public class Professor extends Pessoa {
 
     List<Professor> listaProfessor = new ArrayList<>();
 
-    public Professor(String nome, String cpf, String endereco, String telefone, int dataNascimento, String especialidade) {
+    public Professor(String nome, String cpf, String endereco, String telefone, String dataNascimento, String especialidade) {
         super(nome, cpf, endereco, telefone, dataNascimento);
         this.especialidade = especialidade;
     }
