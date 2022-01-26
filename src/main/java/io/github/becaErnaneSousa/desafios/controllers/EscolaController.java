@@ -1,6 +1,6 @@
-package io.github.becaErnaneSousa.desafios.controller;
+package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entity.administracao.Escola;
+import io.github.becaErnaneSousa.desafios.entitys.administracao.Escola;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,32 +24,30 @@ public class EscolaController {
 
     }
 
-    @PatchMapping("{idEscola}")
-    public ResponseEntity <Escola> atualizar(@RequestBody Escola escola01, @PathVariable int idEscola) {
+    @PatchMapping("{id}")
+    public ResponseEntity <Escola> atualizar(@RequestBody Escola escola01, @PathVariable long id) {
         escola = escola01;
 
-        System.out.println("Dados da escola " +idEscola+ " atualizados com sucesso.");
+        System.out.println("Dados da escola " +id+ " atualizados com sucesso.");
 
         return ResponseEntity.ok(escola);
     }
 
-    @DeleteMapping("{idEscola}")
-    public ResponseEntity <String> deletar(@PathVariable int idEscola) {
+    @DeleteMapping("{id}")
+    public ResponseEntity <String> deletar(@PathVariable long id) {
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity <List> listar() {
-
-
         return ResponseEntity.ok(
                 List.of(
                 escola)
         );
     }
 
-    @GetMapping("{idEscola}")
-    public ResponseEntity <Escola> obter(@PathVariable int idescola) {
+    @GetMapping("{id}")
+    public ResponseEntity <Escola> obter(@PathVariable long id) {
 
         return ResponseEntity.ok(escola);
     }

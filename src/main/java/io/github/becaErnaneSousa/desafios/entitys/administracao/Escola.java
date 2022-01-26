@@ -1,14 +1,16 @@
-package io.github.becaErnaneSousa.desafios.entity.administracao;
+package io.github.becaErnaneSousa.desafios.entitys.administracao;
+
+import io.github.becaErnaneSousa.desafios.entitys.pessoas.Diretor;
 
 public class Escola {
 
-    private int idEscola = 01;
+    private int id;
     private String nome;
     private String endereco;
     private String cnpj;
 
-    public Escola(int idEscola, String nome, String endereco, String cnpj) {
-        this.idEscola = idEscola;
+    public Escola(int id, String nome, String endereco, String cnpj) {
+        this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.cnpj = cnpj;
@@ -18,12 +20,22 @@ public class Escola {
 
     }
 
+    @Override
+    public String toString() {
+        return "Escola{" +
+                "idEscola=" + id +
+                ", nome='" + nome + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                '}';
+    }
+
     public int getIdEscola() {
-        return idEscola;
+        return id;
     }
 
     public void setIdEscola(int idEscola) {
-        this.idEscola = idEscola;
+        this.id = id;
     }
 
     public String getNome() {
@@ -54,13 +66,4 @@ public class Escola {
         Escola escola01 = new Escola();
     }
 
-    @Override
-    public String toString() {
-        return "Escola{" +
-                "idEscola=" + idEscola +
-                ", nome='" + nome + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", cnpj='" + cnpj + '\'' +
-                '}';
-    }
 }

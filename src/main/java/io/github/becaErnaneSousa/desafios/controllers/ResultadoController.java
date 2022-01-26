@@ -1,6 +1,6 @@
-package io.github.becaErnaneSousa.desafios.controller;
+package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entity.atividades.Resultado;
+import io.github.becaErnaneSousa.desafios.entitys.atividades.Resultado;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/resultado")
 public class ResultadoController {
 
-    Resultado resultadoTeste = new Resultado(10.0);
+    Resultado resultadoTeste = new Resultado(001l,10.0);
 
     @PostMapping
     public ResponseEntity<Resultado> criar(@RequestBody Resultado resultado) {
@@ -21,15 +21,15 @@ public class ResultadoController {
 
     }
 
-    @PatchMapping("{idResultado}")
-    public ResponseEntity <Resultado> atualizar(@RequestBody Resultado resultado01, @PathVariable int idResultado) {
+    @PatchMapping("{id}")
+    public ResponseEntity <Resultado> atualizar(@RequestBody Resultado resultado01, @PathVariable long id) {
         resultadoTeste = resultado01;
 
         return ResponseEntity.ok(resultadoTeste);
     }
 
-    @DeleteMapping("{idResultado}")
-    public ResponseEntity <String> deletar(@PathVariable int idResultado) {
+    @DeleteMapping("{id}")
+    public ResponseEntity <String> deletar(@PathVariable long id) {
         return ResponseEntity.noContent().build();
     }
 
@@ -38,17 +38,17 @@ public class ResultadoController {
 
         List<Resultado> listaResultados = new ArrayList<>();
 
-        listaResultados.add(new Resultado(8.0));
-        listaResultados.add(new Resultado(15.0));
-        listaResultados.add(new Resultado(10.0));
+        listaResultados.add(new Resultado(002l,8.0));
+        listaResultados.add(new Resultado(003l,15.0));
+        listaResultados.add(new Resultado(004l,10.0));
 
         return ResponseEntity.ok(
                 List.of(listaResultados)
         );
     }
 
-    @GetMapping("{idResultado}")
-    public ResponseEntity <Resultado> obter(@PathVariable int idResultado) {
+    @GetMapping("{id}")
+    public ResponseEntity <Resultado> obter(@PathVariable long id) {
 
         return ResponseEntity.ok(resultadoTeste);
     }

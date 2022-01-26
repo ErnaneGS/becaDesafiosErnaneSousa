@@ -1,11 +1,12 @@
-package io.github.becaErnaneSousa.desafios.entity.administracao;
+package io.github.becaErnaneSousa.desafios.entitys.administracao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Turma {
 
-    private int idTurma;
+    private long id;
     private String nome;
     private int quantidadeAluno;
     private String dataInicio;
@@ -14,7 +15,8 @@ public class Turma {
 
     List<Turma> listaTurmas = new ArrayList<>();
 
-    public Turma(String nome, int quantidadeAluno, String dataInicio, String dataFim, boolean status) {
+    public Turma(long id, String nome, int quantidadeAluno, String dataInicio, String dataFim, boolean status) {
+        this.id = id;
         this.nome = nome;
         this.quantidadeAluno = quantidadeAluno;
         this.dataInicio = dataInicio;
@@ -26,20 +28,33 @@ public class Turma {
 
     }
 
+    @Override
+    public String toString() {
+        return "Turma{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", quantidadeAluno=" + quantidadeAluno +
+                ", dataInicio=" + dataInicio +
+                ", dataFim=" + dataFim +
+                ", status=" + status +
+                ", listaTurmas=" + listaTurmas +
+                '}';
+    }
+
     public String getNome() {
         return nome;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long idTurma) {
+        this.id = id;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public int getIdTurma() {
-        return idTurma;
-    }
-
-    public void setIdTurma(int idTurma) {
-        this.idTurma = idTurma;
     }
 
     public int getQuantidadeAluno() {

@@ -1,10 +1,12 @@
-package io.github.becaErnaneSousa.desafios.entity.atividades;
+package io.github.becaErnaneSousa.desafios.entitys.atividades;
 
 public class Resultado {
 
+    private long id;
     private double resultado;
 
-    public Resultado(double resultado) {
+    public Resultado(long id, double resultado) {
+        this.id = id;
         this.resultado = resultado;
     }
 

@@ -1,19 +1,19 @@
-package io.github.becaErnaneSousa.desafios.entity.administracao;
+package io.github.becaErnaneSousa.desafios.entitys.administracao;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Curso {
 
-    private int idCurso;
+    private long id;
     private String nome;
     private String descricao;
     private double cargaHoraria;
 
     List<Curso> listaCursos = new ArrayList<>();
 
-    public Curso(String nome, String descricao, double cargaHoraria) {
-        this.idCurso = idCurso;
+    public Curso(long id, String nome, String descricao, double cargaHoraria) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.cargaHoraria = cargaHoraria;
@@ -23,12 +23,23 @@ public class Curso {
 
     }
 
-    public Integer getIdCurso() {
-        return idCurso;
+    @Override
+    public String toString() {
+        return "Curso{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", cargaHoraria=" + cargaHoraria +
+                ", listaCursos=" + listaCursos +
+                '}';
     }
 
-    public void setIdCurso(Integer idCurso) {
-        this.idCurso = idCurso;
+    public long getId() {
+        return id;
+    }
+
+    public void setIdCurso(long idCurso) {
+        this.id = id;
     }
 
     public String getNome() {
