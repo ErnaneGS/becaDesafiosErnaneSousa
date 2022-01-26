@@ -1,18 +1,19 @@
-package io.github.becaErnaneSousa.desafios.entity.atividades;
+package io.github.becaErnaneSousa.desafios.entitys.atividades;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Atividade {
 
-    private int idAtividade;
+    private long id;
     private String nome;
     private String descricao;
     private double nota;
 
     List<Atividade> listaAtividades = new ArrayList<>();
 
-    public Atividade(String nome, String descricao, double nota) {
+    public Atividade(long id, String nome, String descricao, double nota) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.nota = nota;
@@ -21,12 +22,23 @@ public class Atividade {
     public Atividade() {
     }
 
-    public int getIdAtividade() {
-        return idAtividade;
+    @Override
+    public String toString() {
+        return "Atividade{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", nota=" + nota +
+                ", listaAtividades=" + listaAtividades +
+                '}';
     }
 
-    public void setIdAtividade(int idAtividade) {
-        this.idAtividade = idAtividade;
+    public long getId() {
+        return id;
+    }
+
+    public void setIdAtividade(long id) {
+        this.id = id;
     }
 
     public String getNome() {

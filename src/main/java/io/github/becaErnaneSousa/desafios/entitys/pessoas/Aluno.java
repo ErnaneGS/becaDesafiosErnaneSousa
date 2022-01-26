@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.entity.pessoas;
+package io.github.becaErnaneSousa.desafios.entitys.pessoas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ public class Aluno extends Pessoa {
 
     List<Aluno> listaAlunos = new ArrayList<>();
 
-    public Aluno(String nome, String cpf, String endereco, String telefone, String dataNascimento, String nomePai) {
-        super(nome, cpf, endereco, telefone, dataNascimento);
+    public Aluno(long id, String nome, String cpf, String endereco, String telefone, String dataNascimento, String nomePai) {
+        super(id, nome, cpf, endereco, telefone, dataNascimento);
         this.nomePai = nomePai;
     }
 

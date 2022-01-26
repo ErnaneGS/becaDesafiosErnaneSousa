@@ -1,15 +1,16 @@
-package io.github.becaErnaneSousa.desafios.entity.pessoas;
+package io.github.becaErnaneSousa.desafios.entitys.pessoas;
 
 public class Pessoa {
 
-    private int id;
+    private long id;
     private String nome;
     private String cpf;
     private String endereco;
     private String telefone;
     private String dataNascimento;
 
-    public Pessoa(String nome, String cpf, String endereco, String telefone, String dataNascimento) {
+    public Pessoa(Long id, String nome, String cpf, String endereco, String telefone, String dataNascimento) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
@@ -20,11 +21,23 @@ public class Pessoa {
     public Pessoa() {
     }
 
-    public int getId() {
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", dataNascimento='" + dataNascimento + '\'' +
+                '}';
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -68,15 +81,4 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-    @Override
-    public String toString() {
-        return "Pessoa{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", dataNascimento='" + dataNascimento + '\'' +
-                '}';
-    }
 }

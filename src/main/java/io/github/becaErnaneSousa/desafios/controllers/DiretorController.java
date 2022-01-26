@@ -1,6 +1,6 @@
-package io.github.becaErnaneSousa.desafios.controller;
+package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entity.pessoas.Diretor;
+import io.github.becaErnaneSousa.desafios.entitys.pessoas.Diretor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,15 +10,11 @@ import java.util.List;
 @RequestMapping("/diretor")
 public class DiretorController {
 
-    Diretor diretor = new Diretor("Carlos Eduardo", "14285634666", "Sousa", "31 995182764", "08011999");
+    Diretor diretor = new Diretor(001l,"Carlos Eduardo", "14285634666", "Sousa", "31 995182764", "08011999");
 
     @PostMapping
     public ResponseEntity<Diretor> criar(@RequestBody Diretor diretor) {
         System.out.println(diretor);
-
-        int contadorId = 1;
-        contadorId += 1;
-        diretor.setId(contadorId);
 
         if( diretor.getCpf().length() != 11 ) {
             return ResponseEntity.unprocessableEntity().build();
@@ -31,17 +27,17 @@ public class DiretorController {
 
     }
 
-    @PatchMapping("{idDiretor}")
-    public ResponseEntity <Diretor> atualizar(@RequestBody Diretor diretor01, @PathVariable int idDiretor) {
+    @PatchMapping("{id}")
+    public ResponseEntity <Diretor> atualizar(@RequestBody Diretor diretor01, @PathVariable long id) {
         diretor = diretor01;
 
-        System.out.println("Dados do diretor " +idDiretor+ " atualizados com sucesso.");
+        System.out.println("Dados do diretor " +id+ " atualizados com sucesso.");
 
         return ResponseEntity.ok(diretor01);
     }
 
-    @DeleteMapping("{idDiretor}")
-    public ResponseEntity <String> deletar(@PathVariable int idDiretor) {
+    @DeleteMapping("{id}")
+    public ResponseEntity <String> deletar(@PathVariable long id) {
         return ResponseEntity.noContent().build();
     }
 
@@ -53,8 +49,8 @@ public class DiretorController {
         );
     }
 
-    @GetMapping("{idEscola}")
-    public ResponseEntity <Diretor> obter(@PathVariable int idescola) {
+    @GetMapping("{id}")
+    public ResponseEntity <Diretor> obter(@PathVariable long id) {
         return ResponseEntity.ok(diretor);
     }
 }
