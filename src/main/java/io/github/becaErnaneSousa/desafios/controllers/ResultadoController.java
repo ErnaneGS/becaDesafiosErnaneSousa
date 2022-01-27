@@ -1,55 +1,51 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entitys.atividades.Resultado;
+import io.github.becaErnaneSousa.desafios.entities.atividades.Resultado;
+import io.github.becaErnaneSousa.desafios.services.servicesImplements.ResultadoServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/resultado")
 public class ResultadoController {
 
-    Resultado resultadoTeste = new Resultado(001l,10.0);
+    @Autowired
+    private ResultadoServiceImpl resultadoService;
 
     @PostMapping
     public ResponseEntity<Resultado> criar(@RequestBody Resultado resultado) {
-        System.out.println(resultado);
+        Resultado resultadoCriado = resultadoService.criar(resultado);
 
-        return ResponseEntity.created(null).body(resultado);
-
+        return ResponseEntity.created(null).body(resultadoCriado);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Resultado> atualizar(@RequestBody Resultado resultado01, @PathVariable long id) {
-        resultadoTeste = resultado01;
+    public ResponseEntity <Resultado> atualizar(@RequestBody Resultado resultado, @PathVariable long id) {
+        Resultado resultadoAtualizado = resultadoService.atualizar(resultado, id);
 
-        return ResponseEntity.ok(resultadoTeste);
+        return ResponseEntity.ok(resultadoAtualizado);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity <String> deletar(@PathVariable long id) {
+        resultadoService.deletar(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity <List> listar() {
+    public ResponseEntity <List<Resultado>> listar() {
+        List<Resultado> listaResultados = resultadoService.listar();
 
-        List<Resultado> listaResultados = new ArrayList<>();
-
-        listaResultados.add(new Resultado(002l,8.0));
-        listaResultados.add(new Resultado(003l,15.0));
-        listaResultados.add(new Resultado(004l,10.0));
-
-        return ResponseEntity.ok(
-                List.of(listaResultados)
-        );
+        return ResponseEntity.ok(listaResultados);
     }
 
     @GetMapping("{id}")
     public ResponseEntity <Resultado> obter(@PathVariable long id) {
+        Resultado resultadoObtido = resultadoService.obter(id);
 
-        return ResponseEntity.ok(resultadoTeste);
+        return ResponseEntity.ok(resultadoObtido);
     }
 }

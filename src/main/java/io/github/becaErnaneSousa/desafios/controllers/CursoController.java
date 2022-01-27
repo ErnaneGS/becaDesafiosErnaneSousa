@@ -1,58 +1,53 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entitys.administracao.Curso;
+import io.github.becaErnaneSousa.desafios.entities.administracao.Curso;
+import io.github.becaErnaneSousa.desafios.services.servicesImplements.CursoServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/curso")
 public class CursoController {
 
-    Curso cursoTeste = new Curso(001l, "Ingles", "Curso de ingles avançado", 220.0);
+    @Autowired
+    private CursoServiceImpl cursoService;
 
     @PostMapping
     public ResponseEntity<Curso> criar(@RequestBody Curso curso) {
-        System.out.println(curso);
+        Curso cursoCriado = cursoService.criar(curso);
 
-        return ResponseEntity.created(null).body(curso);
-
+        return ResponseEntity.created(null).body(cursoCriado);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Curso> atualizar(@RequestBody Curso curso01, @PathVariable long id) {
-        cursoTeste = curso01;
+    public ResponseEntity <Curso> atualizar(@RequestBody Curso curso, @PathVariable long id) {
+        Curso cursoAtualizado = cursoService.atualizar(curso, id);
 
-        System.out.println("Dados do curso " +id+ " atualizados com sucesso.");
-
-        return ResponseEntity.ok(cursoTeste);
+        return ResponseEntity.ok(cursoAtualizado);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity <String> deletar(@PathVariable long id) {
+        cursoService.deletar(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity <List> listar() {
+    public ResponseEntity <List<Curso>> listar() {
+        List<Curso> listaCursos =cursoService.listar();
 
-        List<Curso> listaCursos = new ArrayList<>();
-
-        listaCursos.add(new Curso(002l,"Espanhol", "Espanhol avançado", 220.0));
-        listaCursos.add(new Curso(003l,"Ingles", "Ingles avançado", 220.0));
-        listaCursos.add(new Curso(004l,"Italiano", "Italiano avançado", 220.0));
-
-        return ResponseEntity.ok(
-                List.of(listaCursos)
-        );
+        return ResponseEntity.ok(listaCursos);
     }
 
     @GetMapping("{id}")
     public ResponseEntity <Curso> obter(@PathVariable long id) {
+        Curso cursoObtido = cursoService.obter(id);
 
-        return ResponseEntity.ok(cursoTeste);
+        return ResponseEntity.ok(cursoObtido);
     }
 
 }

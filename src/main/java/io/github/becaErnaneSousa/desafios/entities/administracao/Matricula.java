@@ -1,19 +1,21 @@
-package io.github.becaErnaneSousa.desafios.entitys.administracao;
+package io.github.becaErnaneSousa.desafios.entities.administracao;
 
-import io.github.becaErnaneSousa.desafios.entitys.pessoas.Aluno;
-
-import java.util.Date;
+import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
 
 public class Matricula {
 
     private long id;
     private String data;
     private boolean status;
+    private Aluno aluno;
+    private Turma turma;
 
-    public Matricula(long id, String data, boolean status) {
+    public Matricula(long id, String data, boolean status, Aluno aluno, Turma turma) {
         this.id = id;
         this.data = data;
-        this.status = status;;
+        this.status = status;
+        this.aluno = aluno;
+        this.turma = turma;
     }
 
     public Matricula() {
@@ -22,9 +24,11 @@ public class Matricula {
     @Override
     public String toString() {
         return "Matricula{" +
-                "idMatricula=" + id +
+                "id=" + id +
                 ", data='" + data + '\'' +
                 ", status=" + status +
+                ", aluno=" + aluno.getNome() +
+                ", turma=" + turma.getId() +
                 '}';
     }
 

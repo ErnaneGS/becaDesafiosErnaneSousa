@@ -1,36 +1,32 @@
-package io.github.becaErnaneSousa.desafios.entitys.administracao;
+package io.github.becaErnaneSousa.desafios.entities.atividades;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Curso {
+public class Atividade {
 
     private long id;
     private String nome;
     private String descricao;
-    private double cargaHoraria;
+    private double nota;
+    private List<Resultado> listaResultados;
 
-    List<Curso> listaCursos = new ArrayList<>();
-
-    public Curso(long id, String nome, String descricao, double cargaHoraria) {
+    public Atividade(long id, String nome, String descricao, double nota) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.cargaHoraria = cargaHoraria;
+        this.nota = nota;
     }
 
-    public Curso() {
-
+    public Atividade() {
     }
 
     @Override
     public String toString() {
-        return "Curso{" +
+        return "Atividade{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
-                ", cargaHoraria=" + cargaHoraria +
-                ", listaCursos=" + listaCursos +
+                ", nota=" + nota +
                 '}';
     }
 
@@ -38,7 +34,7 @@ public class Curso {
         return id;
     }
 
-    public void setIdCurso(long idCurso) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -58,19 +54,23 @@ public class Curso {
         this.descricao = descricao;
     }
 
-    public double getCargaHoraria() {
-        return cargaHoraria;
+    public double getNota() {
+        return nota;
     }
 
-    public void setCargaHoraria(double cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
+    public void setNota(double nota) {
+        this.nota = nota;
     }
 
-    public void cadastrarCurso(Curso curso) {
-        listaCursos.add(curso);
+    public List<Resultado> getListaResultados() {
+        return listaResultados;
     }
 
-    public void consultarcurso() {
+    public void setListaResultados(List<Resultado> listaResultados) {
+        this.listaResultados = listaResultados;
+    }
+
+    public void consultarAtividade() {
 
     }
 

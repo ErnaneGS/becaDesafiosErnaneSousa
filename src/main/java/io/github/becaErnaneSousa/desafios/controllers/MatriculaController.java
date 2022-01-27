@@ -1,11 +1,10 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entitys.administracao.Matricula;
-
+import io.github.becaErnaneSousa.desafios.entities.administracao.Matricula;
+import io.github.becaErnaneSousa.desafios.services.servicesImplements.MatriculaServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -13,47 +12,41 @@ import java.util.List;
 @RequestMapping("/matricula")
 public class MatriculaController {
 
-    Matricula matriculaTeste = new Matricula(001l, "01012022", true);
+    @Autowired
+    private MatriculaServiceImpl matriculaService;
 
     @PostMapping
     public ResponseEntity<Matricula> criar(@RequestBody Matricula matricula) {
-        System.out.println(matricula);
+        Matricula matriculaCriada = matriculaService.criar(matricula);
 
-        return ResponseEntity.created(null).body(matricula);
-
+        return ResponseEntity.created(null).body(matriculaCriada);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Matricula> atualizar(@RequestBody Matricula matricula01, @PathVariable long id) {
-        matriculaTeste = matricula01;
+    public ResponseEntity <Matricula> atualizar(@RequestBody Matricula matricula, @PathVariable long id) {
+      Matricula matriculaAtualizada = matriculaService.atualizar(matricula, id);
 
-        System.out.println("Dados da matricula  " +id+ " atualizados com sucesso.");
-
-        return ResponseEntity.ok(matriculaTeste);
+      return ResponseEntity.ok(matriculaAtualizada);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity <String> deletar(@PathVariable long id) {
+        matriculaService.deletar(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity <List> listar() {
+        List<Matricula> listaMatriculas = matriculaService.listar();
 
-        List<Matricula> listaMatriculas = new ArrayList<>();
-
-        listaMatriculas.add(new Matricula());
-        listaMatriculas.add(new Matricula(002l,"01032021", true));
-        listaMatriculas.add(new Matricula(003l,"01022021", true));
-
-        return ResponseEntity.ok(
-                List.of(listaMatriculas)
-        );
+        return ResponseEntity.ok(listaMatriculas);
     }
 
     @GetMapping("{id}")
     public ResponseEntity <Matricula> obter(@PathVariable long id) {
+        Matricula matriculaObtida = matriculaService.obter(id);
 
-        return ResponseEntity.ok(matriculaTeste);
+        return ResponseEntity.ok(matriculaObtida);
     }
 }

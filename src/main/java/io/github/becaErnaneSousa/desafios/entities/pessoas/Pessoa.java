@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.entitys.pessoas;
+package io.github.becaErnaneSousa.desafios.entities.pessoas;
 
 public class Pessoa {
 

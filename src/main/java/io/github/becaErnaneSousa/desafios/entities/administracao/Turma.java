@@ -1,7 +1,8 @@
-package io.github.becaErnaneSousa.desafios.entitys.administracao;
+package io.github.becaErnaneSousa.desafios.entities.administracao;
 
-import java.util.ArrayList;
-import java.util.Date;
+import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
+import io.github.becaErnaneSousa.desafios.entities.pessoas.Professor;
+
 import java.util.List;
 
 public class Turma {
@@ -12,8 +13,9 @@ public class Turma {
     private String dataInicio;
     private String dataFim;
     private boolean status;
-
-    List<Turma> listaTurmas = new ArrayList<>();
+    private Professor professor;
+    private List<Matricula> listaMatriculas;
+    private List<Atividade> listaAtividades;
 
     public Turma(long id, String nome, int quantidadeAluno, String dataInicio, String dataFim, boolean status) {
         this.id = id;
@@ -34,10 +36,12 @@ public class Turma {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", quantidadeAluno=" + quantidadeAluno +
-                ", dataInicio=" + dataInicio +
-                ", dataFim=" + dataFim +
+                ", dataInicio='" + dataInicio + '\'' +
+                ", dataFim='" + dataFim + '\'' +
                 ", status=" + status +
-                ", listaTurmas=" + listaTurmas +
+                ", professor=" + professor +
+                ", listaMatriculas=" + listaMatriculas +
+                ", listaAtividades=" + listaAtividades +
                 '}';
     }
 
@@ -89,8 +93,31 @@ public class Turma {
         this.status = status;
     }
 
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
+    public List<Matricula> getListaMatriculas() {
+        return listaMatriculas;
+    }
+
+    public void setListaMatriculas(List<Matricula> listaMatriculas) {
+        this.listaMatriculas = listaMatriculas;
+    }
+
+    public List<Atividade> getListaAtividades() {
+        return listaAtividades;
+    }
+
+    public void setListaAtividades(List<Atividade> listaAtividades) {
+        this.listaAtividades = listaAtividades;
+    }
+
     public void cadastrarTurmas(Turma turma) {
-        listaTurmas.add(turma);
         turma.status = true;
     }
 

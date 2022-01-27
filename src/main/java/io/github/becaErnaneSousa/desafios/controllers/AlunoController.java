@@ -1,67 +1,52 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entitys.pessoas.Aluno;
+import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
+import io.github.becaErnaneSousa.desafios.services.servicesImplements.AlunoServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/aluno")
 public class AlunoController {
 
-    Aluno aluno = new Aluno(001l, "Ernane Sousa", "00000000000", "31999999999", "Sousa", "08011992" ,"Jose");
+    @Autowired
+    private AlunoServiceImpl alunoService;
 
     @PostMapping
     public ResponseEntity<Aluno> criar(@RequestBody Aluno aluno) {
-        System.out.println(aluno);
+        Aluno alunoCriado = alunoService.criar(aluno);
 
-        if( aluno.getCpf().length() != 11 ) {
-            return ResponseEntity.unprocessableEntity().build();
-        } else if (aluno.getDataNascimento().length() != 8){
-            return ResponseEntity.unprocessableEntity().build();
-        } else if (aluno.getTelefone().length() != 11) {
-            return ResponseEntity.unprocessableEntity().build();
-        }
-        return ResponseEntity.created(null).body(aluno);
-
+        return ResponseEntity.created(null).body(alunoCriado);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Aluno> atualizar(@RequestBody Aluno aluno01, @PathVariable long id) {
+    public ResponseEntity <Aluno> atualizar(@RequestBody Aluno aluno, @PathVariable long id) {
+        Aluno alunoAtualizado = alunoService.atualizar(aluno, id);
 
-        Aluno aluno = new Aluno(002l, "Ernane Sousa", "142856346665", "Sousa", "31995182766", "08011999", "Jose" );
-
-        aluno = aluno01;
-
-        System.out.println("Dados do aluno " +id+ " atualizados com sucesso.");
-
-        return ResponseEntity.ok(aluno);
+        return ResponseEntity.ok(alunoAtualizado);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity <String> deletar(@PathVariable long id) {
+        alunoService.deletar(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity <List> listar() {
-        List<Aluno> listaAlunos = new ArrayList<>();
+        List<Aluno> listaAlunos = alunoService.listar();
 
-        listaAlunos.add(new Aluno(003l, "Paulo Sousa", "142856346665", "Sousa", "31995182766", "08011999", "Jose"));
-        listaAlunos.add(new Aluno(004l,"João Sousa", "142856346665", "Sousa", "31995182766", "08011999", "Jose"));
-        listaAlunos.add(new Aluno(004l,"Maria Sousa", "142856346665", "Sousa", "31995182766", "08011999", "Jose"));
-        listaAlunos.add(new Aluno(005l,"Ana Sousa", "142856346665", "Sousa", "31995182766", "08011999", "Jose"));
-
-        return ResponseEntity.ok(
-                List.of(listaAlunos)
-        );
+        return ResponseEntity.ok(listaAlunos);
     }
 
     @GetMapping("{id}")
     public ResponseEntity <Aluno> obter(@PathVariable long id) {
-        return ResponseEntity.ok(aluno);
+        Aluno alunoObtido = alunoService.obter(id);
+
+        return ResponseEntity.ok(alunoObtido);
     }
 
 }

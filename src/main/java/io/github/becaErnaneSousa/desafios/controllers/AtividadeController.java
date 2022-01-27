@@ -1,57 +1,51 @@
 package io.github.becaErnaneSousa.desafios.controllers;
-;
-import io.github.becaErnaneSousa.desafios.entitys.atividades.Atividade;
+
+import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
+import io.github.becaErnaneSousa.desafios.services.servicesImplements.AtividadeServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/atividade")
 public class AtividadeController {
 
-    Atividade atividadeTeste = new Atividade(001l,"Atividade de Ingles 01", "Teste do primeiro bimestre", 10.0);
+    @Autowired
+    private AtividadeServiceImpl atividadeService;
 
     @PostMapping
     public ResponseEntity<Atividade> criar(@RequestBody Atividade atividade) {
-        System.out.println(atividade);
+        Atividade atividadeCriada = atividadeService.criar(atividade);
 
-        return ResponseEntity.created(null).body(atividade);
-
+        return ResponseEntity.created(null).body(atividadeCriada);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Atividade> atualizar(@RequestBody Atividade atividade01, @PathVariable long id) {
-        atividadeTeste = atividade01;
+    public ResponseEntity <Atividade> atualizar(@RequestBody Atividade atividade, @PathVariable long id) {
+        Atividade atividadeAtualizada = atividadeService.atualizar(atividade, id);
 
-        System.out.println("Dados da atividade  " +id+ " atualizados com sucesso.");
-
-        return ResponseEntity.ok(atividadeTeste);
+        return ResponseEntity.ok(atividadeAtualizada);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity <String> deletar(@PathVariable long id) {
+        atividadeService.deletar(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity <List> listar() {
+    public ResponseEntity <List<Atividade>> listar() {
+        List<Atividade> listaAtividades = atividadeService.listar();
 
-        List<Atividade> ListaAtividades = new ArrayList<>();
-
-        ListaAtividades.add(new Atividade(003l,"Atividade de Espanhol 01", "Teste do primeiro bimestre", 10.0));
-        ListaAtividades.add(new Atividade(004l,"Atividade de Ingles 02", "Teste do segundo bimestre", 10.0));
-        ListaAtividades.add(new Atividade(005l,"Atividade de Italiano 01", "Teste do primeiro bimestre", 10.0));
-
-        return ResponseEntity.ok(
-                List.of(ListaAtividades)
-        );
+        return ResponseEntity.ok(listaAtividades);
     }
 
     @GetMapping("{id}")
     public ResponseEntity <Atividade> obter(@PathVariable long id) {
+        Atividade atividadeObtida = atividadeService.obter(id);
 
-        return ResponseEntity.ok(atividadeTeste);
+        return ResponseEntity.ok(atividadeObtida);
     }
 }
