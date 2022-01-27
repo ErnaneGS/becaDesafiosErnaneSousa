@@ -29,6 +29,6 @@ notas e resultados de cada aluno e sua respectiva turma.
 6) Subir o código na branch “desafio3”, em seguida mergear com a branch “main”
 
 ## Diagrama:
-![Untitled Diagram](https://user-images.githubusercontent.com/97994560/150442637-4a12295c-94f3-487e-a2db-14aff275eafb.jpg)
+![Untitled Diagram](https://user-images.githubusercontent.com/97994560/151408488-1300c44b-4d83-466f-9388-3bf805dd7a99.jpg)
 
 
