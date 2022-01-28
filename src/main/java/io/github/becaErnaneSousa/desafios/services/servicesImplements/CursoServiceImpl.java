@@ -1,13 +1,13 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
 import io.github.becaErnaneSousa.desafios.entities.administracao.Curso;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.CursoInterface;
+import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CursoServiceImpl implements CursoInterface {
+public class CursoServiceImpl implements ServiceInterface<Curso> {
 
     Curso cursoTeste = new Curso(001l, "Ingles", "Curso de ingles avançado", 220.0);
 

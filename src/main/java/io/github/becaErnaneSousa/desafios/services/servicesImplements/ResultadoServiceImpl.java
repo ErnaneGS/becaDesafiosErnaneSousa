@@ -3,14 +3,14 @@ package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
 import io.github.becaErnaneSousa.desafios.entities.atividades.Resultado;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.ResultadoInterface;
+import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ResultadoServiceImpl implements ResultadoInterface {
+public class ResultadoServiceImpl implements ServiceInterface<Resultado> {
 
     Aluno aluno = new Aluno(001l, "Ernane Sousa", "00000000000", "31999999999", "Sousa", "08011992" ,"Jose");
     Atividade atividade = new Atividade(001l,"Atividade de Ingles 01", "Teste do primeiro bimestre", 10.0);

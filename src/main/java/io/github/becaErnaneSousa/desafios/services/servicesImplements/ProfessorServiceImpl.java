@@ -1,13 +1,13 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Professor;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.ProfessorInterface;
+import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ProfessorServiceImpl implements ProfessorInterface {
+public class ProfessorServiceImpl implements ServiceInterface<Professor> {
 
     Professor professor = new Professor(001l,"Davi Sousa", "00000000000", "31999999999", "Sousa", "08011992" ,"Ingles");
 

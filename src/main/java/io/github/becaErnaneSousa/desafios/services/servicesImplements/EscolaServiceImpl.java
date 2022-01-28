@@ -2,12 +2,12 @@ package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
 import io.github.becaErnaneSousa.desafios.entities.administracao.Escola;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.EscolaInterface;
+import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EscolaServiceImpl implements EscolaInterface {
+public class EscolaServiceImpl implements ServiceInterface<Escola> {
 
     Diretor diretor = new Diretor(001l,"Carlos Eduardo", "14285634666", "Sousa", "31 995182764", "08011999");
     Escola escola = new Escola(11, "Escola Rio MAnso", "Rio Manso", "00000000000001", diretor);

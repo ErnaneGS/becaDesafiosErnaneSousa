@@ -1,12 +1,12 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.DiretorInterface;
+import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DiretorServiceImpl implements DiretorInterface {
+public class DiretorServiceImpl implements ServiceInterface<Diretor> {
 
     Diretor diretor = new Diretor(001l,"Carlos Eduardo", "14285634666", "Sousa", "31 995182764", "08011999");
 

@@ -1,14 +1,15 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.AlunoInterface;
+import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AlunoServiceImpl implements AlunoInterface{
+public class AlunoServiceImpl implements ServiceInterface<Aluno> {
 
     Aluno aluno = new Aluno(001l, "Ernane Sousa", "00000000000", "31999999999", "Sousa", "08011992" ,"Jose");
+
 
     @Override
     public Aluno criar(Aluno aluno) {
@@ -53,5 +54,9 @@ public class AlunoServiceImpl implements AlunoInterface{
     public Aluno obter(long id) {
         return aluno;
     }
+
+//    public double notaTotal(){
+//        aluno.setListaResultados(lista);
+//    }
 
 }

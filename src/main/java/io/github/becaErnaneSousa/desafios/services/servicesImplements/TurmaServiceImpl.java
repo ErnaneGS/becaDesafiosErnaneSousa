@@ -1,13 +1,13 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
 import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.TurmaInterface;
+import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TurmaServiceImpl implements TurmaInterface {
+public class TurmaServiceImpl implements ServiceInterface<Turma> {
 
     Turma turma = new Turma(001l,"Turma de Ingles", 20, "01022022", "01022023", true);
 

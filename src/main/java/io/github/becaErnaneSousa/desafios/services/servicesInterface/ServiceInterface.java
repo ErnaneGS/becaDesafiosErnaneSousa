@@ -3,15 +3,15 @@ package io.github.becaErnaneSousa.desafios.services.servicesInterface;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
 import java.util.List;
 
-public interface TurmaInterface {
+public interface ServiceInterface<T> {
 
-    Turma criar(Turma turma);
+    T criar(T t);
 
-    Turma atualizar(Turma turma, long id);
+    T atualizar(T t, long id);
 
     void deletar(long id);
 
-    List<Turma> listar();
+    List<T> listar();
 
-    Turma obter(long id);
+    T obter(long id);
 }
