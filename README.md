@@ -28,7 +28,15 @@ notas e resultados de cada aluno e sua respectiva turma.
 5) Fazer a integração com a camada de controller
 6) Subir o código na branch “desafio3”, em seguida mergear com a branch “main”
 
++ Desafio 04 -- (Em andamento ⚠️)
+1) Criar uma nova branch com o nome “desafio4”, a partir da branch “main” como base, atualizar todas as modificações feitas na  api nesta banch no documento README.md
+2) Criar as classes de repository na API
+3) Configure o banco de dados H2 na  API
+4) (UsAR a configuração: spring.datasource.url=jdbc:h2:mem:testdb)
+5) Implementar na camada service
+6) Fazer testes para certificar que a base de dados está integrada
+
+
 ## Diagrama:
 ![Untitled Diagram](https://user-images.githubusercontent.com/97994560/151408488-1300c44b-4d83-466f-9388-3bf805dd7a99.jpg)
-
 
