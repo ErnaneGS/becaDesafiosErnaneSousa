@@ -23,6 +23,7 @@ public class TurmaServiceImpl implements ServiceInterface<Turma> {
         if (turma.getProfessor() != null) {
             Professor profesorObtido = professorService.obter(turma.getProfessor().getId());
             turma.setProfessor(profesorObtido);
+
         }
 
         Turma turmaSalva = turmaRepository.save(turma);
@@ -45,7 +46,7 @@ public class TurmaServiceImpl implements ServiceInterface<Turma> {
             turma.setProfessor(profesorObtido);
         }
 
-        turmaObtida.setProfessor(turmaObtida.getProfessor());
+        turmaObtida.setProfessor(turma.getProfessor());
 
         turmaRepository.save(turmaObtida);
 

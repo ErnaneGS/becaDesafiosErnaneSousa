@@ -24,11 +24,11 @@ public class MatriculaServiceImpl implements ServiceInterface<Matricula> {
     @Override
     public Matricula criar(Matricula matricula) {
 
-        Aluno alunoObtido = alunoService.obter(matricula.getAluno().getId());
-        matricula.setAluno(alunoObtido);
-
         Turma turmaObtida = turmaService.obter(matricula.getTurma().getId());
         matricula.setTurma(turmaObtida);
+
+        Aluno alunoObtido = alunoService.obter(matricula.getAluno().getId());
+        matricula.setAluno(alunoObtido);
 
         Matricula matriculaSalva = matriculaRepository.save(matricula);
 
