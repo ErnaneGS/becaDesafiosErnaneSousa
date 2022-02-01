@@ -1,18 +1,20 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
+import io.github.becaErnaneSousa.desafios.repositories.DiretorRepository;
 import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class DiretorServiceImpl implements ServiceInterface<Diretor> {
 
-    Diretor diretor = new Diretor(001l,"Carlos Eduardo", "14285634666", "Sousa", "31 995182764", "08011999");
+    @Autowired
+    private DiretorRepository diretorRepository;
 
     @Override
     public Diretor criar(Diretor diretor) {
-        System.out.println(diretor);
 
         if( diretor.getCpf().length() != 11 ) {
             throw new RuntimeException("O cpf deve possuir 11 digitos");
@@ -21,31 +23,48 @@ public class DiretorServiceImpl implements ServiceInterface<Diretor> {
         } else if (diretor.getTelefone().length() != 11) {
             throw new RuntimeException("O telefone deve possuir 11 digitos");
         }
-        return diretor;
+
+        Diretor diretorSalvo = diretorRepository.save(diretor);
+
+        return diretorSalvo;
 
     }
 
     @Override
-    public Diretor atualizar(Diretor diretor01, long id) {
-        diretor = diretor01;
+    public Diretor atualizar(Diretor diretor, Long id) {
+
+        Diretor diretorObtido = this.obter(id);
+        diretorObtido.setNome(diretor.getNome());
+        diretorObtido.setCpf(diretor.getCpf());
+        diretorObtido.setEndereco(diretor.getEndereco());
+        diretorObtido.setTelefone(diretor.getTelefone());
+        diretorObtido.setDataNascimento(diretor.getDataNascimento());
+
+        diretorRepository.save(diretorObtido);
 
         return diretor;
     }
 
     @Override
-    public void deletar(long id) {
-
+    public void deletar(Long id) {
+        diretorRepository.deleteById(id);
     }
 
     @Override
     public List<Diretor> listar() {
 
-        return (List.of(diretor));
+        List<Diretor> listaDiretor = diretorRepository.findAll();
+
+        return listaDiretor;
+
     }
 
     @Override
-    public Diretor obter(long id) {
+    public Diretor obter(Long id) {
+        Diretor diretor = diretorRepository.findById(id).get();
+
         return diretor;
+
     }
 
 }

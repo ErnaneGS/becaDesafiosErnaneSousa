@@ -1,47 +1,53 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
 import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
+import io.github.becaErnaneSousa.desafios.repositories.AtividadeRepository;
 import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AtividadeServiceImpl implements ServiceInterface<Atividade> {
 
-    Atividade atividade = new Atividade(001l,"Atividade de Ingles 01", "Teste do primeiro bimestre", 10.0);
+    @Autowired
+    private AtividadeRepository atividadeRepository;
 
     @Override
     public Atividade criar(Atividade atividade) {
-        System.out.println(atividade);
+
+        Atividade atividadeSalva = atividadeRepository.save(atividade);
+
+        return atividadeSalva;
+    }
+
+    @Override
+    public Atividade atualizar(Atividade atividade, Long id) {
+        Atividade atividadeObtida = this.obter(id);
+        atividadeObtida.setNome(atividade.getNome());
+        atividadeObtida.setDescricao(atividade.getDescricao());
+        atividadeObtida.setNota(atividade.getNota());
+
+        atividadeRepository.save(atividadeObtida);
 
         return atividade;
     }
 
     @Override
-    public Atividade atualizar(Atividade atividade01, long id) {
-        atividade = atividade01;
-
-        return atividade;
-    }
-
-    @Override
-    public void deletar(long id) {
+    public void deletar(Long id) {
+        atividadeRepository.deleteById(id);
     }
 
     @Override
     public List<Atividade> listar() {
-        List<Atividade> ListaAtividades = new ArrayList<>();
+        List<Atividade> listaAtividade = atividadeRepository.findAll();
 
-        ListaAtividades.add(new Atividade(003l,"Atividade de Espanhol 01", "Teste do primeiro bimestre", 10.0));
-        ListaAtividades.add(new Atividade(004l,"Atividade de Ingles 02", "Teste do segundo bimestre", 10.0));
-        ListaAtividades.add(new Atividade(005l,"Atividade de Italiano 01", "Teste do primeiro bimestre", 10.0));
-
-        return ListaAtividades;
+        return listaAtividade;
     }
 
     @Override
-    public Atividade obter(long id) {
+    public Atividade obter(Long id) {
+        Atividade atividade = atividadeRepository.findById(id).get();
 
         return atividade;
     }

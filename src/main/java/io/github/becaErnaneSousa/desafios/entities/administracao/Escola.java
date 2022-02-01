@@ -2,19 +2,26 @@ package io.github.becaErnaneSousa.desafios.entities.administracao;
 
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Escola {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String endereco;
     private String cnpj;
+
+    @OneToOne
     private Diretor diretor;
+
+    @OneToMany
     private List<Curso> listaCursos;
 
-    public Escola(int id, String nome, String endereco, String cnpj, Diretor diretor) {
-        this.id = id;
+    public Escola(String nome, String endereco, String cnpj, Diretor diretor) {
         this.nome = nome;
         this.endereco = endereco;
         this.cnpj = cnpj;
@@ -33,15 +40,15 @@ public class Escola {
                 ", endereco='" + endereco + '\'' +
                 ", cnpj='" + cnpj + '\'' +
                 ", diretor=" + diretor.getNome() +
-                ", Cursos=" + listaCursos +
+//                ", Cursos=" + listaCursos +
                 '}';
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

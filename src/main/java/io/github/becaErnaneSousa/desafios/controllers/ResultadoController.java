@@ -22,14 +22,14 @@ public class ResultadoController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Resultado> atualizar(@RequestBody Resultado resultado, @PathVariable long id) {
+    public ResponseEntity <Resultado> atualizar(@RequestBody Resultado resultado, @PathVariable Long id) {
         Resultado resultadoAtualizado = resultadoService.atualizar(resultado, id);
 
         return ResponseEntity.ok(resultadoAtualizado);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable long id) {
+    public ResponseEntity <String> deletar(@PathVariable Long id) {
         resultadoService.deletar(id);
 
         return ResponseEntity.noContent().build();
@@ -43,7 +43,7 @@ public class ResultadoController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Resultado> obter(@PathVariable long id) {
+    public ResponseEntity <Resultado> obter(@PathVariable Long id) {
         Resultado resultadoObtido = resultadoService.obter(id);
 
         return ResponseEntity.ok(resultadoObtido);

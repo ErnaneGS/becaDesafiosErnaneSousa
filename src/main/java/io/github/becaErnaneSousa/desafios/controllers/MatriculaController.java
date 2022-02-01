@@ -23,14 +23,14 @@ public class MatriculaController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Matricula> atualizar(@RequestBody Matricula matricula, @PathVariable long id) {
+    public ResponseEntity <Matricula> atualizar(@RequestBody Matricula matricula, @PathVariable Long id) {
       Matricula matriculaAtualizada = matriculaService.atualizar(matricula, id);
 
       return ResponseEntity.ok(matriculaAtualizada);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable long id) {
+    public ResponseEntity <String> deletar(@PathVariable Long id) {
         matriculaService.deletar(id);
 
         return ResponseEntity.noContent().build();
@@ -44,7 +44,7 @@ public class MatriculaController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Matricula> obter(@PathVariable long id) {
+    public ResponseEntity <Matricula> obter(@PathVariable Long id) {
         Matricula matriculaObtida = matriculaService.obter(id);
 
         return ResponseEntity.ok(matriculaObtida);

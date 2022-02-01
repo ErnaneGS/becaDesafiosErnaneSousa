@@ -22,14 +22,14 @@ public class AtividadeController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Atividade> atualizar(@RequestBody Atividade atividade, @PathVariable long id) {
+    public ResponseEntity <Atividade> atualizar(@RequestBody Atividade atividade, @PathVariable Long id) {
         Atividade atividadeAtualizada = atividadeService.atualizar(atividade, id);
 
         return ResponseEntity.ok(atividadeAtualizada);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable long id) {
+    public ResponseEntity <String> deletar(@PathVariable Long id) {
         atividadeService.deletar(id);
 
         return ResponseEntity.noContent().build();
@@ -43,7 +43,7 @@ public class AtividadeController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Atividade> obter(@PathVariable long id) {
+    public ResponseEntity <Atividade> obter(@PathVariable Long id) {
         Atividade atividadeObtida = atividadeService.obter(id);
 
         return ResponseEntity.ok(atividadeObtida);

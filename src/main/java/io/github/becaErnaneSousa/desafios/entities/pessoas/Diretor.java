@@ -1,9 +1,12 @@
 package io.github.becaErnaneSousa.desafios.entities.pessoas;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Diretor extends Pessoa {
 
-    public Diretor(long id, String nome, String cpf, String endereco, String telefone, String dataNascimento) {
-        super(id, nome, cpf, endereco, telefone, dataNascimento);
+    public Diretor(String nome, String cpf, String endereco, String telefone, String dataNascimento) {
+        super(nome, cpf, endereco, telefone, dataNascimento);
     }
 
     public Diretor() {

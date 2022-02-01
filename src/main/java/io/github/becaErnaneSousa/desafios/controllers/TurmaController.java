@@ -23,14 +23,14 @@ public class TurmaController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Turma> atualizar(@RequestBody Turma turma, @PathVariable long id) {
+    public ResponseEntity <Turma> atualizar(@RequestBody Turma turma, @PathVariable Long id) {
         Turma turmaAtualizada = turmaService.atualizar(turma, id);
 
         return ResponseEntity.ok(turmaAtualizada);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable long id) {
+    public ResponseEntity <String> deletar(@PathVariable Long id) {
         turmaService.deletar(id);
 
         return ResponseEntity.noContent().build();
@@ -44,7 +44,7 @@ public class TurmaController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Turma> obter(@PathVariable long id) {
+    public ResponseEntity <Turma> obter(@PathVariable Long id) {
         Turma turmaObtida = turmaService.obter(id);
 
         return ResponseEntity.ok(turmaObtida);

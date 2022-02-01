@@ -2,15 +2,23 @@ package io.github.becaErnaneSousa.desafios.entities.atividades;
 
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
 
+import javax.persistence.*;
+
+@Entity
 public class Resultado {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private double resultado;
+
+    @OneToOne
     private Atividade atividade;
+
+    @OneToOne
     private Aluno aluno;
 
-    public Resultado(long id, double resultado, Atividade atividade, Aluno aluno) {
-        this.id = id;
+    public Resultado(double resultado, Atividade atividade, Aluno aluno) {
         this.resultado = resultado;
         this.atividade = atividade;
         this.aluno = aluno;
@@ -19,11 +27,11 @@ public class Resultado {
     public Resultado() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

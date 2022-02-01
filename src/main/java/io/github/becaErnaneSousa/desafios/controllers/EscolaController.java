@@ -23,14 +23,14 @@ public class EscolaController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Escola> atualizar(@RequestBody Escola escola, @PathVariable long id) {
+    public ResponseEntity <Escola> atualizar(@RequestBody Escola escola, @PathVariable Long id) {
        Escola escolaAtualizada = escolaService.atualizar(escola, id);
 
        return ResponseEntity.ok(escolaAtualizada);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable long id) {
+    public ResponseEntity <String> deletar(@PathVariable Long id) {
         escolaService.deletar(id);
 
         return ResponseEntity.noContent().build();
@@ -44,7 +44,7 @@ public class EscolaController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Escola> obter(@PathVariable long id) {
+    public ResponseEntity <Escola> obter(@PathVariable Long id) {
         Escola escolaObtida = escolaService.obter(id);
 
         return ResponseEntity.ok(escolaObtida);

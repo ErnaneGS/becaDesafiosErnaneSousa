@@ -1,16 +1,20 @@
 package io.github.becaErnaneSousa.desafios.entities.pessoas;
 
+import javax.persistence.*;
+
+@MappedSuperclass
 public class Pessoa {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String cpf;
     private String endereco;
     private String telefone;
     private String dataNascimento;
 
-    public Pessoa(Long id, String nome, String cpf, String endereco, String telefone, String dataNascimento) {
-        this.id = id;
+    public Pessoa(String nome, String cpf, String endereco, String telefone, String dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
@@ -33,11 +37,11 @@ public class Pessoa {
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

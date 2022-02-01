@@ -1,51 +1,58 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
 import io.github.becaErnaneSousa.desafios.entities.administracao.Curso;
+import io.github.becaErnaneSousa.desafios.repositories.CursoRepository;
 import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CursoServiceImpl implements ServiceInterface<Curso> {
 
-    Curso cursoTeste = new Curso(001l, "Ingles", "Curso de ingles avançado", 220.0);
+    @Autowired
+    private CursoRepository cursoRepository;
 
     @Override
     public Curso criar(Curso curso) {
-        System.out.println(curso);
+
+        Curso cursoSalvo = cursoRepository.save(curso);
+
+        return cursoSalvo;
+    }
+
+    @Override
+    public Curso atualizar(Curso curso, Long id) {
+
+        Curso cursoObtido = this.obter(id);
+        cursoObtido.setNome(curso.getNome());
+        cursoObtido.setDescricao(curso.getDescricao());
+        cursoObtido.setCargaHoraria(curso.getCargaHoraria());
+
+        cursoRepository.save(cursoObtido);
 
         return curso;
     }
 
     @Override
-    public Curso atualizar(Curso curso01, long id) {
-        cursoTeste = curso01;
-
-        return cursoTeste;
-    }
-
-    @Override
-    public void deletar(long id) {
+    public void deletar(Long id) {
+        cursoRepository.deleteById(id);
 
     }
 
     @Override
     public List<Curso> listar() {
 
-        List<Curso> listaCursos = new ArrayList<>();
+        List<Curso> listaCurso = cursoRepository.findAll();
 
-        listaCursos.add(new Curso(002l,"Espanhol", "Espanhol avançado", 220.0));
-        listaCursos.add(new Curso(003l,"Ingles", "Ingles avançado", 220.0));
-        listaCursos.add(new Curso(004l,"Italiano", "Italiano avançado", 220.0));
-
-        return (listaCursos);
+        return listaCurso;
     }
 
     @Override
-    public Curso obter( long id) {
+    public Curso obter( Long id) {
+        Curso curso = cursoRepository.findById(id).get();
 
-        return cursoTeste;
+        return curso;
     }
 
 }

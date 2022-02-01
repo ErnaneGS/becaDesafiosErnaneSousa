@@ -3,49 +3,77 @@ package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Matricula;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
+import io.github.becaErnaneSousa.desafios.repositories.MatriculaRepository;
 import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MatriculaServiceImpl implements ServiceInterface<Matricula> {
 
-    Aluno aluno = new Aluno(001l, "Ernane Sousa", "00000000000", "31999999999", "Sousa", "08011992" ,"Jose");
-    Turma turma = new Turma(001l,"Turma de Ingles", 20, "01022022", "01022023", true);
-    Matricula matricula = new Matricula(001l, "01012022", true, aluno, turma);
+    @Autowired
+    AlunoServiceImpl alunoService;
+
+    @Autowired
+    TurmaServiceImpl turmaService;
+
+    @Autowired
+    MatriculaRepository matriculaRepository;
 
     @Override
     public Matricula criar(Matricula matricula) {
-        System.out.println(matricula);
+
+        Aluno alunoObtido = alunoService.obter(matricula.getAluno().getId());
+        matricula.setAluno(alunoObtido);
+
+        Turma turmaObtida = turmaService.obter(matricula.getTurma().getId());
+        matricula.setTurma(turmaObtida);
+
+        Matricula matriculaSalva = matriculaRepository.save(matricula);
+
+        return matriculaSalva;
+
+    }
+
+    @Override
+    public Matricula atualizar(Matricula matricula, Long id) {
+
+        Matricula matriculaObtida = this.obter(id);
+        matriculaObtida.setData(matricula.getData());
+        matriculaObtida.setStatus(matricula.isStatus());
+
+        Aluno alunoObtido = alunoService.obter(matricula.getAluno().getId());
+        matricula.setAluno(alunoObtido);
+
+        matriculaObtida.setAluno(matricula.getAluno());
+
+        Turma turmaObtida = turmaService.obter(matricula.getTurma().getId());
+        matricula.setTurma(turmaObtida);
+
+        matriculaObtida.setTurma(matricula.getTurma());
+
+        matriculaRepository.save(matriculaObtida);
 
         return matricula;
     }
 
     @Override
-    public Matricula atualizar(Matricula matricula01, long id) {
-        matricula = matricula01;
-
-        return matricula;
-    }
-
-    @Override
-    public void deletar(long id) {
+    public void deletar(Long id) {
+        matriculaRepository.deleteById(id);
     }
 
     @Override
     public List<Matricula> listar() {
-        List<Matricula> listaMatriculas = new ArrayList<>();
 
-        listaMatriculas.add(new Matricula());
-        listaMatriculas.add(new Matricula(002l,"01032021", true, aluno, turma));
-        listaMatriculas.add(new Matricula(003l,"01022021", true, aluno, turma));
+        List<Matricula> listaMatricula = matriculaRepository.findAll();
 
-        return listaMatriculas;
+        return listaMatricula;
     }
 
     @Override
-    public Matricula obter(long id) {
+    public Matricula obter(Long id) {
+        Matricula matricula = matriculaRepository.findById(id).get();
 
         return matricula;
     }

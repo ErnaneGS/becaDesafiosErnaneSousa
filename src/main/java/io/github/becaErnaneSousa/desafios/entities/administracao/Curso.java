@@ -1,17 +1,22 @@
 package io.github.becaErnaneSousa.desafios.entities.administracao;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Curso {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String descricao;
     private double cargaHoraria;
+
+    @OneToMany
     private List<Turma> listaTurmas;
 
-    public Curso(long id, String nome, String descricao, double cargaHoraria) {
-        this.id = id;
+    public Curso(String nome, String descricao, double cargaHoraria) {
         this.nome = nome;
         this.descricao = descricao;
         this.cargaHoraria = cargaHoraria;
@@ -32,11 +37,11 @@ public class Curso {
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

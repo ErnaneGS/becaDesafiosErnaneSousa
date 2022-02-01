@@ -23,14 +23,14 @@ public class ProfessorController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Professor> atualizar(@RequestBody Professor professor, @PathVariable long id) {
+    public ResponseEntity <Professor> atualizar(@RequestBody Professor professor, @PathVariable Long id) {
         Professor professorAtualizado = professorService.atualizar(professor, id);
 
         return ResponseEntity.ok(professorAtualizado);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable long id) {
+    public ResponseEntity <String> deletar(@PathVariable Long id) {
         professorService.deletar(id);
 
         return ResponseEntity.noContent().build();
@@ -44,7 +44,7 @@ public class ProfessorController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Professor> obter(@PathVariable long id) {
+    public ResponseEntity <Professor> obter(@PathVariable Long id) {
         Professor professorObtido = professorService.obter(id);
 
         return ResponseEntity.ok(professorObtido);

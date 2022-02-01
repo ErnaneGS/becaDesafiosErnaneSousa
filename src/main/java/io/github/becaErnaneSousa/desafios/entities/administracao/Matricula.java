@@ -1,17 +1,24 @@
 package io.github.becaErnaneSousa.desafios.entities.administracao;
 
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
+import javax.persistence.*;
 
+@Entity
 public class Matricula {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String data;
     private boolean status;
+
+    @OneToOne
     private Aluno aluno;
+
+    @OneToOne
     private Turma turma;
 
-    public Matricula(long id, String data, boolean status, Aluno aluno, Turma turma) {
-        this.id = id;
+    public Matricula(String data, boolean status, Aluno aluno, Turma turma) {
         this.data = data;
         this.status = status;
         this.aluno = aluno;
@@ -32,11 +39,11 @@ public class Matricula {
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,6 +61,22 @@ public class Matricula {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 
     public void novaMatricula(Turma turma, Aluno aluno) {

@@ -23,14 +23,14 @@ public class CursoController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Curso> atualizar(@RequestBody Curso curso, @PathVariable long id) {
+    public ResponseEntity <Curso> atualizar(@RequestBody Curso curso, @PathVariable Long id) {
         Curso cursoAtualizado = cursoService.atualizar(curso, id);
 
         return ResponseEntity.ok(cursoAtualizado);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable long id) {
+    public ResponseEntity <String> deletar(@PathVariable Long id) {
         cursoService.deletar(id);
 
         return ResponseEntity.noContent().build();
@@ -44,7 +44,7 @@ public class CursoController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Curso> obter(@PathVariable long id) {
+    public ResponseEntity <Curso> obter(@PathVariable Long id) {
         Curso cursoObtido = cursoService.obter(id);
 
         return ResponseEntity.ok(cursoObtido);

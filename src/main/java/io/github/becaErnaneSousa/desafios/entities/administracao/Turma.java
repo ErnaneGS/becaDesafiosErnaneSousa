@@ -2,23 +2,31 @@ package io.github.becaErnaneSousa.desafios.entities.administracao;
 
 import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Professor;
-
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Turma {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private int quantidadeAluno;
     private String dataInicio;
     private String dataFim;
     private boolean status;
+
+    @OneToOne
     private Professor professor;
+
+    @OneToMany
     private List<Matricula> listaMatriculas;
+
+    @OneToMany
     private List<Atividade> listaAtividades;
 
-    public Turma(long id, String nome, int quantidadeAluno, String dataInicio, String dataFim, boolean status) {
-        this.id = id;
+    public Turma(String nome, int quantidadeAluno, String dataInicio, String dataFim, boolean status) {
         this.nome = nome;
         this.quantidadeAluno = quantidadeAluno;
         this.dataInicio = dataInicio;
@@ -45,16 +53,16 @@ public class Turma {
                 '}';
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long idTurma) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public void setNome(String nome) {

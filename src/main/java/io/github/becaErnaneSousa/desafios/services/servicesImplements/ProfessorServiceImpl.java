@@ -1,20 +1,20 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Professor;
+import io.github.becaErnaneSousa.desafios.repositories.ProfessorRepository;
 import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProfessorServiceImpl implements ServiceInterface<Professor> {
 
-    Professor professor = new Professor(001l,"Davi Sousa", "00000000000", "31999999999", "Sousa", "08011992" ,"Ingles");
+    @Autowired
+    ProfessorRepository professorRepository;
 
     @Override
     public Professor criar(Professor professor) {
-        System.out.println(professor);
-
 
         if( professor.getCpf().length() != 11 ) {
             throw new RuntimeException("O cpf deve possuir 11 digitos");
@@ -23,37 +23,51 @@ public class ProfessorServiceImpl implements ServiceInterface<Professor> {
         } else if (professor.getTelefone().length() != 11) {
             throw new RuntimeException("O telefone deve possuir 11 digitos");
         }
-        return professor;
+
+        Professor professorSalvo = professorRepository.save(professor);
+
+        return professorSalvo;
 
     }
 
     @Override
-    public Professor atualizar(Professor professor01,  long id) {
+    public Professor atualizar(Professor professor,  Long id) {
 
-        professor = professor01;
+        Professor professorObtido = this.obter(id);
+        professorObtido.setNome(professor.getNome());
+        professorObtido.setCpf(professor.getCpf());
+        professorObtido.setEndereco(professor.getEndereco());
+        professorObtido.setTelefone(professor.getTelefone());
+        professorObtido.setDataNascimento(professor.getDataNascimento());
+        professorObtido.setEspecialidade(professor.getEspecialidade());
+
+        professorRepository.save(professorObtido);
 
         return professor;
     }
 
     @Override
-    public void deletar(long id) {
+    public void deletar(Long id) {
+        professorRepository.deleteById(id);
 
     }
 
     @Override
     public List<Professor> listar() {
-        List<Professor> listaProfessor = new ArrayList<>();
 
-        listaProfessor.add(new Professor(003l,"Isamel Sousa", "142856346665", "Sousa", "31995182766", "08011999", "Ingles"));
-        listaProfessor.add(new Professor(006l,"Lilian Sousa", "142856346665", "Sousa", "31995182766", "08011999", "Japones"));
-        listaProfessor.add(new Professor(005l,"David Sousa", "142856346665", "Sousa", "31995182766", "08011999", "Alemao"));
+        List<Professor> listaProfessor = professorRepository.findAll();
+
 
         return listaProfessor;
     }
 
     @Override
-    public Professor obter(long id) {
+    public Professor obter(Long id) {
+
+        Professor professor = professorRepository.findById(id).get();
+
         return professor;
+
     }
 
 }
