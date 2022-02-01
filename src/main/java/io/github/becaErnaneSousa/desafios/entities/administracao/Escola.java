@@ -1,19 +1,31 @@
-package io.github.becaErnaneSousa.desafios.entitys.administracao;
+package io.github.becaErnaneSousa.desafios.entities.administracao;
 
-import io.github.becaErnaneSousa.desafios.entitys.pessoas.Diretor;
+import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
 public class Escola {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String endereco;
     private String cnpj;
 
-    public Escola(int id, String nome, String endereco, String cnpj) {
-        this.id = id;
+    @OneToOne
+    private Diretor diretor;
+
+    @OneToMany
+    private List<Curso> listaCursos;
+
+    public Escola(String nome, String endereco, String cnpj, Diretor diretor) {
         this.nome = nome;
         this.endereco = endereco;
         this.cnpj = cnpj;
+        this.diretor = diretor;
     }
 
     public Escola() {
@@ -23,18 +35,20 @@ public class Escola {
     @Override
     public String toString() {
         return "Escola{" +
-                "idEscola=" + id +
+                "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", endereco='" + endereco + '\'' +
                 ", cnpj='" + cnpj + '\'' +
+                ", diretor=" + diretor.getNome() +
+//                ", Cursos=" + listaCursos +
                 '}';
     }
 
-    public int getIdEscola() {
+    public Long getId() {
         return id;
     }
 
-    public void setIdEscola(int idEscola) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,6 +74,22 @@ public class Escola {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    public Diretor getDiretor() {
+        return diretor;
+    }
+
+    public void setDiretor(Diretor diretor) {
+        this.diretor = diretor;
+    }
+
+    public List<Curso> getListaCursos() {
+        return listaCursos;
+    }
+
+    public void setListaCursos(List<Curso> listaCursos) {
+        this.listaCursos = listaCursos;
     }
 
     public void cadatsrarEscola() {

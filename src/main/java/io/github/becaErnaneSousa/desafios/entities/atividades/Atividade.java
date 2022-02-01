@@ -1,19 +1,22 @@
-package io.github.becaErnaneSousa.desafios.entitys.atividades;
+package io.github.becaErnaneSousa.desafios.entities.atividades;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Atividade {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String descricao;
     private double nota;
 
-    List<Atividade> listaAtividades = new ArrayList<>();
+    @OneToMany
+    private List<Resultado> listaResultados;
 
-    public Atividade(long id, String nome, String descricao, double nota) {
-        this.id = id;
+    public Atividade(String nome, String descricao, double nota) {
         this.nome = nome;
         this.descricao = descricao;
         this.nota = nota;
@@ -29,15 +32,14 @@ public class Atividade {
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", nota=" + nota +
-                ", listaAtividades=" + listaAtividades +
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setIdAtividade(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,8 +67,12 @@ public class Atividade {
         this.nota = nota;
     }
 
-    public void cadastrarAtividade(Atividade atividade) {
-        listaAtividades.add(atividade);
+    public List<Resultado> getListaResultados() {
+        return listaResultados;
+    }
+
+    public void setListaResultados(List<Resultado> listaResultados) {
+        this.listaResultados = listaResultados;
     }
 
     public void consultarAtividade() {

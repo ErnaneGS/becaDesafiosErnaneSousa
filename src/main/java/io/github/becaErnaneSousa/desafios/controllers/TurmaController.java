@@ -1,58 +1,52 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entitys.administracao.Turma;
+import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
+import io.github.becaErnaneSousa.desafios.services.servicesImplements.TurmaServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/turma")
 public class TurmaController {
 
-    Turma turmaTeste = new Turma(001l,"Turma de Ingles", 20, "01022022", "01022023", true);
+    @Autowired
+    private TurmaServiceImpl turmaService;
 
     @PostMapping
     public ResponseEntity<Turma> criar(@RequestBody Turma turma) {
-        System.out.println(turma);
+        Turma turmaCriada = turmaService.criar(turma);
 
-        return ResponseEntity.created(null).body(turma);
-
+        return ResponseEntity.created(null).body(turmaCriada);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Turma> atualizar(@RequestBody Turma turma01, @PathVariable long id) {
-        turmaTeste = turma01;
+    public ResponseEntity <Turma> atualizar(@RequestBody Turma turma, @PathVariable Long id) {
+        Turma turmaAtualizada = turmaService.atualizar(turma, id);
 
-        System.out.println("Dados da turma  " +id+ " atualizados com sucesso.");
-
-        return ResponseEntity.ok(turmaTeste);
+        return ResponseEntity.ok(turmaAtualizada);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable long id) {
+    public ResponseEntity <String> deletar(@PathVariable Long id) {
+        turmaService.deletar(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity <List> listar() {
+    public ResponseEntity <List<Turma>> listar() {
+        List<Turma> listaTurmas = turmaService.listar();
 
-        List<Turma> listaTurmas = new ArrayList<>();
-
-        listaTurmas.add(new Turma(002l,"Turma de Espanhol", 20, "01022022", "01022023", true));
-        listaTurmas.add(new Turma(003l,"Turma de Ingles 02", 20, "01022022", "01022023", true));
-        listaTurmas.add(new Turma(004l,"Turma de Italiano", 20, "01022022", "01022023", true));
-
-        return ResponseEntity.ok(
-                List.of(listaTurmas)
-        );
+        return ResponseEntity.ok(listaTurmas);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Turma> obter(@PathVariable long id) {
+    public ResponseEntity <Turma> obter(@PathVariable Long id) {
+        Turma turmaObtida = turmaService.obter(id);
 
-        return ResponseEntity.ok(turmaTeste);
+        return ResponseEntity.ok(turmaObtida);
     }
-
 }

@@ -1,19 +1,22 @@
-package io.github.becaErnaneSousa.desafios.entitys.administracao;
+package io.github.becaErnaneSousa.desafios.entities.administracao;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Curso {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String descricao;
     private double cargaHoraria;
 
-    List<Curso> listaCursos = new ArrayList<>();
+    @OneToMany
+    private List<Turma> listaTurmas;
 
-    public Curso(long id, String nome, String descricao, double cargaHoraria) {
-        this.id = id;
+    public Curso(String nome, String descricao, double cargaHoraria) {
         this.nome = nome;
         this.descricao = descricao;
         this.cargaHoraria = cargaHoraria;
@@ -30,15 +33,15 @@ public class Curso {
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", cargaHoraria=" + cargaHoraria +
-                ", listaCursos=" + listaCursos +
+                ", listaCursos=" + listaTurmas +
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setIdCurso(long idCurso) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,8 +69,12 @@ public class Curso {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public void cadastrarCurso(Curso curso) {
-        listaCursos.add(curso);
+    public List<Turma> getListaTurma() {
+        return listaTurmas;
+    }
+
+    public void setListaTurma(List<Turma> listaTurma) {
+        this.listaTurmas = listaTurma;
     }
 
     public void consultarcurso() {

@@ -1,16 +1,20 @@
-package io.github.becaErnaneSousa.desafios.entitys.pessoas;
+package io.github.becaErnaneSousa.desafios.entities.pessoas;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Professor extends Pessoa {
 
     String especialidade;
 
+    @OneToMany
     List<Professor> listaProfessor = new ArrayList<>();
 
-    public Professor(long id, String nome, String cpf, String endereco, String telefone, String dataNascimento, String especialidade) {
-        super(id, nome, cpf, endereco, telefone, dataNascimento);
+    public Professor(String nome, String cpf, String endereco, String telefone, String dataNascimento, String especialidade) {
+        super(nome, cpf, endereco, telefone, dataNascimento);
         this.especialidade = especialidade;
     }
 
