@@ -21,14 +21,14 @@ notas e resultados de cada aluno e sua respectiva turma.
 4) Implementar ResponseEntity nos retornos das suas chamadas
 5) Subir o código na branch “desafio2”, em seguida mergear com a branch “main”
 
-+ Desafio 03 -- Disponível na branch desafio 03 (Concluído 27/01/2021 ✅)
++ Desafio 03 -- Disponível na branch develop (Concluído 27/01/2021 ✅)
 1) Criar uma nova branch com o nome “desafio3”, a partir da branch “main” como base, atualizar todas as modificações feitas na  api nesta banch no documento README.md
 2) Criar as classes de service na API
 4) Implementar interfaces e declarar os metódos que irão ser utilizados
 5) Fazer a integração com a camada de controller
 6) Subir o código na branch “desafio3”, em seguida mergear com a branch “main”
 
-+ Desafio 04 -- (Em andamento ⚠️)
++ Desafio 04 -- Disponível na branch develop (Concluído 31/01/2021 ✅)
 1) Criar uma nova branch com o nome “desafio4”, a partir da branch “main” como base, atualizar todas as modificações feitas na  api nesta banch no documento README.md
 2) Criar as classes de repository na API
 3) Configure o banco de dados H2 na  API
