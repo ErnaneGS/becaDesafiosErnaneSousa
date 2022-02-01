@@ -1,6 +1,7 @@
 package io.github.becaErnaneSousa.desafios.entities.administracao;
 
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.List;
