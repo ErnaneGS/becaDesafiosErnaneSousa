@@ -1,79 +1,127 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
+import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.TurmaRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetTurmaListarResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetTurmaObterResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.TurmaResponse;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Professor;
+import io.github.becaErnaneSousa.desafios.repositories.ProfessorRepository;
 import io.github.becaErnaneSousa.desafios.repositories.TurmaRepository;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TurmaServiceImpl implements ServiceInterface<Turma> {
+public class TurmaServiceImpl {
 
     @Autowired
-    private ProfessorServiceImpl professorService;
+    private ProfessorRepository professorRepository;
 
     @Autowired
     private TurmaRepository turmaRepository;
 
-    @Override
-    public Turma criar(Turma turma) {
+    public TurmaResponse criar(TurmaRequest turmaRequest) {
 
-        if (turma.getProfessor() != null) {
-            Professor profesorObtido = professorService.obter(turma.getProfessor().getId());
-            turma.setProfessor(profesorObtido);
+        Turma turma = new Turma();
+        turma.setNome(turmaRequest.getNome());
+        turma.setDataInicio(turmaRequest.getDataInicio());
+        turma.setDataFim(turmaRequest.getDataFim());
+        turma.setQuantidadeAluno(turmaRequest.getQuantidadeAluno());
+        turma.setStatus(turmaRequest.isStatus());
 
+        if(turmaRequest.getProfessor() != null) {
+
+            Professor professorObtido = professorRepository.findById(turmaRequest.getProfessor().getId()).get();
+
+            turma.setProfessor(professorObtido);
         }
 
         Turma turmaSalva = turmaRepository.save(turma);
-        return turmaSalva;
+
+        TurmaResponse turmaResponse = new TurmaResponse();
+        turmaResponse.setCadastro(turma.getId());
+        turmaResponse.setMensagem("Turma " + turmaSalva.getId() + " - " + turmaSalva.getNome() + " criada com sucesso.");
+
+        return turmaResponse;
 
     }
 
-    @Override
-    public Turma atualizar(Turma turma, Long id) {
+    public TurmaResponse atualizar(TurmaRequest turmaRequest, Long id) {
 
-        Turma turmaObtida = this.obter(id);
-        turmaObtida.setNome(turma.getNome());
-        turmaObtida.setDataInicio(turma.getDataInicio());
-        turmaObtida.setDataFim(turma.getDataFim());
-        turmaObtida.setQuantidadeAluno(turma.getQuantidadeAluno());
-        turmaObtida.setStatus(turma.isStatus());
+        Turma turmaObtida = turmaRepository.findById(id).get();
 
-        if (turma.getProfessor() != null) {
-            Professor profesorObtido = professorService.obter(turma.getProfessor().getId());
-            turma.setProfessor(profesorObtido);
+        if(turmaRequest.getNome() != null) {
+            turmaObtida.setNome(turmaRequest.getNome());
         }
 
-        turmaObtida.setProfessor(turma.getProfessor());
+        if(turmaRequest.getDataInicio() != null) {
+            turmaObtida.setDataInicio(turmaRequest.getDataInicio());
+        }
+
+        if(turmaRequest.getDataFim() != null) {
+            turmaObtida.setDataFim(turmaRequest.getDataFim());
+        }
+
+        if(turmaRequest.getQuantidadeAluno() != 0) {
+            turmaObtida.setQuantidadeAluno(turmaRequest.getQuantidadeAluno());
+        }
+
+        turmaObtida.setStatus(turmaRequest.isStatus());
+
+        if(turmaRequest.getProfessor() != null) {
+
+            Professor professorObtido = professorRepository.findById(turmaRequest.getProfessor().getId()).get();
+
+            turmaObtida.setProfessor(turmaRequest.getProfessor());
+        }
 
         turmaRepository.save(turmaObtida);
 
-        return turma;
+        TurmaResponse turmaResponse = new TurmaResponse();
+        turmaResponse.setCadastro(turmaObtida.getId());
+        turmaResponse.setMensagem("Turma " + turmaObtida.getId() + " - " + turmaObtida.getNome() + " atualizada com sucesso.");
+
+        return turmaResponse;
 
     }
 
-    @Override
     public void deletar(Long id) {
         turmaRepository.deleteById(id);
     }
 
-    @Override
-    public List<Turma> listar() {
 
-        List<Turma> listaTurma = turmaRepository.findAll();
+    public List<GetTurmaListarResponse> listar() {
 
-        return listaTurma;
+        List<Turma> listatUrma = turmaRepository.findAll();
+
+        List<GetTurmaListarResponse> getTurmaListarResponses = new ArrayList<>();
+
+        listatUrma.stream().forEach(turma ->  getTurmaListarResponses.add(new GetTurmaListarResponse(turma)));
+
+        return getTurmaListarResponses;
     }
 
-    @Override
-    public Turma obter(Long id) {
+    public GetTurmaObterResponse obter(Long id) {
 
         Turma turma = turmaRepository.findById(id).get();
 
-        return turma;
+        if(turma == null) {
+            throw new RuntimeException("Turma não encontrado!");
+        }
 
+        GetTurmaObterResponse getTurmaObterResponse = new GetTurmaObterResponse();
+        getTurmaObterResponse.setNome(turma.getNome());
+        getTurmaObterResponse.setDataInicio(turma.getDataInicio());
+        getTurmaObterResponse.setDataFim(turma.getDataFim());
+        getTurmaObterResponse.setQuantidadeAluno(turma.getQuantidadeAluno());
+        getTurmaObterResponse.setStatus(turma.isStatus());
+        getTurmaObterResponse.setProfessor(turma.getProfessor());
+        getTurmaObterResponse.setListaAtividades(turma.getListaAtividades());
+        getTurmaObterResponse.setListaMatriculas(turma.getListaMatriculas());
+
+        return getTurmaObterResponse;
     }
 
 }

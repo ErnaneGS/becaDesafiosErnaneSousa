@@ -3,6 +3,8 @@ package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
 import io.github.becaErnaneSousa.desafios.entities.atividades.Resultado;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
+import io.github.becaErnaneSousa.desafios.repositories.AlunoRepository;
+import io.github.becaErnaneSousa.desafios.repositories.AtividadeRepository;
 import io.github.becaErnaneSousa.desafios.repositories.ResultadoRepository;
 import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,10 @@ import java.util.List;
 public class ResultadoServiceImpl implements ServiceInterface<Resultado> {
 
     @Autowired
-    private AlunoServiceImpl alunoService;
+    private AlunoRepository alunoRepository;
 
     @Autowired
-    private AtividadeServiceImpl atividadeService;
+    private AtividadeRepository atividadeRepository;
 
     @Autowired
     private ResultadoRepository resultadoRepository;
@@ -24,10 +26,10 @@ public class ResultadoServiceImpl implements ServiceInterface<Resultado> {
     @Override
     public Resultado criar(Resultado resultado) {
 
-        Atividade atividadeObtida = atividadeService.obter(resultado.getAtividade().getId());
+        Atividade atividadeObtida = atividadeRepository.findById(resultado.getAtividade().getId()).get();
         resultado.setAtividade(atividadeObtida);
 
-        Aluno alunoObtido = alunoService.obter(resultado.getAluno().getId());
+        Aluno alunoObtido = alunoRepository.findById(resultado.getAluno().getId()).get();
         resultado.setAluno(alunoObtido);
 
         Resultado resultadoSalvo = resultadoRepository.save(resultado);
@@ -40,17 +42,13 @@ public class ResultadoServiceImpl implements ServiceInterface<Resultado> {
 
         Resultado resultadoObtido = this.obter(id);
 
-        Atividade atividadeObtida = atividadeService.obter(resultado.getAtividade().getId());
+        Atividade atividadeObtida = atividadeRepository.findById(resultado.getAtividade().getId()).get();
         resultado.setAtividade(atividadeObtida);
 
-        resultadoObtido.setAtividade(resultado.getAtividade());
-
-        Aluno alunoObtido = alunoService.obter(resultado.getAluno().getId());
+        Aluno alunoObtido = alunoRepository.findById(resultado.getAluno().getId()).get();
         resultado.setAluno(alunoObtido);
 
-        resultadoObtido.setAluno(resultado.getAluno());
-
-        resultadoObtido.setResultado(resultado.getResultado());
+        Resultado resultadoSalvo = resultadoRepository.save(resultado);
 
         resultadoRepository.save(resultadoObtido);
 

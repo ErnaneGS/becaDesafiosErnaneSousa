@@ -1,47 +1,17 @@
-package io.github.becaErnaneSousa.desafios.entities.administracao;
+package io.github.becaErnaneSousa.desafios.dtos.responses.administracao;
 
+import io.github.becaErnaneSousa.desafios.entities.administracao.Curso;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-public class Escola {
+public class GetEscolaObterResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String endereco;
     private String cnpj;
-
-    @OneToOne
     private Diretor diretor;
-
-    @OneToMany
     private List<Curso> listaCursos;
-
-    public Escola(String nome, String endereco, String cnpj, Diretor diretor) {
-        this.nome = nome;
-        this.endereco = endereco;
-        this.cnpj = cnpj;
-        this.diretor = diretor;
-    }
-
-    public Escola() {
-
-    }
-
-    @Override
-    public String toString() {
-        return "Escola{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", cnpj='" + cnpj + '\'' +
-                ", diretor=" + diretor.getNome() +
-//                ", Cursos=" + listaCursos +
-                '}';
-    }
 
     public Long getId() {
         return id;
@@ -90,9 +60,4 @@ public class Escola {
     public void setListaCursos(List<Curso> listaCursos) {
         this.listaCursos = listaCursos;
     }
-
-    public void cadatsrarEscola() {
-        Escola escola01 = new Escola();
-    }
-
 }

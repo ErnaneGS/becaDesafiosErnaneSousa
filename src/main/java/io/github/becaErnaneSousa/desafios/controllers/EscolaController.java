@@ -1,11 +1,13 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entities.administracao.Escola;
+import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.EscolaRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.EscolaResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetEscolaListarResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetEscolaObterResponse;
 import io.github.becaErnaneSousa.desafios.services.servicesImplements.EscolaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -16,17 +18,17 @@ public class EscolaController {
     private EscolaServiceImpl escolaService;
 
     @PostMapping
-    public ResponseEntity <Escola> criar(@RequestBody Escola escola) {
-        Escola escolaCriada = escolaService.criar(escola);
+    public ResponseEntity <EscolaResponse> criar(@RequestBody EscolaRequest escolaRequest) {
+        EscolaResponse escolaReponse = escolaService.criar(escolaRequest);
 
-        return ResponseEntity.created(null).body(escolaCriada);
+        return ResponseEntity.created(null).body(escolaReponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Escola> atualizar(@RequestBody Escola escola, @PathVariable Long id) {
-       Escola escolaAtualizada = escolaService.atualizar(escola, id);
+    public ResponseEntity <EscolaResponse> atualizar(@RequestBody EscolaRequest escolaRequest, @PathVariable Long id) {
+       EscolaResponse escolaReponse = escolaService.atualizar(escolaRequest, id);
 
-       return ResponseEntity.ok(escolaAtualizada);
+       return ResponseEntity.ok(escolaReponse);
     }
 
     @DeleteMapping("{id}")
@@ -37,17 +39,17 @@ public class EscolaController {
     }
 
     @GetMapping
-    public ResponseEntity <List<Escola>> listar() {
-        List<Escola> listaEscola = escolaService.listar();
+    public ResponseEntity<List> listar() {
+        List<GetEscolaListarResponse> getEscolaListarResponses = escolaService.listar();
 
-        return ResponseEntity.ok(listaEscola);
+        return ResponseEntity.ok(getEscolaListarResponses);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Escola> obter(@PathVariable Long id) {
-        Escola escolaObtida = escolaService.obter(id);
+    public ResponseEntity <GetEscolaObterResponse> obter(@PathVariable Long id) {
+        GetEscolaObterResponse getEscolaObterResponse = escolaService.obter(id);
 
-        return ResponseEntity.ok(escolaObtida);
+        return ResponseEntity.ok(getEscolaObterResponse);
     }
 
 }

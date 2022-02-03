@@ -3,7 +3,9 @@ package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Matricula;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
+import io.github.becaErnaneSousa.desafios.repositories.AlunoRepository;
 import io.github.becaErnaneSousa.desafios.repositories.MatriculaRepository;
+import io.github.becaErnaneSousa.desafios.repositories.TurmaRepository;
 import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,10 @@ import java.util.List;
 public class MatriculaServiceImpl implements ServiceInterface<Matricula> {
 
     @Autowired
-    AlunoServiceImpl alunoService;
+    TurmaRepository turmaRepository;
 
     @Autowired
-    TurmaServiceImpl turmaService;
+    AlunoRepository alunoRepository;
 
     @Autowired
     MatriculaRepository matriculaRepository;
@@ -24,10 +26,10 @@ public class MatriculaServiceImpl implements ServiceInterface<Matricula> {
     @Override
     public Matricula criar(Matricula matricula) {
 
-        Turma turmaObtida = turmaService.obter(matricula.getTurma().getId());
+        Turma turmaObtida = turmaRepository.findById(matricula.getTurma().getId()).get();
         matricula.setTurma(turmaObtida);
 
-        Aluno alunoObtido = alunoService.obter(matricula.getAluno().getId());
+        Aluno alunoObtido = alunoRepository.findById(matricula.getAluno().getId()).get();
         matricula.setAluno(alunoObtido);
 
         Matricula matriculaSalva = matriculaRepository.save(matricula);
@@ -43,15 +45,13 @@ public class MatriculaServiceImpl implements ServiceInterface<Matricula> {
         matriculaObtida.setData(matricula.getData());
         matriculaObtida.setStatus(matricula.isStatus());
 
-        Aluno alunoObtido = alunoService.obter(matricula.getAluno().getId());
-        matricula.setAluno(alunoObtido);
-
-        matriculaObtida.setAluno(matricula.getAluno());
-
-        Turma turmaObtida = turmaService.obter(matricula.getTurma().getId());
+        Turma turmaObtida = turmaRepository.findById(matricula.getTurma().getId()).get();
         matricula.setTurma(turmaObtida);
 
-        matriculaObtida.setTurma(matricula.getTurma());
+        Aluno alunoObtido = alunoRepository.findById(matricula.getAluno().getId()).get();
+        matricula.setAluno(alunoObtido);
+
+        Matricula matriculaSalva = matriculaRepository.save(matricula);
 
         matriculaRepository.save(matriculaObtida);
 

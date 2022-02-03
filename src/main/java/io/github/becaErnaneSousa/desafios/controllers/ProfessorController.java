@@ -1,11 +1,13 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Professor;
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.ProfessorRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetProfessorListarResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetProfessorObterResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.ProfessorResponse;
 import io.github.becaErnaneSousa.desafios.services.servicesImplements.ProfessorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -16,17 +18,17 @@ public class ProfessorController {
     private ProfessorServiceImpl professorService;
 
     @PostMapping
-    public ResponseEntity<Professor> criar(@RequestBody Professor professor) {
-        Professor professorCriado = professorService.criar(professor);
+    public ResponseEntity<ProfessorResponse> criar(@RequestBody ProfessorRequest professorRequest) {
+        ProfessorResponse professorResponse = professorService.criar(professorRequest);
 
-        return ResponseEntity.created(null).body(professorCriado);
+        return ResponseEntity.created(null).body(professorResponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Professor> atualizar(@RequestBody Professor professor, @PathVariable Long id) {
-        Professor professorAtualizado = professorService.atualizar(professor, id);
+    public ResponseEntity <ProfessorResponse> atualizar(@RequestBody ProfessorRequest professorRequest, @PathVariable Long id) {
+        ProfessorResponse professorResponse = professorService.atualizar(professorRequest, id);
 
-        return ResponseEntity.ok(professorAtualizado);
+        return ResponseEntity.ok(professorResponse);
     }
 
     @DeleteMapping("{id}")
@@ -37,16 +39,16 @@ public class ProfessorController {
     }
 
     @GetMapping
-    public ResponseEntity <List> listar() {
-        List<Professor> listaProfessores = professorService.listar();
+    public ResponseEntity<List> listar() {
+        List<GetProfessorListarResponse> getProfessorListarResponses = professorService.listar();
 
-        return ResponseEntity.ok(listaProfessores);
+        return ResponseEntity.ok(getProfessorListarResponses);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Professor> obter(@PathVariable Long id) {
-        Professor professorObtido = professorService.obter(id);
+    public ResponseEntity <GetProfessorObterResponse> obter(@PathVariable Long id) {
+        GetProfessorObterResponse getProfessorObterResponse = professorService.obter(id);
 
-        return ResponseEntity.ok(professorObtido);
+        return ResponseEntity.ok(getProfessorObterResponse);
     }
 }

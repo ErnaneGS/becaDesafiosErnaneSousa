@@ -1,22 +1,35 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.AlunoRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.AlunoResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoListarResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoObterResponse;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
 import io.github.becaErnaneSousa.desafios.repositories.AlunoRepository;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AlunoServiceImpl implements ServiceInterface<Aluno> {
+public class AlunoServiceImpl {
 
     @Autowired
     private AlunoRepository alunoRepository;
 
-    @Override
-    public Aluno criar(Aluno aluno) {
+    public AlunoResponse criar(AlunoRequest alunoRequest) {
 
-        if( aluno.getCpf().length() != 11 ) {
+        Aluno aluno = new Aluno();
+        aluno.setNome(alunoRequest.getNome());
+        aluno.setCpf(alunoRequest.getCpf());
+        aluno.setEndereco(alunoRequest.getEndereco());
+        aluno.setTelefone(alunoRequest.getTelefone());
+        aluno.setDataNascimento(alunoRequest.getDataNascimento());
+        aluno.setNomePai(alunoRequest.getNomePai());
+
+
+        if(aluno.getCpf().length() != 11) {
             throw new RuntimeException("O cpf deve possuir 11 digitos");
         } else if (aluno.getDataNascimento().length() != 8){
             throw new RuntimeException("A data de nascimento deve possuir 8 digitos");
@@ -25,51 +38,86 @@ public class AlunoServiceImpl implements ServiceInterface<Aluno> {
         }
 
         Aluno alunoSalvo = alunoRepository.save(aluno);
-        return alunoSalvo;
+
+        AlunoResponse alunoResponse = new AlunoResponse();
+        alunoResponse.setCadastro(alunoSalvo.getId());
+        alunoResponse.setMensagem("Aluno " + alunoSalvo.getId() + " - " + alunoSalvo.getNome() + " criado com sucesso.");
+
+        return alunoResponse;
 
     }
 
-    @Override
-    public Aluno atualizar(Aluno aluno, Long id) {
-        Aluno alunoObtido = this.obter(id);
-        alunoObtido.setNome(aluno.getNome());
-        alunoObtido.setCpf(aluno.getCpf());
-        alunoObtido.setEndereco(aluno.getEndereco());
-        alunoObtido.setTelefone(aluno.getTelefone());
-        alunoObtido.setDataNascimento(aluno.getDataNascimento());
-        alunoObtido.setNomePai(aluno.getNomePai());
+    public AlunoResponse atualizar(AlunoRequest alunoRequest, Long id) {
+
+        Aluno alunoObtido = alunoRepository.findById(id).get();
+
+        if(alunoRequest.getNome() != null) {
+            alunoObtido.setNome(alunoRequest.getNome());
+        }
+
+        if(alunoRequest.getCpf() != null) {
+            alunoObtido.setCpf(alunoRequest.getCpf());
+        }
+
+        if(alunoRequest.getEndereco() != null) {
+            alunoObtido.setEndereco(alunoRequest.getEndereco());
+        }
+
+        if(alunoRequest.getTelefone() != null) {
+            alunoObtido.setTelefone(alunoRequest.getTelefone());
+        }
+
+        if(alunoRequest.getDataNascimento() != null) {
+            alunoObtido.setDataNascimento(alunoRequest.getDataNascimento());
+        }
+
+        if(alunoRequest.getNomePai() != null) {
+            alunoObtido.setNomePai(alunoRequest.getNomePai());
+        }
 
         alunoRepository.save(alunoObtido);
 
-        return aluno;
+        AlunoResponse alunoResponse = new AlunoResponse();
+        alunoResponse.setCadastro(alunoObtido.getId());
+        alunoResponse.setMensagem("Aluno " + alunoObtido.getId() + " - " + alunoObtido.getNome() + " atualizado com sucesso.");
+
+        return alunoResponse;
     }
 
-    @Override
     public void deletar(Long id) {
         alunoRepository.deleteById(id);
 
     }
 
-    @Override
-    public List<Aluno> listar() {
+    public List<GetAlunoListarResponse> listar() {
+
         List<Aluno> listaAluno = alunoRepository.findAll();
 
-        return listaAluno;
+        List<GetAlunoListarResponse> getAlunoListarResponses = new ArrayList<>();
+
+        listaAluno.stream().forEach(aluno ->  getAlunoListarResponses.add(new GetAlunoListarResponse(aluno)));
+
+        return getAlunoListarResponses;
     }
 
-    @Override
-    public Aluno obter(Long id) {
+    public GetAlunoObterResponse obter(Long id) {
+
         Aluno aluno = alunoRepository.findById(id).get();
 
         if(aluno == null) {
             throw new RuntimeException("Aluno não encontrado!");
         }
 
-        return aluno;
-    }
+        GetAlunoObterResponse getAlunoObterResponse = new GetAlunoObterResponse();
+        getAlunoObterResponse.setId(aluno.getId());
+        getAlunoObterResponse.setNome(aluno.getNome());
+        getAlunoObterResponse.setCpf(aluno.getCpf());
+        getAlunoObterResponse.setTelefone(aluno.getTelefone());
+        getAlunoObterResponse.setEndereco(aluno.getEndereco());
+        getAlunoObterResponse.setNomePai(aluno.getNomePai());
+        getAlunoObterResponse.setDataNascimento(aluno.getDataNascimento());
 
-//    public double notaTotal(){
-//        aluno.setListaResultados(lista);
-//    }
+        return getAlunoObterResponse;
+    }
 
 }

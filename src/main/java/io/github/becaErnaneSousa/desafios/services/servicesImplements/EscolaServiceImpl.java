@@ -1,80 +1,118 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
+import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.EscolaRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.EscolaResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetEscolaListarResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetEscolaObterResponse;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Escola;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
+import io.github.becaErnaneSousa.desafios.repositories.DiretorRepository;
 import io.github.becaErnaneSousa.desafios.repositories.EscolaRepository;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class EscolaServiceImpl implements ServiceInterface<Escola> {
+public class EscolaServiceImpl {
 
     @Autowired
-    private DiretorServiceImpl diretorService;
-
-    @Autowired
-    private CursoServiceImpl cursoService;
+    private DiretorRepository diretorRepository;
 
     @Autowired
     private EscolaRepository escolaRepository;
 
-    @Override
-    public Escola criar(Escola escola) {
+    public EscolaResponse criar(EscolaRequest escolaRequest) {
+
+        Escola escola = new Escola();
+        escola.setNome(escolaRequest.getNome());
+        escola.setEndereco(escolaRequest.getEndereco());
+        escola.setCnpj(escolaRequest.getCnpj());
 
         if( escola.getCnpj().length() == 14 ) {
             throw new RuntimeException("O CNPJ deve conter 14 caracteres");
         }
 
-        if (escola.getDiretor() != null) {
-            Diretor diretorObtido = diretorService.obter(escola.getDiretor().getId());
+        if (escolaRequest.getDiretor() != null) {
+
+            Diretor diretorObtido = diretorRepository.findById(escolaRequest.getDiretor().getId()).get();
+
             escola.setDiretor(diretorObtido);
+
         }
 
         Escola escolaSalva = escolaRepository.save(escola);
 
-        return escolaSalva;
+        EscolaResponse escolaReponse = new EscolaResponse();
+        escolaReponse.setCadastro(escolaSalva.getId());
+        escolaReponse.setMensagem("Escola " + escolaSalva.getId() + " - " + escolaSalva.getNome() + " criada com sucesso.");
+
+        return escolaReponse;
 
     }
 
-    @Override
-    public Escola atualizar(Escola escola, Long id) {
+    public EscolaResponse atualizar(EscolaRequest escolaRequest, Long id) {
 
-        Escola escolaObtida = this.obter(id);
-        escolaObtida.setNome(escola.getNome());
-        escolaObtida.setEndereco(escola.getEndereco());
-        escolaObtida.setCnpj(escola.getCnpj());
+        Escola escolaObtida = escolaRepository.findById(id).get();
 
-        if (escola.getDiretor() != null) {
-            Diretor diretorObtido = diretorService.obter(escola.getDiretor().getId());
-            escola.setDiretor(diretorObtido);
+        if(escolaRequest.getNome() != null) {
+            escolaObtida.setNome(escolaRequest.getNome());
         }
 
-        escolaObtida.setDiretor(escola.getDiretor());
+        if(escolaRequest.getEndereco() != null) {
+            escolaObtida.setEndereco(escolaRequest.getEndereco());
+        }
+
+        if(escolaRequest.getCnpj() != null) {
+            escolaObtida.setCnpj(escolaRequest.getCnpj());
+        }
+
+        if (escolaRequest.getDiretor().getId() != null) {
+            Diretor diretorObtido = diretorRepository.findById(escolaRequest.getDiretor().getId()).get();
+
+            escolaObtida.setDiretor(diretorObtido);
+        }
 
         escolaRepository.save(escolaObtida);
 
-        return escola;
+        EscolaResponse escolaReponse = new EscolaResponse();
+        escolaReponse.setCadastro(escolaObtida.getId());
+        escolaReponse.setMensagem("Escola " + escolaObtida.getId() + " - " + escolaObtida.getNome() + " atualizada com sucesso.");
+
+        return escolaReponse;
     }
 
-    @Override
     public void deletar(Long id) {
         escolaRepository.deleteById(id);
 
     }
 
-    @Override
-    public List<Escola> listar() {
+    public List<GetEscolaListarResponse> listar() {
         List<Escola> listaEscola = escolaRepository.findAll();
 
-        return listaEscola;
+        List<GetEscolaListarResponse> getEscolaListarResponses = new ArrayList<>();
+
+        listaEscola.stream().forEach(escola ->  getEscolaListarResponses.add(new GetEscolaListarResponse(escola)));
+
+        return getEscolaListarResponses;
     }
 
-    @Override
-    public Escola obter(Long id) {
+    public GetEscolaObterResponse obter(Long id) {
         Escola escola = escolaRepository.findById(id).get();
 
-        return escola;
+        if(escola == null) {
+            throw new RuntimeException("Escola não encontrada!");
+        }
+
+        GetEscolaObterResponse getEscolaObterResponse = new GetEscolaObterResponse();
+        getEscolaObterResponse.setId(escola.getId());
+        getEscolaObterResponse.setNome(escola.getNome());
+        getEscolaObterResponse.setCnpj(escola.getCnpj());
+        getEscolaObterResponse.setEndereco(escola.getEndereco());
+        getEscolaObterResponse.setDiretor(escola.getDiretor());
+        getEscolaObterResponse.setListaCursos(escola.getListaCursos());
+
+        return getEscolaObterResponse;
     }
 }

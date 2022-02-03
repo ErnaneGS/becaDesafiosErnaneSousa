@@ -1,6 +1,7 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.DiretorRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.*;
 import io.github.becaErnaneSousa.desafios.services.servicesImplements.DiretorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +17,17 @@ public class DiretorController {
     private DiretorServiceImpl diretorService;
 
     @PostMapping
-    public ResponseEntity<Diretor> criar(@RequestBody Diretor diretor) {
-        Diretor diretorCriado = diretorService.criar(diretor);
+    public ResponseEntity<DiretorResponse> criar(@RequestBody DiretorRequest diretorRequest) {
+        DiretorResponse diretorResponse = diretorService.criar(diretorRequest);
 
-        return ResponseEntity.created(null).body(diretorCriado);
+        return ResponseEntity.created(null).body(diretorResponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Diretor> atualizar(@RequestBody Diretor diretor, @PathVariable Long id) {
-        Diretor diretorAtualizado = diretorService.atualizar(diretor, id);
+    public ResponseEntity <DiretorResponse> atualizar(@RequestBody DiretorRequest diretorRequest, @PathVariable Long id) {
+        DiretorResponse diretorResponse = diretorService.atualizar(diretorRequest, id);
 
-        return ResponseEntity.ok(diretorAtualizado);
+        return ResponseEntity.ok(diretorResponse);
     }
 
     @DeleteMapping("{id}")
@@ -37,16 +38,17 @@ public class DiretorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Diretor>> listar() {
-        List<Diretor> listaDiretor = diretorService.listar();
+    public ResponseEntity<List> listar() {
 
-        return ResponseEntity.ok(listaDiretor);
+        List<GetDiretorListarResponse> getDiretorListarResponse = diretorService.listar();
+
+        return ResponseEntity.ok(getDiretorListarResponse);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Diretor> obter(@PathVariable Long id) {
-        Diretor driretorObtido = diretorService.obter(id);
+    public ResponseEntity <GetDiretorObterResponse> obter(@PathVariable Long id) {
+        GetDiretorObterResponse getDiretorObterResponse = diretorService.obter(id);
 
-        return ResponseEntity.ok(driretorObtido);
+        return ResponseEntity.ok(getDiretorObterResponse);
     }
 }

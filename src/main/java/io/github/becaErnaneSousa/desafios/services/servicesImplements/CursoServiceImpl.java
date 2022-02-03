@@ -1,58 +1,96 @@
 package io.github.becaErnaneSousa.desafios.services.servicesImplements;
 
+import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.CursoRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.CursoResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetCursoListarResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetCursoObterResponse;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Curso;
 import io.github.becaErnaneSousa.desafios.repositories.CursoRepository;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CursoServiceImpl implements ServiceInterface<Curso> {
+public class CursoServiceImpl {
 
     @Autowired
     private CursoRepository cursoRepository;
 
-    @Override
-    public Curso criar(Curso curso) {
+    public CursoResponse criar(CursoRequest cursoRequest) {
+
+        Curso curso = new Curso();
+        curso.setNome(cursoRequest.getNome());
+        curso.setDescricao(cursoRequest.getDescricao());
+        curso.setCargaHoraria(cursoRequest.getCargaHoraria());
+
 
         Curso cursoSalvo = cursoRepository.save(curso);
 
-        return cursoSalvo;
+        CursoResponse cursoResponse = new CursoResponse();
+        cursoResponse.setCadastro(cursoSalvo.getId());
+        cursoResponse.setMensagem("Curso " + cursoSalvo.getId() + " - " + cursoSalvo.getNome() + " criado com sucesso.");
+
+        return cursoResponse;
+
     }
 
-    @Override
-    public Curso atualizar(Curso curso, Long id) {
+    public CursoResponse atualizar(CursoRequest cursoRequest, Long id) {
 
-        Curso cursoObtido = this.obter(id);
-        cursoObtido.setNome(curso.getNome());
-        cursoObtido.setDescricao(curso.getDescricao());
-        cursoObtido.setCargaHoraria(curso.getCargaHoraria());
+        Curso cursoObtido = cursoRepository.findById(id).get();
+
+        if(cursoRequest.getNome() != null) {
+            cursoObtido.setNome(cursoRequest.getNome());
+        }
+
+        if(cursoRequest.getDescricao() != null) {
+            cursoObtido.setDescricao(cursoRequest.getDescricao());
+        }
+
+        if(cursoRequest.getCargaHoraria() != 0) {
+            cursoObtido.setCargaHoraria(cursoRequest.getCargaHoraria());
+        }
 
         cursoRepository.save(cursoObtido);
 
-        return curso;
+        CursoResponse cursoResponse = new CursoResponse();
+        cursoResponse.setCadastro(cursoObtido.getId());
+        cursoResponse.setMensagem("Curso " + cursoObtido.getId() + " - " + cursoObtido.getNome() + " atualizado com sucesso.");
+
+        return cursoResponse;
     }
 
-    @Override
     public void deletar(Long id) {
         cursoRepository.deleteById(id);
 
     }
 
-    @Override
-    public List<Curso> listar() {
+    public List<GetCursoListarResponse> listar() {
 
         List<Curso> listaCurso = cursoRepository.findAll();
 
-        return listaCurso;
+        List<GetCursoListarResponse> getCursoListarResponses = new ArrayList<>();
+
+        listaCurso.stream().forEach(curso ->  getCursoListarResponses.add(new GetCursoListarResponse(curso)));
+
+        return getCursoListarResponses;
     }
 
-    @Override
-    public Curso obter( Long id) {
+    public GetCursoObterResponse obter(Long id) {
+
         Curso curso = cursoRepository.findById(id).get();
 
-        return curso;
+        if(curso == null) {
+            throw new RuntimeException("Aluno não encontrado!");
+        }
+
+        GetCursoObterResponse getCursoObterResponse = new GetCursoObterResponse();
+        getCursoObterResponse.setId(curso.getId());
+        getCursoObterResponse.setNome(curso.getNome());
+        getCursoObterResponse.setDescricao(curso.getDescricao());
+        getCursoObterResponse.setCargaHoraria(curso.getCargaHoraria());
+
+        return getCursoObterResponse;
     }
 
 }

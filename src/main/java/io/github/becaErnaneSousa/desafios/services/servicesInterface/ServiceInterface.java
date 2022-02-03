@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface ServiceInterface<T> {
 
-    T criar(T t);
+    <T1> T1 criar(T t);
 
-    T atualizar(T t, Long id);
+    <T1> T1 atualizar(T t, Long id);
 
     void deletar(Long id);
 
     List<T> listar();
 
-    T obter(Long id);
+    <T1> T1 obter(Long id);
 }
