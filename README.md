@@ -43,10 +43,6 @@ notas e resultados de cada aluno e sua respectiva turma.
 4) Criar um novo end-point para retornar um DTO personalizado, agrupamento de várias informações em diferentes tabelas da base de dados
 	
 
-![image](https://user-images.githubusercontent.com/97994560/152262340-e5482a24-4b60-4eaf-b700-e57f769a9729.png)
-
-
-
 
 ## Diagrama:
 ![Untitled Diagram](https://user-images.githubusercontent.com/97994560/151408488-1300c44b-4d83-466f-9388-3bf805dd7a99.jpg)
