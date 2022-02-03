@@ -36,7 +36,7 @@ notas e resultados de cada aluno e sua respectiva turma.
 5) Implementar na camada service
 6) Fazer testes para certificar que a base de dados está integrada
 
-+ Desafio 045 -- Disponível na branch desafioCinco (Concluído 02/02/2021 ✅)
++ Desafio 05 -- Disponível na branch desafioCinco (Concluído 02/02/2021 ✅)
 1) Criar uma nova branch com o nome “desafio5”, a partir da branch “main” como base, atualizar todas as modificações feitas na  api nesta banch no documento README.md
 2) Aplicar os conceitos de DTO na  aplicação
 3) Fazer um relacionamento de tabelas na API
