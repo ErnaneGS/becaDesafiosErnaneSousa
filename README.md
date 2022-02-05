@@ -42,6 +42,11 @@ notas e resultados de cada aluno e sua respectiva turma.
 3) Fazer um relacionamento de tabelas na API
 4) Criar um novo end-point para retornar um DTO personalizado, agrupamento de várias informações em diferentes tabelas da base de dados
 	
++ Desafio 05 -- Disponível na branch desafioSeis (Entregue 04/02/2021 ✅ OBS. Ainda implementando melhorias ⚠️)
+1) Criar uma nova branch com o nome “desafio6”, a partir da branch “main” como base, atualizar todas as modificações feitas na  api nesta banch no documento README.md
+2) Adicionar validação de dados na API
+3) Adicionar Mapper na aplicação para conversão de objetos
+4) Implementar Lombok
 
 
 ## Diagrama:
