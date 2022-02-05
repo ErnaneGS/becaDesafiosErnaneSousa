@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.services.servicesImplements;
+package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
 import io.github.becaErnaneSousa.desafios.entities.atividades.Resultado;
@@ -6,24 +6,19 @@ import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
 import io.github.becaErnaneSousa.desafios.repositories.AlunoRepository;
 import io.github.becaErnaneSousa.desafios.repositories.AtividadeRepository;
 import io.github.becaErnaneSousa.desafios.repositories.ResultadoRepository;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.becaErnaneSousa.desafios.servicesinterface.ServiceInterface;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ResultadoServiceImpl implements ServiceInterface<Resultado> {
 
-    @Autowired
-    private AlunoRepository alunoRepository;
+    private final AlunoRepository alunoRepository;
+    private final AtividadeRepository atividadeRepository;
+    private final ResultadoRepository resultadoRepository;
 
-    @Autowired
-    private AtividadeRepository atividadeRepository;
-
-    @Autowired
-    private ResultadoRepository resultadoRepository;
-
-    @Override
     public Resultado criar(Resultado resultado) {
 
         Atividade atividadeObtida = atividadeRepository.findById(resultado.getAtividade().getId()).get();

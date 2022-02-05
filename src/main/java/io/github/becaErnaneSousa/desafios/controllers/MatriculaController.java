@@ -1,28 +1,30 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
 import io.github.becaErnaneSousa.desafios.entities.administracao.Matricula;
-import io.github.becaErnaneSousa.desafios.services.servicesImplements.MatriculaServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.becaErnaneSousa.desafios.servicesimplements.MatriculaServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/matricula")
 public class MatriculaController {
 
-    @Autowired
-    private MatriculaServiceImpl matriculaService;
+    private final MatriculaServiceImpl matriculaService;
 
     @PostMapping
-    public ResponseEntity<Matricula> criar(@RequestBody Matricula matricula) {
+    public ResponseEntity<Matricula> criar(@RequestBody @Valid Matricula matricula) {
         Matricula matriculaCriada = matriculaService.criar(matricula);
 
         return ResponseEntity.created(null).body(matriculaCriada);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Matricula> atualizar(@RequestBody Matricula matricula, @PathVariable Long id) {
+    public ResponseEntity <Matricula> atualizar(@RequestBody @Valid Matricula matricula, @PathVariable Long id) {
       Matricula matriculaAtualizada = matriculaService.atualizar(matricula, id);
 
       return ResponseEntity.ok(matriculaAtualizada);

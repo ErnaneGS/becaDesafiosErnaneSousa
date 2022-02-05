@@ -1,51 +1,34 @@
 package io.github.becaErnaneSousa.desafios.dtos.requests.pessoas;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PessoaRequest {
 
+    @NotNull(message = "{nome.not.blank}")
     private String nome;
+
+    @CPF
     private String cpf;
+
+    @NotBlank(message = "{endereco.not.blank}")
     private String endereco;
+
+    @NotNull
+    @Size(min = 11, max = 11)
     private String telefone;
+
+    @NotNull
+    @Size(min = 8, max = 8)
     private String dataNascimento;
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
 
 }

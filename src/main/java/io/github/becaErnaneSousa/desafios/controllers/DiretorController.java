@@ -2,29 +2,30 @@ package io.github.becaErnaneSousa.desafios.controllers;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.DiretorRequest;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.*;
-import io.github.becaErnaneSousa.desafios.services.servicesImplements.DiretorServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.becaErnaneSousa.desafios.servicesimplements.DiretorServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/diretor")
 public class DiretorController {
 
-    @Autowired
-    private DiretorServiceImpl diretorService;
+    private final DiretorServiceImpl diretorService;
 
     @PostMapping
-    public ResponseEntity<DiretorResponse> criar(@RequestBody DiretorRequest diretorRequest) {
+    public ResponseEntity<DiretorResponse> criar(@RequestBody @Valid DiretorRequest diretorRequest) {
         DiretorResponse diretorResponse = diretorService.criar(diretorRequest);
 
         return ResponseEntity.created(null).body(diretorResponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <DiretorResponse> atualizar(@RequestBody DiretorRequest diretorRequest, @PathVariable Long id) {
+    public ResponseEntity <DiretorResponse> atualizar(@RequestBody @Valid DiretorRequest diretorRequest, @PathVariable Long id) {
         DiretorResponse diretorResponse = diretorService.atualizar(diretorRequest, id);
 
         return ResponseEntity.ok(diretorResponse);

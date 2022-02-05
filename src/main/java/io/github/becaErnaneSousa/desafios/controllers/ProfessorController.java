@@ -4,28 +4,30 @@ import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.ProfessorRequest
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetProfessorListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetProfessorObterResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.ProfessorResponse;
-import io.github.becaErnaneSousa.desafios.services.servicesImplements.ProfessorServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.becaErnaneSousa.desafios.servicesimplements.ProfessorServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/professor")
 public class ProfessorController {
 
-    @Autowired
-    private ProfessorServiceImpl professorService;
+    private final ProfessorServiceImpl professorService;
 
     @PostMapping
-    public ResponseEntity<ProfessorResponse> criar(@RequestBody ProfessorRequest professorRequest) {
+    public ResponseEntity<ProfessorResponse> criar(@RequestBody @Valid ProfessorRequest professorRequest) {
         ProfessorResponse professorResponse = professorService.criar(professorRequest);
 
         return ResponseEntity.created(null).body(professorResponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <ProfessorResponse> atualizar(@RequestBody ProfessorRequest professorRequest, @PathVariable Long id) {
+    public ResponseEntity <ProfessorResponse> atualizar(@RequestBody @Valid ProfessorRequest professorRequest, @PathVariable Long id) {
         ProfessorResponse professorResponse = professorService.atualizar(professorRequest, id);
 
         return ResponseEntity.ok(professorResponse);

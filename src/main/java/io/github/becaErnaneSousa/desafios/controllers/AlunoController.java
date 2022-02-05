@@ -4,28 +4,30 @@ import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.AlunoRequest;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.AlunoResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoObterResponse;
-import io.github.becaErnaneSousa.desafios.services.servicesImplements.AlunoServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.becaErnaneSousa.desafios.servicesimplements.AlunoServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/aluno")
 public class AlunoController {
 
-    @Autowired
-    private AlunoServiceImpl alunoService;
+    private final AlunoServiceImpl alunoService;
 
     @PostMapping
-    public ResponseEntity<AlunoResponse> criar(@RequestBody AlunoRequest alunoRequest) {
+    public ResponseEntity<AlunoResponse> criar(@RequestBody @Valid AlunoRequest alunoRequest) {
         AlunoResponse alunoResponse = alunoService.criar(alunoRequest);
 
         return ResponseEntity.created(null).body(alunoResponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <AlunoResponse> atualizar(@RequestBody AlunoRequest alunoRequest, @PathVariable Long id) {
+    public ResponseEntity <AlunoResponse> atualizar(@RequestBody @Valid AlunoRequest alunoRequest, @PathVariable Long id) {
         AlunoResponse alunoResponse = alunoService.atualizar(alunoRequest, id);
 
         return ResponseEntity.ok(alunoResponse);

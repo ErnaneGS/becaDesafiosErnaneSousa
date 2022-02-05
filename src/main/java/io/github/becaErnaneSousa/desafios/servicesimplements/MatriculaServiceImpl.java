@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.services.servicesImplements;
+package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.entities.administracao.Matricula;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
@@ -6,22 +6,18 @@ import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
 import io.github.becaErnaneSousa.desafios.repositories.AlunoRepository;
 import io.github.becaErnaneSousa.desafios.repositories.MatriculaRepository;
 import io.github.becaErnaneSousa.desafios.repositories.TurmaRepository;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.becaErnaneSousa.desafios.servicesinterface.ServiceInterface;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MatriculaServiceImpl implements ServiceInterface<Matricula> {
 
-    @Autowired
-    TurmaRepository turmaRepository;
-
-    @Autowired
-    AlunoRepository alunoRepository;
-
-    @Autowired
-    MatriculaRepository matriculaRepository;
+    private final TurmaRepository turmaRepository;
+    private final AlunoRepository alunoRepository;
+    private final MatriculaRepository matriculaRepository;
 
     @Override
     public Matricula criar(Matricula matricula) {
@@ -51,7 +47,7 @@ public class MatriculaServiceImpl implements ServiceInterface<Matricula> {
         Aluno alunoObtido = alunoRepository.findById(matricula.getAluno().getId()).get();
         matricula.setAluno(alunoObtido);
 
-        Matricula matriculaSalva = matriculaRepository.save(matricula);
+        Matricula matricuObtida = matriculaRepository.save(matricula);
 
         matriculaRepository.save(matriculaObtida);
 

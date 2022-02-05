@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.services.servicesImplements;
+package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.AlunoRequest;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.AlunoResponse;
@@ -6,17 +6,17 @@ import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoListarR
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoObterResponse;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
 import io.github.becaErnaneSousa.desafios.repositories.AlunoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AlunoServiceImpl {
 
-    @Autowired
-    private AlunoRepository alunoRepository;
+    private final AlunoRepository alunoRepository;
 
     public AlunoResponse criar(AlunoRequest alunoRequest) {
 
@@ -27,7 +27,6 @@ public class AlunoServiceImpl {
         aluno.setTelefone(alunoRequest.getTelefone());
         aluno.setDataNascimento(alunoRequest.getDataNascimento());
         aluno.setNomePai(alunoRequest.getNomePai());
-
 
         if(aluno.getCpf().length() != 11) {
             throw new RuntimeException("O cpf deve possuir 11 digitos");

@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.services.servicesImplements;
+package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.CursoRequest;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.CursoResponse;
@@ -6,16 +6,16 @@ import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetCursoL
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetCursoObterResponse;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Curso;
 import io.github.becaErnaneSousa.desafios.repositories.CursoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CursoServiceImpl {
 
-    @Autowired
-    private CursoRepository cursoRepository;
+    private final CursoRepository cursoRepository;
 
     public CursoResponse criar(CursoRequest cursoRequest) {
 

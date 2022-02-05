@@ -1,19 +1,19 @@
-package io.github.becaErnaneSousa.desafios.services.servicesImplements;
+package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.DiretorRequest;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.*;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
 import io.github.becaErnaneSousa.desafios.repositories.DiretorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DiretorServiceImpl {
 
-    @Autowired
-    private DiretorRepository diretorRepository;
+    private final DiretorRepository diretorRepository;
 
     public DiretorResponse criar(DiretorRequest diretorRequest) {
 

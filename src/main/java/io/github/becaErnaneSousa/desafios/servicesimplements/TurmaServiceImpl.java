@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.services.servicesImplements;
+package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.TurmaRequest;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetTurmaListarResponse;
@@ -8,19 +8,17 @@ import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Professor;
 import io.github.becaErnaneSousa.desafios.repositories.ProfessorRepository;
 import io.github.becaErnaneSousa.desafios.repositories.TurmaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TurmaServiceImpl {
 
-    @Autowired
-    private ProfessorRepository professorRepository;
-
-    @Autowired
-    private TurmaRepository turmaRepository;
+    private final ProfessorRepository professorRepository;
+    private final TurmaRepository turmaRepository;
 
     public TurmaResponse criar(TurmaRequest turmaRequest) {
 

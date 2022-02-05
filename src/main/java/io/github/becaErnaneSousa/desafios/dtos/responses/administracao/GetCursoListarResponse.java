@@ -1,7 +1,13 @@
 package io.github.becaErnaneSousa.desafios.dtos.responses.administracao;
 
 import io.github.becaErnaneSousa.desafios.entities.administracao.Curso;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class GetCursoListarResponse {
 
     private Long id;
@@ -12,19 +18,4 @@ public class GetCursoListarResponse {
         this.setNome(curso.getNome());
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 }

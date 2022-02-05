@@ -1,18 +1,18 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
 import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
-import io.github.becaErnaneSousa.desafios.services.servicesImplements.AtividadeServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.becaErnaneSousa.desafios.servicesimplements.AtividadeServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/atividade")
 public class AtividadeController {
 
-    @Autowired
-    private AtividadeServiceImpl atividadeService;
+    private final AtividadeServiceImpl atividadeService;
 
     @PostMapping
     public ResponseEntity<Atividade> criar(@RequestBody Atividade atividade) {

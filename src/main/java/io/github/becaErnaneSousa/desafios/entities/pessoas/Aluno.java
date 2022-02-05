@@ -1,13 +1,19 @@
 package io.github.becaErnaneSousa.desafios.entities.pessoas;
 
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.AlunoRequest;
 import io.github.becaErnaneSousa.desafios.entities.administracao.Matricula;
 import io.github.becaErnaneSousa.desafios.entities.atividades.Resultado;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Aluno extends Pessoa {
 
     private String nomePai;
@@ -18,40 +24,12 @@ public class Aluno extends Pessoa {
     @OneToMany
     private List<Resultado> listaResultados;
 
-    public Aluno(String nome, String cpf, String endereco, String telefone, String dataNascimento, String nomePai) {
-        super(nome, cpf, endereco, telefone, dataNascimento);
-        this.nomePai = nomePai;
-    }
+    public AlunoRequest converterAlunoMapper(Aluno aluno) {
+        AlunoRequest alunoRequest = new AlunoRequest();
 
-    public Aluno() {
-    }
+        alunoRequest.setNome(aluno.getNome());
 
-    public String getNomePai() {
-        return nomePai;
-    }
-
-    public void setNomePai(String nomePai) {
-        this.nomePai = nomePai;
-    }
-
-    public List<Matricula> getListaMatriculas() {
-        return listaMatriculas;
-    }
-
-    public void setListaMatriculas(List<Matricula> listaMatriculas) {
-        this.listaMatriculas = listaMatriculas;
-    }
-
-    public List<Resultado> getListaResultados() {
-        return listaResultados;
-    }
-
-    public void setListaResultados(List<Resultado> listaResultados) {
-        this.listaResultados = listaResultados;
-    }
-
-    public void consultarAluno() {
-
+        return alunoRequest;
     }
 
 }

@@ -2,54 +2,31 @@ package io.github.becaErnaneSousa.desafios.dtos.requests.administracao;
 
 import io.github.becaErnaneSousa.desafios.entities.administracao.Curso;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CNPJ;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EscolaRequest {
 
+    @NotBlank(message = "{nome.not.blank}")
     private String nome;
+
+    @NotBlank(message = "{endereco.not.blank}")
     private String endereco;
+
+    @CNPJ
     private String cnpj;
+
+    @NotNull(message = "{diretor.not.null}")
     private Diretor diretor;
+
     private List<Curso> listaCursos;
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public Diretor getDiretor() {
-        return diretor;
-    }
-
-    public void setDiretor(Diretor diretor) {
-        this.diretor = diretor;
-    }
-
-    public List<Curso> getListaCursos() {
-        return listaCursos;
-    }
-
-    public void setListaCursos(List<Curso> listaCursos) {
-        this.listaCursos = listaCursos;
-    }
 
 }

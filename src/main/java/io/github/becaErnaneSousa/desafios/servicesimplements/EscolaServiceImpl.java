@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.services.servicesImplements;
+package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.EscolaRequest;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.EscolaResponse;
@@ -8,20 +8,18 @@ import io.github.becaErnaneSousa.desafios.entities.administracao.Escola;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
 import io.github.becaErnaneSousa.desafios.repositories.DiretorRepository;
 import io.github.becaErnaneSousa.desafios.repositories.EscolaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class EscolaServiceImpl {
 
-    @Autowired
-    private DiretorRepository diretorRepository;
-
-    @Autowired
-    private EscolaRepository escolaRepository;
+    private final DiretorRepository diretorRepository;
+    private final EscolaRepository escolaRepository;
 
     public EscolaResponse criar(EscolaRequest escolaRequest) {
 
@@ -29,10 +27,6 @@ public class EscolaServiceImpl {
         escola.setNome(escolaRequest.getNome());
         escola.setEndereco(escolaRequest.getEndereco());
         escola.setCnpj(escolaRequest.getCnpj());
-
-        if( escola.getCnpj().length() == 14 ) {
-            throw new RuntimeException("O CNPJ deve conter 14 caracteres");
-        }
 
         if (escolaRequest.getDiretor() != null) {
 

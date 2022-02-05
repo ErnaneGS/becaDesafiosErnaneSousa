@@ -1,19 +1,19 @@
-package io.github.becaErnaneSousa.desafios.services.servicesImplements;
+package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.ProfessorRequest;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.*;
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Professor;
 import io.github.becaErnaneSousa.desafios.repositories.ProfessorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProfessorServiceImpl {
 
-    @Autowired
-    ProfessorRepository professorRepository;
+    private final ProfessorRepository professorRepository;
 
     public ProfessorResponse criar(ProfessorRequest professorRequest) {
 

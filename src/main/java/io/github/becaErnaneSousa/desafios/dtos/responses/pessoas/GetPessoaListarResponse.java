@@ -1,7 +1,13 @@
 package io.github.becaErnaneSousa.desafios.dtos.responses.pessoas;
 
 import io.github.becaErnaneSousa.desafios.entities.pessoas.Pessoa;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class GetPessoaListarResponse {
 
     private String nome;
@@ -10,22 +16,6 @@ public class GetPessoaListarResponse {
     public GetPessoaListarResponse(Pessoa pessoa) {
         this.setNome(pessoa.getNome());
         this.setDataNascimento(pessoa.getDataNascimento());
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 
 }

@@ -1,4 +1,4 @@
-package io.github.becaErnaneSousa.desafios.services.servicesInterface;
+package io.github.becaErnaneSousa.desafios.servicesinterface;
 
 import java.util.List;
 

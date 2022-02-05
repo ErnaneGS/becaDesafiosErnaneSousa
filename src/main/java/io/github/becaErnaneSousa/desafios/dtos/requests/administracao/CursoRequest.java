@@ -1,44 +1,27 @@
 package io.github.becaErnaneSousa.desafios.dtos.requests.administracao;
 
 import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CursoRequest {
 
+    @NotBlank(message = "{nome.not.blank}")
     private String nome;
+
+    @NotBlank(message = "{descricao.not.blank}")
     private String descricao;
+
+    @Positive(message = "{cargaHoraria.positive}")
     private double cargaHoraria;
+
     private List<Turma> listaTurmas;
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public double getCargaHoraria() {
-        return cargaHoraria;
-    }
-
-    public void setCargaHoraria(double cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
-    }
-
-    public List<Turma> getListaTurmas() {
-        return listaTurmas;
-    }
-
-    public void setListaTurmas(List<Turma> listaTurmas) {
-        this.listaTurmas = listaTurmas;
-    }
 }

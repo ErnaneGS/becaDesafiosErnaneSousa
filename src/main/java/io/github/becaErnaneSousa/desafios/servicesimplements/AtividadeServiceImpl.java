@@ -1,17 +1,17 @@
-package io.github.becaErnaneSousa.desafios.services.servicesImplements;
+package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
 import io.github.becaErnaneSousa.desafios.repositories.AtividadeRepository;
-import io.github.becaErnaneSousa.desafios.services.servicesInterface.ServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.becaErnaneSousa.desafios.servicesinterface.ServiceInterface;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AtividadeServiceImpl implements ServiceInterface<Atividade> {
 
-    @Autowired
-    private AtividadeRepository atividadeRepository;
+    private final AtividadeRepository atividadeRepository;
 
     @Override
     public Atividade criar(Atividade atividade) {
