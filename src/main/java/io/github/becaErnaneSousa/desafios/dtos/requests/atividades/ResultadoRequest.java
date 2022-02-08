@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -13,12 +14,12 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class ResultadoRequest {
 
-    @NotNull(message = "{resultado.not.blank}")
+    @NotBlank(message = "Resultado não pode estar em branco")
     private double resultado;
 
-    @NotNull(message = "{atividade.not.null}")
+    @NotNull(message = "Atividade não pode ser nula")
     private Atividade atividade;
 
-    @NotNull(message = "{aluno.not.null}")
+    @NotNull(message = "Aluno não pode ser nulo")
     private Aluno aluno;
 }

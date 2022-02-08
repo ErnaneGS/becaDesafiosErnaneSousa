@@ -67,10 +67,6 @@ public class DiretorServiceImpl {
     public GetDiretorObterResponse obter(Long id) {
         Diretor diretor = diretorRepository.findById(id).get();
 
-        if(diretor == null) {
-            throw new RuntimeException("Diretor não encontrado!");
-        }
-
         GetDiretorObterResponse getDiretorObterResponse = mapperDiretorToObterDiretorResponse.toObter(diretor);
 
         return getDiretorObterResponse;

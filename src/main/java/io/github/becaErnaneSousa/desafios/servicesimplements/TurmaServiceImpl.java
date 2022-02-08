@@ -72,10 +72,6 @@ public class TurmaServiceImpl {
 
         Turma turma = turmaRepository.findById(id).get();
 
-        if(turma == null) {
-            throw new RuntimeException("Turma não encontrada!");
-        }
-
         GetTurmaObterResponse getTurmaObterResponse = mapperTurmaToTurmaObterResponse.toObter(turma);
 
         return getTurmaObterResponse;

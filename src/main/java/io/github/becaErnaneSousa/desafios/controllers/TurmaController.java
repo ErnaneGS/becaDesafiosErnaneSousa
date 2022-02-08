@@ -26,7 +26,7 @@ public class TurmaController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <TurmaResponse> atualizar(@RequestBody TurmaRequest turmaRequest, @PathVariable Long id) {
+    public ResponseEntity <TurmaResponse> atualizar(@RequestBody @Valid TurmaRequest turmaRequest, @PathVariable Long id) {
         TurmaResponse turmaResponse = turmaService.atualizar(turmaRequest, id);
 
         return ResponseEntity.ok(turmaResponse);

@@ -73,10 +73,6 @@ public class CursoServiceImpl {
 
         Curso curso = cursoRepository.findById(id).get();
 
-        if(curso == null) {
-            throw new RuntimeException("Curso não encontrado!");
-        }
-
         GetCursoObterResponse getCursoObterResponse = mapperCursoToObterCursoResponse.toObter(curso);
 
         return getCursoObterResponse;

@@ -27,14 +27,14 @@ public class ProfessorController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <ProfessorResponse> atualizar(@RequestBody ProfessorRequestPatch professorRequestPatch, @PathVariable Long id) {
+    public ResponseEntity<ProfessorResponse> atualizar(@RequestBody @Valid ProfessorRequestPatch professorRequestPatch, @PathVariable Long id) {
         ProfessorResponse professorResponse = professorService.atualizar(new ProfessorRequestPatch(), id);
 
         return ResponseEntity.ok(professorResponse);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable Long id) {
+    public ResponseEntity<String> deletar(@PathVariable Long id) {
         professorService.deletar(id);
 
         return ResponseEntity.noContent().build();
@@ -48,7 +48,7 @@ public class ProfessorController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <GetProfessorObterResponse> obter(@PathVariable Long id) {
+    public ResponseEntity<GetProfessorObterResponse> obter(@PathVariable Long id) {
         GetProfessorObterResponse getProfessorObterResponse = professorService.obter(id);
 
         return ResponseEntity.ok(getProfessorObterResponse);

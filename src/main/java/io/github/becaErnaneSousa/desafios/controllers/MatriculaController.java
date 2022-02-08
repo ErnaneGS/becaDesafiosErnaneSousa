@@ -27,7 +27,7 @@ public class MatriculaController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <MatriculaResponse> atualizar(@RequestBody MatriculaRequest matriculaRequest, @PathVariable Long id) {
+    public ResponseEntity <MatriculaResponse> atualizar(@RequestBody @Valid MatriculaRequest matriculaRequest, @PathVariable Long id) {
       MatriculaResponse matriculaResponse = matriculaService.atualizar(matriculaRequest, id);
 
       return ResponseEntity.ok(matriculaResponse);

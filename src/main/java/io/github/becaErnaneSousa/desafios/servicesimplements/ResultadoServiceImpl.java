@@ -71,10 +71,6 @@ public class ResultadoServiceImpl {
 
         Resultado resultado = resultadoRepository.findById(id).get();
 
-        if(resultado == null) {
-            throw new RuntimeException("Resultado não encontrado!");
-        }
-
         GetResultadoObterResponse getResultadoObterResponse = mapperResultadoToResultadoObterResponse.toObter(resultado);
 
         return getResultadoObterResponse;

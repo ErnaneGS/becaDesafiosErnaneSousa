@@ -5,23 +5,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AtividadeRequest {
 
-    @NotBlank(message = "{nome.not.blank}")
+    @NotBlank(message = "Nome não pode estar em branco")
     private String nome;
 
-    @NotNull(message = "{descricao.not.null}")
+    @NotBlank(message = "Descrição não pode estar em branco")
     private String descricao;
 
-    @NotNull(message = "{nota.not.null}")
+    @NotBlank(message = "Nota não pode estar em branco")
+    @Min(value = 0, message = "A nota de ve ser maior que zero")
     private double nota;
 
-    @NotNull(message = "{turma.not.mull}")
+    @NotNull(message = "Turma não pode ser nulo")
     private TurmaRequest turma;
 }

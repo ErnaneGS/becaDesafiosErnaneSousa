@@ -8,8 +8,9 @@ import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoObterRe
 import io.github.becaErnaneSousa.desafios.servicesimplements.AlunoServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,21 +21,21 @@ public class AlunoController {
     private final AlunoServiceImpl alunoService;
 
     @PostMapping
-    public ResponseEntity<AlunoResponse> criar(@RequestBody @Validated AlunoRequest alunoRequest) {
+    public ResponseEntity<AlunoResponse> criar(@RequestBody @Valid AlunoRequest alunoRequest) {
         AlunoResponse alunoResponse = alunoService.criar(alunoRequest);
 
         return ResponseEntity.created(null).body(alunoResponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <AlunoResponse> atualizar(@RequestBody AlunoRequestPatch alunoRequestPatch, @PathVariable Long id) {
+    public ResponseEntity<AlunoResponse> atualizar(@RequestBody @Valid AlunoRequestPatch alunoRequestPatch, @PathVariable Long id) {
         AlunoResponse alunoResponse = alunoService.atualizar(alunoRequestPatch, id);
 
         return ResponseEntity.ok(alunoResponse);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable Long id) {
+    public ResponseEntity<String> deletar(@PathVariable Long id) {
         alunoService.deletar(id);
 
         return ResponseEntity.noContent().build();

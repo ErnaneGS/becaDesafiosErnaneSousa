@@ -7,19 +7,21 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MatriculaRequest {
 
-    @NotBlank(message = "{dataInicio.not.blank}")
+    @NotBlank(message = "Data não pode estar em branco")
+    @Size(min = 8, max = 8, message = "Data deve possuir 8 caracteres (XX/YY/ZZZZ)")
     private String data;
 
-    @NotNull(message = "{aluno.not.mull}")
+    @NotNull(message = "Aluno não pode ser nulo")
     private AlunoRequest aluno;
 
-    @NotNull(message = "{turma.not.mull}")
+    @NotNull(message = "Turma não pode ser nula")
     private TurmaRequest turma;
 
 }

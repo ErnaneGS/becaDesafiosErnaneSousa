@@ -26,14 +26,14 @@ public class DiretorController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <DiretorResponse> atualizar(@RequestBody DiretorRequestPatch diretorRequestPatch, @PathVariable Long id) {
+    public ResponseEntity<DiretorResponse> atualizar(@RequestBody @Valid DiretorRequestPatch diretorRequestPatch, @PathVariable Long id) {
         DiretorResponse diretorResponse = diretorService.atualizar(diretorRequestPatch, id);
 
         return ResponseEntity.ok(diretorResponse);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity <String> deletar(@PathVariable Long id) {
+    public ResponseEntity<String> deletar(@PathVariable Long id) {
         diretorService.deletar(id);
 
         return ResponseEntity.noContent().build();
@@ -48,7 +48,7 @@ public class DiretorController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <GetDiretorObterResponse> obter(@PathVariable Long id) {
+    public ResponseEntity<GetDiretorObterResponse> obter(@PathVariable Long id) {
         GetDiretorObterResponse getDiretorObterResponse = diretorService.obter(id);
 
         return ResponseEntity.ok(getDiretorObterResponse);

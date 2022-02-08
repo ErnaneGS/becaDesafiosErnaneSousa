@@ -68,10 +68,6 @@ public class AtividadeServiceImpl {
     public GetAtividadeObterResponse obter(Long id) {
         Atividade atividade = atividadeRepository.findById(id).get();
 
-        if(atividade == null) {
-            throw new RuntimeException("Atividade não encontrada!");
-        }
-
         GetAtividadeObterResponse getAtividadeObterResponse = mapperAtividadeToObterAtividadeResponse.toObter(atividade);
 
         return getAtividadeObterResponse;

@@ -4,8 +4,8 @@ import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.ProfessorRequest
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -14,22 +14,26 @@ public class TurmaRequest {
 
     private Long id;
 
-    @NotBlank(message = "{nome.not.blank}")
+    @NotBlank(message = "Nome não pode estar em branco")
     private String nome;
 
-    @NotNull(message = "{quantidadeAluno.not.mull}")
+    @NotBlank(message = "Quantidade de aluno não pode estar em branco")
+    @Min(value = 2, message = "Quantidade de aluno na turma deve ser maior que zero")
+    @Max(value = 20, message = "Quantidade de aluno na turma deve ser menor igual a 20")
     private int quantidadeAluno;
 
-    @NotBlank(message = "{dataInicio.not.blank}")
+    @NotBlank(message = "Data não pode estar em branco")
+    @Size(min = 8, max = 8, message = "Data deve possuir 8 caracteres (XX/YY/ZZZZ)")
     private String dataInicio;
 
-    @NotBlank(message = "{dataFim.not.blank}")
+    @NotBlank(message = "Data não pode estar em branco")
+    @Size(min = 8, max = 8, message = "Data deve possuir 8 caracteres (XX/YY/ZZZZ)")
     private String dataFim;
 
-    @NotNull(message = "{professor.not.mull}")
+    @NotNull(message = "Profrsssor não pode ser nulo")
     private ProfessorRequest professor;
 
-    @NotNull(message = "{curso.not.mull}")
+    @NotNull(message = "Curso não pode ser nulo")
     private CursoRequest curso;
 
 }

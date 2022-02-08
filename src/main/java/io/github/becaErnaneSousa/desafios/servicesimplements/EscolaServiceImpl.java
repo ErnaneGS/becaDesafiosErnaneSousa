@@ -70,10 +70,6 @@ public class EscolaServiceImpl {
     public GetEscolaObterResponse obter(Long id) {
         Escola escola = escolaRepository.findById(id).get();
 
-        if(escola == null) {
-            throw new RuntimeException("Escola não encontrada!");
-        }
-
         GetEscolaObterResponse getEscolaObterResponse = mapperEscolaToEscolaObterResponse.toObter(escola);
 
         return getEscolaObterResponse;

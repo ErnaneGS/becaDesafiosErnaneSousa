@@ -68,10 +68,6 @@ public class MatriculaServiceImpl {
     public GetMatriculaObterResponse obter(Long id) {
         Matricula matricula = matriculaRepository.findById(id).get();
 
-        if(matricula == null) {
-            throw new RuntimeException("Matricula não encontrada!");
-        }
-
         GetMatriculaObterResponse getMatriculaObterResponse = mapperMatriculaToMatriculaObterResponse.toObter(matricula);
 
         return new GetMatriculaObterResponse();

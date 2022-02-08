@@ -71,10 +71,6 @@ public class AlunoServiceImpl {
 
         Aluno aluno = alunoRepository.findById(id).get();
 
-        if(aluno == null) {
-            throw new RuntimeException("Aluno não encontrado!");
-        }
-
         GetAlunoObterResponse getAlunoObterResponse = mapperAlunoToObterAlunoResponse.toObter(aluno);
 
         return getAlunoObterResponse;

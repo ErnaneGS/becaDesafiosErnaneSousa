@@ -16,24 +16,25 @@ public class ProfessorRequest{
 
     private Long id;
 
-    @NotNull(message = "{nome.not.blank}")
+    @NotBlank(message = "Nome não pode estar em branco")
     private String nome;
 
     @CPF
+    @NotBlank(message = "CPF não pode estar em branco")
     private String cpf;
 
-    @NotBlank(message = "{endereco.not.blank}")
+    @NotBlank(message = "Endereço não pode estar em branco")
     private String endereco;
 
-    @NotNull
-    @Size(min = 11, max = 11)
+    @NotBlank(message = "Telefone não pode estar em branco")
+    @Size(min = 11, max = 11, message = "Telefone deve possuir 11 dígitos.")
     private String telefone;
 
-    @NotNull
-    @Size(min = 8, max = 8)
+    @NotBlank(message = "Data de nascimento não pode estar en branco")
+    @Size(min = 8, max = 8, message = "Data de nascimento deve possuir 8 caracteres (XX/YY/ZZZZ)")
     private String dataNascimento;
 
-    @NotBlank(message = "{especialidade.not.blank}")
+    @NotBlank(message = "Especialidade não pode estar em branco")
     String especialidade;
 
 }

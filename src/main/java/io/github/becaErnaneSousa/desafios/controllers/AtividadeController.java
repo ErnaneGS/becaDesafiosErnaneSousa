@@ -27,7 +27,7 @@ public class AtividadeController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <AtividadeResponse> atualizar(@RequestBody AtividadeRequest atividadeRequest, @PathVariable Long id) {
+    public ResponseEntity <AtividadeResponse> atualizar(@RequestBody @Valid AtividadeRequest atividadeRequest, @PathVariable Long id) {
         AtividadeResponse atividadeResponse = atividadeService.atualizar(atividadeRequest, id);
 
         return ResponseEntity.ok(atividadeResponse);

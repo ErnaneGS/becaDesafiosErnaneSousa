@@ -15,16 +15,17 @@ import java.util.List;
 @AllArgsConstructor
 public class EscolaRequest {
 
-    @NotBlank(message = "{nome.not.blank}")
+    @NotBlank(message = "Nome não pode estar em branco")
     private String nome;
 
-    @NotBlank(message = "{endereco.not.blank}")
+    @NotBlank(message = "Endereço não pode estar em branco")
     private String endereco;
 
     @CNPJ
+    @NotBlank(message = "CNPJ não pode estar em branco")
     private String cnpj;
 
-    @NotNull(message = "{diretor.not.null}")
+    @NotNull(message = "Diretor não pode ser nulo")
     private DiretorRequest diretor;
 
     private List<Curso> listaCursos;

@@ -14,13 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 public class CursoRequestPatch {
 
-    @NotBlank(message = "{nome.not.blank}")
+    @NotBlank(message = "Nome não pode estar em branco")
     private String nome;
 
-    @NotBlank(message = "{descricao.not.blank}")
+    @NotBlank(message = "Descrição não pode estar em branco")
     private String descricao;
 
-    @Positive(message = "{cargaHoraria.positive}")
+    @Positive(message = "Carga horária deve ser positiva")
     private double cargaHoraria;
 
     private List<Turma> listaTurmas;

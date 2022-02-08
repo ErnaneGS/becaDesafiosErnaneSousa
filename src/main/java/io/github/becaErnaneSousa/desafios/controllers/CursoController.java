@@ -27,7 +27,7 @@ public class CursoController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <CursoResponse> atualizar(@RequestBody CursoRequestPatch cursoRequestPatch, @PathVariable Long id) {
+    public ResponseEntity <CursoResponse> atualizar(@RequestBody @Valid CursoRequestPatch cursoRequestPatch, @PathVariable Long id) {
         CursoResponse cursoResponse = cursoService.atualizar(cursoRequestPatch, id);
 
         return ResponseEntity.ok(cursoResponse);

@@ -26,7 +26,7 @@ public class ResultadoController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <ResultadoResponse> atualizar(@RequestBody ResultadoRequest resultadoRequest, @PathVariable Long id) {
+    public ResponseEntity <ResultadoResponse> atualizar(@RequestBody @Valid ResultadoRequest resultadoRequest, @PathVariable Long id) {
         ResultadoResponse resultadoResponse = resultadoService.atualizar(resultadoRequest, id);
 
         return ResponseEntity.ok(resultadoResponse);

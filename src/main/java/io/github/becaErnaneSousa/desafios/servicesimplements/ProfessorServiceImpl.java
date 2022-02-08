@@ -71,10 +71,6 @@ public class ProfessorServiceImpl {
 
         Professor professor = professorRepository.findById(id).get();
 
-        if(professor == null) {
-            throw new RuntimeException("Professor não encontrado!");
-        }
-
         GetProfessorObterResponse getProfessorObterResponse = mapperProfessorToProfessorObterResponse.toObter(professor);
 
         return getProfessorObterResponse;
