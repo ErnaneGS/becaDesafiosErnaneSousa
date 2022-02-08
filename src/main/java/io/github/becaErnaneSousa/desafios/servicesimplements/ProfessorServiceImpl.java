@@ -1,6 +1,7 @@
 package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.ProfessorRequest;
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.ProfessorRequestPatch;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.*;
 import io.github.becaErnaneSousa.desafios.domains.pessoas.Professor;
 import io.github.becaErnaneSousa.desafios.mappers.*;
@@ -35,11 +36,11 @@ public class ProfessorServiceImpl {
 
     }
 
-    public ProfessorResponse atualizar(ProfessorRequest professorRequest, Long id) {
+    public ProfessorResponse atualizar(ProfessorRequestPatch professorRequestPatch, Long id) {
 
         Professor professor = professorRepository.findById(id).get();
 
-        mapperProfessorAtualizar.atualizar(professorRequest, professor);
+        mapperProfessorAtualizar.atualizar(professorRequestPatch, professor);
 
         professorRepository.save(professor);
 

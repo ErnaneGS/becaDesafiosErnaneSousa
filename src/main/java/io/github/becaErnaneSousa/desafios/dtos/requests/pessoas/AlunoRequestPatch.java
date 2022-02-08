@@ -10,11 +10,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class DiretorRequest  {
-
-    private Long id;
+@AllArgsConstructor
+public class AlunoRequestPatch {
 
     @NotNull(message = "{nome.not.blank}")
     private String nome;
@@ -33,4 +31,6 @@ public class DiretorRequest  {
     @Size(min = 8, max = 8)
     private String dataNascimento;
 
+    @NotBlank(message = "{nomePai.not.blank}")
+    private String nomePai;
 }

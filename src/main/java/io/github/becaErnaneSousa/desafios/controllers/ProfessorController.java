@@ -1,6 +1,7 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.ProfessorRequest;
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.ProfessorRequestPatch;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetProfessorListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetProfessorObterResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.ProfessorResponse;
@@ -26,8 +27,8 @@ public class ProfessorController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <ProfessorResponse> atualizar(@RequestBody ProfessorRequest professorRequest, @PathVariable Long id) {
-        ProfessorResponse professorResponse = professorService.atualizar(professorRequest, id);
+    public ResponseEntity <ProfessorResponse> atualizar(@RequestBody ProfessorRequestPatch professorRequestPatch, @PathVariable Long id) {
+        ProfessorResponse professorResponse = professorService.atualizar(new ProfessorRequestPatch(), id);
 
         return ResponseEntity.ok(professorResponse);
     }

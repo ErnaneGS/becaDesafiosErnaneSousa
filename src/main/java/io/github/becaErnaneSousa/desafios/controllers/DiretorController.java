@@ -1,6 +1,7 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.DiretorRequest;
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.DiretorRequestPatch;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.*;
 import io.github.becaErnaneSousa.desafios.servicesimplements.DiretorServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class DiretorController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <DiretorResponse> atualizar(@Valid @RequestBody DiretorRequest diretorRequest, @PathVariable Long id) {
-        DiretorResponse diretorResponse = diretorService.atualizar(diretorRequest, id);
+    public ResponseEntity <DiretorResponse> atualizar(@RequestBody DiretorRequestPatch diretorRequestPatch, @PathVariable Long id) {
+        DiretorResponse diretorResponse = diretorService.atualizar(diretorRequestPatch, id);
 
         return ResponseEntity.ok(diretorResponse);
     }

@@ -1,6 +1,7 @@
 package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.CursoRequest;
+import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.CursoRequestPatch;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.CursoResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetCursoListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetCursoObterResponse;
@@ -38,11 +39,11 @@ public class CursoServiceImpl {
 
     }
 
-    public CursoResponse atualizar(CursoRequest cursoRequest, Long id) {
+    public CursoResponse atualizar(CursoRequestPatch cursoRequestPatch, Long id) {
 
         Curso curso = cursoRepository.findById(id).get();
 
-        mapperCursoAtualizar.atualizar(cursoRequest, curso);
+        mapperCursoAtualizar.atualizar(cursoRequestPatch, curso);
 
         cursoRepository.save(curso);
 

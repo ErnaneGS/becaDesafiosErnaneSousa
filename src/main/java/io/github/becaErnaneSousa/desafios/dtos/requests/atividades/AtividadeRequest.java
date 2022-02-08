@@ -1,5 +1,6 @@
 package io.github.becaErnaneSousa.desafios.dtos.requests.atividades;
 
+import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.TurmaRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,7 @@ public class AtividadeRequest {
 
     @NotNull(message = "{nota.not.null}")
     private double nota;
+
+    @NotNull(message = "{turma.not.mull}")
+    private TurmaRequest turma;
 }

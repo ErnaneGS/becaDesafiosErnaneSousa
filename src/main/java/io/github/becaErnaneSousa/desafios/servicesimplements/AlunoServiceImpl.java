@@ -1,6 +1,7 @@
 package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.AlunoRequest;
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.AlunoRequestPatch;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.AlunoResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoObterResponse;
@@ -36,11 +37,11 @@ public class AlunoServiceImpl {
         return alunoResponse;
     }
 
-    public AlunoResponse atualizar(AlunoRequest alunoRequest, Long id) {
+    public AlunoResponse atualizar(AlunoRequestPatch alunoRequestPatch, Long id) {
 
         Aluno aluno = alunoRepository.findById(id).get();
 
-        mapperAlunoAtualizar.atualizar(alunoRequest, aluno);
+        mapperAlunoAtualizar.atualizar(alunoRequestPatch, aluno);
 
         alunoRepository.save(aluno);
 

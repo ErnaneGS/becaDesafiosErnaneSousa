@@ -1,6 +1,7 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.CursoRequest;
+import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.CursoRequestPatch;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.CursoResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetCursoListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetCursoObterResponse;
@@ -26,8 +27,8 @@ public class CursoController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <CursoResponse> atualizar(@RequestBody CursoRequest cursoRequest, @PathVariable Long id) {
-        CursoResponse cursoResponse = cursoService.atualizar(cursoRequest, id);
+    public ResponseEntity <CursoResponse> atualizar(@RequestBody CursoRequestPatch cursoRequestPatch, @PathVariable Long id) {
+        CursoResponse cursoResponse = cursoService.atualizar(cursoRequestPatch, id);
 
         return ResponseEntity.ok(cursoResponse);
     }

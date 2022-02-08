@@ -12,9 +12,7 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DiretorRequest  {
-
-    private Long id;
+public class DiretorRequestPatch {
 
     @NotNull(message = "{nome.not.blank}")
     private String nome;

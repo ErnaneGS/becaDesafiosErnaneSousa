@@ -1,5 +1,6 @@
 package io.github.becaErnaneSousa.desafios.dtos.responses.atividades;
 
+import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.TurmaRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,6 @@ public class GetAtividadeObterResponse {
     private String nome;
     private String descricao;
     private double nota;
+    private TurmaRequest turma;
 
 }

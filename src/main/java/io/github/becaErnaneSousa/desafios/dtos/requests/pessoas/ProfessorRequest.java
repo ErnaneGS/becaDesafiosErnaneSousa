@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class ProfessorRequest{
 
-//    private Long id;
+    private Long id;
 
     @NotNull(message = "{nome.not.blank}")
     private String nome;

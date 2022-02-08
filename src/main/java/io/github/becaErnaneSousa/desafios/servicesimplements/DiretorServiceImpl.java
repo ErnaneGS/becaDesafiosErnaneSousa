@@ -1,6 +1,7 @@
 package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.DiretorRequest;
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.DiretorRequestPatch;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.*;
 import io.github.becaErnaneSousa.desafios.domains.pessoas.Diretor;
 import io.github.becaErnaneSousa.desafios.mappers.*;
@@ -34,11 +35,11 @@ public class DiretorServiceImpl {
         return diretorResponse;
     }
 
-    public DiretorResponse atualizar(DiretorRequest diretorRequest, Long id) {
+    public DiretorResponse atualizar(DiretorRequestPatch diretorRequestPatch, Long id) {
 
         Diretor diretor = diretorRepository.findById(id).get();
 
-        mapperDiretorAtualizar.atualizar(diretorRequest, diretor);
+        mapperDiretorAtualizar.atualizar(diretorRequestPatch, diretor);
 
         diretorRepository.save(diretor);
 

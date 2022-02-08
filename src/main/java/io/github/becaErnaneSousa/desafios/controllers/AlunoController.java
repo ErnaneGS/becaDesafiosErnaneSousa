@@ -1,6 +1,7 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.AlunoRequest;
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.AlunoRequestPatch;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.AlunoResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoObterResponse;
@@ -26,8 +27,8 @@ public class AlunoController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <AlunoResponse> atualizar(@RequestBody AlunoRequest alunoRequest, @PathVariable Long id) {
-        AlunoResponse alunoResponse = alunoService.atualizar(alunoRequest, id);
+    public ResponseEntity <AlunoResponse> atualizar(@RequestBody AlunoRequestPatch alunoRequestPatch, @PathVariable Long id) {
+        AlunoResponse alunoResponse = alunoService.atualizar(alunoRequestPatch, id);
 
         return ResponseEntity.ok(alunoResponse);
     }
