@@ -42,12 +42,18 @@ notas e resultados de cada aluno e sua respectiva turma.
 3) Fazer um relacionamento de tabelas na API
 4) Criar um novo end-point para retornar um DTO personalizado, agrupamento de várias informações em diferentes tabelas da base de dados
 	
-+ Desafio 05 -- Disponível na branch desafioSeis (Entregue 04/02/2021 ✅ OBS. Ainda implementando melhorias ⚠️)
++ Desafio 06 -- Disponível na branch desafioSeis (Entregue 04/02/2021 ✅)
 1) Criar uma nova branch com o nome “desafio6”, a partir da branch “main” como base, atualizar todas as modificações feitas na  api nesta banch no documento README.md
 2) Adicionar validação de dados na API
 3) Adicionar Mapper na aplicação para conversão de objetos
 4) Implementar Lombok
 
++ Desafio 07 -- Disponível na branch desafioSete (Entregue 08/02/2021 ✅)
+1) Criar uma nova branch com o nome “desafio7”, a partir da branch “main” como base, atualizar todas as modificações feitas na  api nesta banch no documento README.md
+2) Fazer o tratamento das exception utilizando try catch e si necessário finally
+3) Fazer o tratamento utilizando throw e @ExceptionHandler
+4) Aproveitando o método criado com @ExceptionHandler criar a classe para tratamento de exceptions utilizando @ControllerAdvice
+5) Realizar novos testes, verificar o resultado final e escreva conclusão sobre exceptions
 
 ## Diagrama:
 ![Untitled Diagram](https://user-images.githubusercontent.com/97994560/151408488-1300c44b-4d83-466f-9388-3bf805dd7a99.jpg)
