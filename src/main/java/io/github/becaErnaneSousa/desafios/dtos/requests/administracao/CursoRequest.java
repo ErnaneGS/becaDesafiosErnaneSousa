@@ -1,6 +1,6 @@
 package io.github.becaErnaneSousa.desafios.dtos.requests.administracao;
 
-import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
+import io.github.becaErnaneSousa.desafios.domains.administracao.Turma;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CursoRequest {
+
+//    private Long id;
 
     @NotBlank(message = "{nome.not.blank}")
     private String nome;

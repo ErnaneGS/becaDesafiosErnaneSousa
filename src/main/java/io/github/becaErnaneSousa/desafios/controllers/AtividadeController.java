@@ -1,10 +1,15 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
+import io.github.becaErnaneSousa.desafios.dtos.requests.atividades.AtividadeRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.atividades.AtividadeResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.atividades.GetAtividadeListarResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.atividades.GetAtividadeObterResponse;
 import io.github.becaErnaneSousa.desafios.servicesimplements.AtividadeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,17 +20,17 @@ public class AtividadeController {
     private final AtividadeServiceImpl atividadeService;
 
     @PostMapping
-    public ResponseEntity<Atividade> criar(@RequestBody Atividade atividade) {
-        Atividade atividadeCriada = atividadeService.criar(atividade);
+    public ResponseEntity<AtividadeResponse> criar(@RequestBody  @Valid AtividadeRequest atividadeRequest) {
+        AtividadeResponse atividadeResponse = atividadeService.criar(atividadeRequest);
 
-        return ResponseEntity.created(null).body(atividadeCriada);
+        return ResponseEntity.created(null).body(atividadeResponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Atividade> atualizar(@RequestBody Atividade atividade, @PathVariable Long id) {
-        Atividade atividadeAtualizada = atividadeService.atualizar(atividade, id);
+    public ResponseEntity <AtividadeResponse> atualizar(@RequestBody AtividadeRequest atividadeRequest, @PathVariable Long id) {
+        AtividadeResponse atividadeResponse = atividadeService.atualizar(atividadeRequest, id);
 
-        return ResponseEntity.ok(atividadeAtualizada);
+        return ResponseEntity.ok(atividadeResponse);
     }
 
     @DeleteMapping("{id}")
@@ -36,16 +41,16 @@ public class AtividadeController {
     }
 
     @GetMapping
-    public ResponseEntity <List<Atividade>> listar() {
-        List<Atividade> listaAtividades = atividadeService.listar();
+    public ResponseEntity <List<GetAtividadeListarResponse>> listar() {
+        List<GetAtividadeListarResponse> getAtividadeListarResponses = atividadeService.listar();
 
-        return ResponseEntity.ok(listaAtividades);
+        return ResponseEntity.ok(getAtividadeListarResponses);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Atividade> obter(@PathVariable Long id) {
-        Atividade atividadeObtida = atividadeService.obter(id);
+    public ResponseEntity <GetAtividadeObterResponse> obter(@PathVariable Long id) {
+        GetAtividadeObterResponse getAtividadeObterResponse = atividadeService.obter(id);
 
-        return ResponseEntity.ok(atividadeObtida);
+        return ResponseEntity.ok(getAtividadeObterResponse);
     }
 }

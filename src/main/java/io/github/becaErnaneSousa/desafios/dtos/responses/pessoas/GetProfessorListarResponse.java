@@ -1,14 +1,20 @@
 package io.github.becaErnaneSousa.desafios.dtos.responses.pessoas;
 
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Pessoa;
+import io.github.becaErnaneSousa.desafios.domains.pessoas.Professor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-public class GetProfessorListarResponse extends GetPessoaListarResponse {
+@AllArgsConstructor
+@NoArgsConstructor
+public class GetProfessorListarResponse {
 
-    public GetProfessorListarResponse(Pessoa pessoa) {
-        super(pessoa);
+    private String nome;
+    private String dataNascimento;
+
+    public GetProfessorListarResponse(Professor professor) {
+        this.setNome(professor.getNome());
+        this.setDataNascimento(professor.getDataNascimento());
     }
 }

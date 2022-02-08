@@ -8,7 +8,6 @@ import io.github.becaErnaneSousa.desafios.servicesimplements.ProfessorServiceImp
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class ProfessorController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <ProfessorResponse> atualizar(@RequestBody @Valid ProfessorRequest professorRequest, @PathVariable Long id) {
+    public ResponseEntity <ProfessorResponse> atualizar(@RequestBody ProfessorRequest professorRequest, @PathVariable Long id) {
         ProfessorResponse professorResponse = professorService.atualizar(professorRequest, id);
 
         return ResponseEntity.ok(professorResponse);

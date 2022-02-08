@@ -1,77 +1,79 @@
 package io.github.becaErnaneSousa.desafios.servicesimplements;
 
-import io.github.becaErnaneSousa.desafios.entities.administracao.Matricula;
-import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
-import io.github.becaErnaneSousa.desafios.repositories.AlunoRepository;
+import io.github.becaErnaneSousa.desafios.domains.administracao.Matricula;
+import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.MatriculaRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.*;
+import io.github.becaErnaneSousa.desafios.mappers.*;
 import io.github.becaErnaneSousa.desafios.repositories.MatriculaRepository;
-import io.github.becaErnaneSousa.desafios.repositories.TurmaRepository;
-import io.github.becaErnaneSousa.desafios.servicesinterface.ServiceInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class MatriculaServiceImpl implements ServiceInterface<Matricula> {
+public class MatriculaServiceImpl {
 
-    private final TurmaRepository turmaRepository;
-    private final AlunoRepository alunoRepository;
     private final MatriculaRepository matriculaRepository;
+    private final MapperMatriculaToMatriculaResponse mapperMatriculaToMatriculaResponse;
+    private final MapperMatriculaRequestToMatricula mapperMatriculaRequestToMatricula;
+    private final MapperMatriculaAtualizar mapperMatriculaAtualizar;
+    private final MapperMatriculaToMatriculaListarResponse mapperMatriculaToMatriculaListarResponse;
+    private final MapperMatriculaToMatriculaObterResponse mapperMatriculaToMatriculaObterResponse;
 
-    @Override
-    public Matricula criar(Matricula matricula) {
 
-        Turma turmaObtida = turmaRepository.findById(matricula.getTurma().getId()).get();
-        matricula.setTurma(turmaObtida);
+    public MatriculaResponse criar(MatriculaRequest matriculaRequest) {
 
-        Aluno alunoObtido = alunoRepository.findById(matricula.getAluno().getId()).get();
-        matricula.setAluno(alunoObtido);
+        Matricula matricula = mapperMatriculaRequestToMatricula.toMOdel(matriculaRequest);
 
-        Matricula matriculaSalva = matriculaRepository.save(matricula);
+        matriculaRepository.save(matricula);
 
-        return matriculaSalva;
+        MatriculaResponse matriculaResponse = mapperMatriculaToMatriculaResponse.toResponse(matricula);
+
+        matriculaResponse.setMensagem("Matricula criada com sucesso!!!");
+
+        return matriculaResponse;
 
     }
 
-    @Override
-    public Matricula atualizar(Matricula matricula, Long id) {
+    public MatriculaResponse atualizar(MatriculaRequest matriculaRequest, Long id) {
 
-        Matricula matriculaObtida = this.obter(id);
-        matriculaObtida.setData(matricula.getData());
-        matriculaObtida.setStatus(matricula.isStatus());
+        Matricula matricula = matriculaRepository.findById(id).get();
 
-        Turma turmaObtida = turmaRepository.findById(matricula.getTurma().getId()).get();
-        matricula.setTurma(turmaObtida);
+        mapperMatriculaAtualizar.atualizar(matriculaRequest, matricula);
 
-        Aluno alunoObtido = alunoRepository.findById(matricula.getAluno().getId()).get();
-        matricula.setAluno(alunoObtido);
+        matriculaRepository.save(matricula);
 
-        Matricula matricuObtida = matriculaRepository.save(matricula);
+        MatriculaResponse matriculaResponse = mapperMatriculaToMatriculaResponse.toResponse(matricula);
 
-        matriculaRepository.save(matriculaObtida);
+        matriculaResponse.setMensagem("Matricula atualizada com sucesso!!!");
 
-        return matricula;
+        return matriculaResponse;
+
     }
 
-    @Override
     public void deletar(Long id) {
         matriculaRepository.deleteById(id);
     }
 
-    @Override
-    public List<Matricula> listar() {
+    public List<GetMatriculaListarResponse> listar() {
+        List<Matricula> listaMatriculas = matriculaRepository.findAll();
 
-        List<Matricula> listaMatricula = matriculaRepository.findAll();
-
-        return listaMatricula;
+        return listaMatriculas
+                .stream()
+                .map(mapperMatriculaToMatriculaListarResponse::toListar)
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public Matricula obter(Long id) {
+    public GetMatriculaObterResponse obter(Long id) {
         Matricula matricula = matriculaRepository.findById(id).get();
 
-        return matricula;
-    }
+        if(matricula == null) {
+            throw new RuntimeException("Matricula não encontrada!");
+        }
 
+        GetMatriculaObterResponse getMatriculaObterResponse = mapperMatriculaToMatriculaObterResponse.toObter(matricula);
+
+        return new GetMatriculaObterResponse();
+    }
 }

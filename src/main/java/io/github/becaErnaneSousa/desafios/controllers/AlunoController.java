@@ -7,9 +7,8 @@ import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoObterRe
 import io.github.becaErnaneSousa.desafios.servicesimplements.AlunoServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,14 +19,14 @@ public class AlunoController {
     private final AlunoServiceImpl alunoService;
 
     @PostMapping
-    public ResponseEntity<AlunoResponse> criar(@RequestBody @Valid AlunoRequest alunoRequest) {
+    public ResponseEntity<AlunoResponse> criar(@RequestBody @Validated AlunoRequest alunoRequest) {
         AlunoResponse alunoResponse = alunoService.criar(alunoRequest);
 
         return ResponseEntity.created(null).body(alunoResponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <AlunoResponse> atualizar(@RequestBody @Valid AlunoRequest alunoRequest, @PathVariable Long id) {
+    public ResponseEntity <AlunoResponse> atualizar(@RequestBody AlunoRequest alunoRequest, @PathVariable Long id) {
         AlunoResponse alunoResponse = alunoService.atualizar(alunoRequest, id);
 
         return ResponseEntity.ok(alunoResponse);
@@ -48,7 +47,7 @@ public class AlunoController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <GetAlunoObterResponse> obter(@PathVariable Long id) {
+    public ResponseEntity<GetAlunoObterResponse> obter(@PathVariable Long id) {
         GetAlunoObterResponse getAlunoObterResponse = alunoService.obter(id);
 
         return ResponseEntity.ok(getAlunoObterResponse);

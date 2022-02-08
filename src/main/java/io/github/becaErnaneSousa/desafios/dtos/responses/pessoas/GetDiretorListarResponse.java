@@ -1,12 +1,21 @@
 package io.github.becaErnaneSousa.desafios.dtos.responses.pessoas;
 
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Pessoa;
+import io.github.becaErnaneSousa.desafios.domains.pessoas.Diretor;
+import io.github.becaErnaneSousa.desafios.domains.pessoas.Pessoa;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class GetDiretorListarResponse extends GetPessoaListarResponse{
+@AllArgsConstructor
+@NoArgsConstructor
+public class GetDiretorListarResponse {
 
-    public GetDiretorListarResponse(Pessoa pessoa) {
-        super(pessoa);
+    private String nome;
+    private String dataNascimento;
+
+    public GetDiretorListarResponse(Diretor diretor) {
+        this.setNome(diretor.getNome());
+        this.setDataNascimento(diretor.getDataNascimento());
     }
 }

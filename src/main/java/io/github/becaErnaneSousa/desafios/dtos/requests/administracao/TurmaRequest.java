@@ -1,40 +1,35 @@
 package io.github.becaErnaneSousa.desafios.dtos.requests.administracao;
 
-import io.github.becaErnaneSousa.desafios.entities.administracao.Matricula;
-import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Professor;
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.ProfessorRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.validation.constraints.*;
-import java.util.Date;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class TurmaRequest {
+
+    private Long id;
 
     @NotBlank(message = "{nome.not.blank}")
     private String nome;
 
-    @Positive(message = "{quantidadeAluno.positive}")
+    @NotNull(message = "{quantidadeAluno.not.mull}")
     private int quantidadeAluno;
 
-    @Past(message = "{dataInicio.past}")
-    private Date dataInicio;
+    @NotBlank(message = "{dataInicio.not.blank}")
+    private String dataInicio;
 
-    @Past(message = "{dataInicio.future}")
-    private Date dataFim;
+    @NotBlank(message = "{dataFim.not.blank}")
+    private String dataFim;
 
-    @NotBlank(message = "{status.not.blank}")
-    private boolean status;
+    @NotNull(message = "{professor.not.mull}")
+    private ProfessorRequest professor;
 
-    @NotNull(message = "{professor.not.null}")
-    private Professor professor;
-
-    private List<Matricula> listaMatriculas;
-
-    private List<Atividade> listaAtividades;
+    @NotNull(message = "{curso.not.mull}")
+    private CursoRequest curso;
 
 }

@@ -1,6 +1,6 @@
 package io.github.becaErnaneSousa.desafios.dtos.responses.administracao;
 
-import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
+import io.github.becaErnaneSousa.desafios.domains.administracao.Turma;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

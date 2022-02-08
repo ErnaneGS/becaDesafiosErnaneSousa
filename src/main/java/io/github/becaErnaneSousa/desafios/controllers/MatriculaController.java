@@ -1,6 +1,9 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entities.administracao.Matricula;
+import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.MatriculaRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetMatriculaListarResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetMatriculaObterResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.MatriculaResponse;
 import io.github.becaErnaneSousa.desafios.servicesimplements.MatriculaServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +20,17 @@ public class MatriculaController {
     private final MatriculaServiceImpl matriculaService;
 
     @PostMapping
-    public ResponseEntity<Matricula> criar(@RequestBody @Valid Matricula matricula) {
-        Matricula matriculaCriada = matriculaService.criar(matricula);
+    public ResponseEntity<MatriculaResponse> criar(@RequestBody @Valid MatriculaRequest matriculaRequest) {
+        MatriculaResponse matriculaResponse = matriculaService.criar(matriculaRequest);
 
-        return ResponseEntity.created(null).body(matriculaCriada);
+        return ResponseEntity.created(null).body(matriculaResponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Matricula> atualizar(@RequestBody @Valid Matricula matricula, @PathVariable Long id) {
-      Matricula matriculaAtualizada = matriculaService.atualizar(matricula, id);
+    public ResponseEntity <MatriculaResponse> atualizar(@RequestBody MatriculaRequest matriculaRequest, @PathVariable Long id) {
+      MatriculaResponse matriculaResponse = matriculaService.atualizar(matriculaRequest, id);
 
-      return ResponseEntity.ok(matriculaAtualizada);
+      return ResponseEntity.ok(matriculaResponse);
     }
 
     @DeleteMapping("{id}")
@@ -38,16 +41,16 @@ public class MatriculaController {
     }
 
     @GetMapping
-    public ResponseEntity <List> listar() {
-        List<Matricula> listaMatriculas = matriculaService.listar();
+    public ResponseEntity<List> listar() {
+        List<GetMatriculaListarResponse> getMatriculaListarResponses = matriculaService.listar();
 
-        return ResponseEntity.ok(listaMatriculas);
+        return ResponseEntity.ok(getMatriculaListarResponses);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Matricula> obter(@PathVariable Long id) {
-        Matricula matriculaObtida = matriculaService.obter(id);
+    public ResponseEntity <GetMatriculaObterResponse> obter(@PathVariable Long id) {
+        GetMatriculaObterResponse getMatriculaObterResponse = matriculaService.obter(id);
 
-        return ResponseEntity.ok(matriculaObtida);
+        return ResponseEntity.ok(getMatriculaObterResponse);
     }
 }

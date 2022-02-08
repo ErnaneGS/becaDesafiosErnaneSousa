@@ -4,81 +4,49 @@ import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.AlunoRequest;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.AlunoResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.GetAlunoObterResponse;
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
+import io.github.becaErnaneSousa.desafios.domains.pessoas.Aluno;
+import io.github.becaErnaneSousa.desafios.mappers.*;
 import io.github.becaErnaneSousa.desafios.repositories.AlunoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AlunoServiceImpl {
 
     private final AlunoRepository alunoRepository;
+    private final MapperAlunoRequestToAluno mapperAlunoRequestToAluno;
+    private final MapperAlunoToAlunoResponse mapperAlunoToAlunoResponse;
+    private final MapperAlunoAtualizar mapperAlunoAtualizar;
+    private final MapperAlunoToListarAlunoResponse mapperAlunoToListarAlunoResponse;
+    private final MapperAlunoToObterAlunoResponse mapperAlunoToObterAlunoResponse;
 
     public AlunoResponse criar(AlunoRequest alunoRequest) {
 
-        Aluno aluno = new Aluno();
-        aluno.setNome(alunoRequest.getNome());
-        aluno.setCpf(alunoRequest.getCpf());
-        aluno.setEndereco(alunoRequest.getEndereco());
-        aluno.setTelefone(alunoRequest.getTelefone());
-        aluno.setDataNascimento(alunoRequest.getDataNascimento());
-        aluno.setNomePai(alunoRequest.getNomePai());
+        Aluno aluno = mapperAlunoRequestToAluno.toModel(alunoRequest);
 
-        if(aluno.getCpf().length() != 11) {
-            throw new RuntimeException("O cpf deve possuir 11 digitos");
-        } else if (aluno.getDataNascimento().length() != 8){
-            throw new RuntimeException("A data de nascimento deve possuir 8 digitos");
-        } else if (aluno.getTelefone().length() != 11) {
-            throw new RuntimeException("O telefone deve possuir 11 digitos");
-        }
+        alunoRepository.save(aluno);
 
-        Aluno alunoSalvo = alunoRepository.save(aluno);
+        AlunoResponse alunoResponse = mapperAlunoToAlunoResponse.toResponse(aluno);
 
-        AlunoResponse alunoResponse = new AlunoResponse();
-        alunoResponse.setCadastro(alunoSalvo.getId());
-        alunoResponse.setMensagem("Aluno " + alunoSalvo.getId() + " - " + alunoSalvo.getNome() + " criado com sucesso.");
+        alunoResponse.setMensagem("Aluno criada com sucesso!!!");
 
         return alunoResponse;
-
     }
 
     public AlunoResponse atualizar(AlunoRequest alunoRequest, Long id) {
 
-        Aluno alunoObtido = alunoRepository.findById(id).get();
+        Aluno aluno = alunoRepository.findById(id).get();
 
-        if(alunoRequest.getNome() != null) {
-            alunoObtido.setNome(alunoRequest.getNome());
-        }
+        mapperAlunoAtualizar.atualizar(alunoRequest, aluno);
 
-        if(alunoRequest.getCpf() != null) {
-            alunoObtido.setCpf(alunoRequest.getCpf());
-        }
+        alunoRepository.save(aluno);
 
-        if(alunoRequest.getEndereco() != null) {
-            alunoObtido.setEndereco(alunoRequest.getEndereco());
-        }
+        AlunoResponse alunoResponse = mapperAlunoToAlunoResponse.toResponse(aluno);
 
-        if(alunoRequest.getTelefone() != null) {
-            alunoObtido.setTelefone(alunoRequest.getTelefone());
-        }
-
-        if(alunoRequest.getDataNascimento() != null) {
-            alunoObtido.setDataNascimento(alunoRequest.getDataNascimento());
-        }
-
-        if(alunoRequest.getNomePai() != null) {
-            alunoObtido.setNomePai(alunoRequest.getNomePai());
-        }
-
-        alunoRepository.save(alunoObtido);
-
-        AlunoResponse alunoResponse = new AlunoResponse();
-        alunoResponse.setCadastro(alunoObtido.getId());
-        alunoResponse.setMensagem("Aluno " + alunoObtido.getId() + " - " + alunoObtido.getNome() + " atualizado com sucesso.");
+        alunoResponse.setMensagem("Aluno atualizado com sucesso!!!");
 
         return alunoResponse;
     }
@@ -90,13 +58,12 @@ public class AlunoServiceImpl {
 
     public List<GetAlunoListarResponse> listar() {
 
-        List<Aluno> listaAluno = alunoRepository.findAll();
+        List<Aluno> listaAlunos = alunoRepository.findAll();
 
-        List<GetAlunoListarResponse> getAlunoListarResponses = new ArrayList<>();
-
-        listaAluno.stream().forEach(aluno ->  getAlunoListarResponses.add(new GetAlunoListarResponse(aluno)));
-
-        return getAlunoListarResponses;
+        return listaAlunos
+                .stream()
+                .map(mapperAlunoToListarAlunoResponse::toListar)
+                .collect(Collectors.toList());
     }
 
     public GetAlunoObterResponse obter(Long id) {
@@ -107,14 +74,7 @@ public class AlunoServiceImpl {
             throw new RuntimeException("Aluno não encontrado!");
         }
 
-        GetAlunoObterResponse getAlunoObterResponse = new GetAlunoObterResponse();
-        getAlunoObterResponse.setId(aluno.getId());
-        getAlunoObterResponse.setNome(aluno.getNome());
-        getAlunoObterResponse.setCpf(aluno.getCpf());
-        getAlunoObterResponse.setTelefone(aluno.getTelefone());
-        getAlunoObterResponse.setEndereco(aluno.getEndereco());
-        getAlunoObterResponse.setNomePai(aluno.getNomePai());
-        getAlunoObterResponse.setDataNascimento(aluno.getDataNascimento());
+        GetAlunoObterResponse getAlunoObterResponse = mapperAlunoToObterAlunoResponse.toObter(aluno);
 
         return getAlunoObterResponse;
     }

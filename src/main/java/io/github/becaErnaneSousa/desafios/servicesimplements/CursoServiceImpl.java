@@ -4,32 +4,35 @@ import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.CursoReque
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.CursoResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetCursoListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetCursoObterResponse;
-import io.github.becaErnaneSousa.desafios.entities.administracao.Curso;
+import io.github.becaErnaneSousa.desafios.domains.administracao.Curso;
+import io.github.becaErnaneSousa.desafios.mappers.*;
 import io.github.becaErnaneSousa.desafios.repositories.CursoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CursoServiceImpl {
 
     private final CursoRepository cursoRepository;
+    private final MapperCursoToCursoResponse mapperCursoToCursoResponse;
+    private final MapperCursoRequestToCurso mapperCursoRequestToCurso;
+    private final MapperCursoAtualizar mapperCursoAtualizar;
+    private final MapperCursoToListarCursoResponse mapperCursoToListarCursoResponse;
+    private final MapperCursoToObterCursoResponse mapperCursoToObterCursoResponse;
+
 
     public CursoResponse criar(CursoRequest cursoRequest) {
 
-        Curso curso = new Curso();
-        curso.setNome(cursoRequest.getNome());
-        curso.setDescricao(cursoRequest.getDescricao());
-        curso.setCargaHoraria(cursoRequest.getCargaHoraria());
+        Curso curso = mapperCursoRequestToCurso.toModel(cursoRequest);
 
+        cursoRepository.save(curso);
 
-        Curso cursoSalvo = cursoRepository.save(curso);
+        CursoResponse cursoResponse = mapperCursoToCursoResponse.toResponse(curso);
 
-        CursoResponse cursoResponse = new CursoResponse();
-        cursoResponse.setCadastro(cursoSalvo.getId());
-        cursoResponse.setMensagem("Curso " + cursoSalvo.getId() + " - " + cursoSalvo.getNome() + " criado com sucesso.");
+        cursoResponse.setMensagem("Curso cadastrado com sucesso!");
 
         return cursoResponse;
 
@@ -37,25 +40,15 @@ public class CursoServiceImpl {
 
     public CursoResponse atualizar(CursoRequest cursoRequest, Long id) {
 
-        Curso cursoObtido = cursoRepository.findById(id).get();
+        Curso curso = cursoRepository.findById(id).get();
 
-        if(cursoRequest.getNome() != null) {
-            cursoObtido.setNome(cursoRequest.getNome());
-        }
+        mapperCursoAtualizar.atualizar(cursoRequest, curso);
 
-        if(cursoRequest.getDescricao() != null) {
-            cursoObtido.setDescricao(cursoRequest.getDescricao());
-        }
+        cursoRepository.save(curso);
 
-        if(cursoRequest.getCargaHoraria() != 0) {
-            cursoObtido.setCargaHoraria(cursoRequest.getCargaHoraria());
-        }
+        CursoResponse cursoResponse = mapperCursoToCursoResponse.toResponse(curso);
 
-        cursoRepository.save(cursoObtido);
-
-        CursoResponse cursoResponse = new CursoResponse();
-        cursoResponse.setCadastro(cursoObtido.getId());
-        cursoResponse.setMensagem("Curso " + cursoObtido.getId() + " - " + cursoObtido.getNome() + " atualizado com sucesso.");
+        cursoResponse.setMensagem("Curso atualizado com sucesso!!!");
 
         return cursoResponse;
     }
@@ -67,13 +60,12 @@ public class CursoServiceImpl {
 
     public List<GetCursoListarResponse> listar() {
 
-        List<Curso> listaCurso = cursoRepository.findAll();
+        List<Curso> listaCursos = cursoRepository.findAll();
 
-        List<GetCursoListarResponse> getCursoListarResponses = new ArrayList<>();
-
-        listaCurso.stream().forEach(curso ->  getCursoListarResponses.add(new GetCursoListarResponse(curso)));
-
-        return getCursoListarResponses;
+        return listaCursos
+                .stream()
+                .map(mapperCursoToListarCursoResponse::toListar)
+                .collect(Collectors.toList());
     }
 
     public GetCursoObterResponse obter(Long id) {
@@ -81,16 +73,13 @@ public class CursoServiceImpl {
         Curso curso = cursoRepository.findById(id).get();
 
         if(curso == null) {
-            throw new RuntimeException("Aluno não encontrado!");
+            throw new RuntimeException("Curso não encontrado!");
         }
 
-        GetCursoObterResponse getCursoObterResponse = new GetCursoObterResponse();
-        getCursoObterResponse.setId(curso.getId());
-        getCursoObterResponse.setNome(curso.getNome());
-        getCursoObterResponse.setDescricao(curso.getDescricao());
-        getCursoObterResponse.setCargaHoraria(curso.getCargaHoraria());
+        GetCursoObterResponse getCursoObterResponse = mapperCursoToObterCursoResponse.toObter(curso);
 
         return getCursoObterResponse;
+
     }
 
 }

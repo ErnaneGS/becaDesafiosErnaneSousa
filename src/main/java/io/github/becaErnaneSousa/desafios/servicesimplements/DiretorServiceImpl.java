@@ -2,74 +2,49 @@ package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.DiretorRequest;
 import io.github.becaErnaneSousa.desafios.dtos.responses.pessoas.*;
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
+import io.github.becaErnaneSousa.desafios.domains.pessoas.Diretor;
+import io.github.becaErnaneSousa.desafios.mappers.*;
 import io.github.becaErnaneSousa.desafios.repositories.DiretorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class DiretorServiceImpl {
 
     private final DiretorRepository diretorRepository;
+    private final MapperDiretorRequestToDiretor mapperDiretorRequestToDiretor;
+    private final MapperDiretorToDiretorResponse mapperDiretorToDiretorResponse;
+    private final MapperDiretorAtualizar mapperDiretorAtualizar;
+    private final MapperDiretorToListarDiretorResponse mapperDiretorToListarDiretorResponse;
+    private final MapperDiretorToObterDiretorResponse mapperDiretorToObterDiretorResponse;
 
     public DiretorResponse criar(DiretorRequest diretorRequest) {
 
-        Diretor diretor = new Diretor();
-        diretor.setNome(diretorRequest.getNome());
-        diretor.setDataNascimento(diretorRequest.getDataNascimento());
-        diretor.setEndereco(diretorRequest.getEndereco());
-        diretor.setTelefone(diretorRequest.getTelefone());
-        diretor.setCpf(diretorRequest.getCpf());
+        Diretor diretor = mapperDiretorRequestToDiretor.toModel(diretorRequest);
 
-        if( diretor.getCpf().length() != 11 ) {
-            throw new RuntimeException("O cpf deve possuir 11 digitos");
-        } else if (diretor.getDataNascimento().length() != 8){
-            throw new RuntimeException("A data de nascimento deve possuir 8 digitos");
-        } else if (diretor.getTelefone().length() != 11) {
-            throw new RuntimeException("O telefone deve possuir 11 digitos");
-        }
+        diretorRepository.save(diretor);
 
-        Diretor diretorSalvo = diretorRepository.save(diretor);
+        DiretorResponse diretorResponse = mapperDiretorToDiretorResponse.toResponse(diretor);
 
-        DiretorResponse diretorResponse = new DiretorResponse();
-        diretorResponse.setCadastro(diretorSalvo.getId());
-        diretorResponse.setMensagem("Diretor " + diretorSalvo.getId() + " - " + diretorSalvo.getNome() + " criado com sucesso.");
-
+        diretorResponse.setMensagem("Diretor criada com sucesso!!!");
 
         return diretorResponse;
     }
 
     public DiretorResponse atualizar(DiretorRequest diretorRequest, Long id) {
 
-        Diretor diretorObtido = diretorRepository.findById(id).get();
+        Diretor diretor = diretorRepository.findById(id).get();
 
-        if(diretorRequest.getNome() != null) {
-            diretorObtido.setNome(diretorRequest.getNome());
-        }
+        mapperDiretorAtualizar.atualizar(diretorRequest, diretor);
 
-        if(diretorRequest.getCpf() != null) {
-            diretorObtido.setCpf(diretorRequest.getCpf());
-        }
+        diretorRepository.save(diretor);
 
-        if(diretorRequest.getEndereco() != null) {
-            diretorObtido.setEndereco(diretorRequest.getEndereco());
-        }
+        DiretorResponse diretorResponse = mapperDiretorToDiretorResponse.toResponse(diretor);
 
-        if(diretorRequest.getTelefone() != null) {
-            diretorObtido.setTelefone(diretorRequest.getTelefone());
-        }
-
-        if(diretorRequest.getDataNascimento() != null) {
-            diretorObtido.setDataNascimento(diretorRequest.getDataNascimento());
-        }
-
-        diretorRepository.save(diretorObtido);
-        DiretorResponse diretorResponse = new DiretorResponse();
-        diretorResponse.setCadastro(diretorObtido.getId());
-        diretorResponse.setMensagem("Diretor " + diretorObtido.getId() + " - " + diretorObtido.getNome() + " atualizado com sucesso.");
+        diretorResponse.setMensagem("Diretor atualizado com sucesso!!!");
 
         return diretorResponse;
     }
@@ -79,14 +54,12 @@ public class DiretorServiceImpl {
     }
 
     public List<GetDiretorListarResponse> listar() {
+        List<Diretor> listaDiretores = diretorRepository.findAll();
 
-        List<Diretor> listaDiretor = diretorRepository.findAll();
-
-        List<GetDiretorListarResponse> getDiretorListarResponses = new ArrayList<>();
-
-        listaDiretor.stream().forEach(diretor ->  getDiretorListarResponses.add(new GetDiretorListarResponse(diretor)));
-
-        return getDiretorListarResponses;
+        return listaDiretores
+                .stream()
+                .map(mapperDiretorToListarDiretorResponse::toListar)
+                .collect(Collectors.toList());
 
     }
 
@@ -94,16 +67,10 @@ public class DiretorServiceImpl {
         Diretor diretor = diretorRepository.findById(id).get();
 
         if(diretor == null) {
-            throw new RuntimeException("Aluno não encontrado!");
+            throw new RuntimeException("Diretor não encontrado!");
         }
 
-        GetDiretorObterResponse getDiretorObterResponse = new GetDiretorObterResponse();
-        getDiretorObterResponse.setId(diretor.getId());
-        getDiretorObterResponse.setNome(diretor.getNome());
-        getDiretorObterResponse.setCpf(diretor.getCpf());
-        getDiretorObterResponse.setTelefone(diretor.getTelefone());
-        getDiretorObterResponse.setEndereco(diretor.getEndereco());
-        getDiretorObterResponse.setDataNascimento(diretor.getDataNascimento());
+        GetDiretorObterResponse getDiretorObterResponse = mapperDiretorToObterDiretorResponse.toObter(diretor);
 
         return getDiretorObterResponse;
 

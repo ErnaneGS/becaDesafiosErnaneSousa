@@ -1,76 +1,82 @@
 package io.github.becaErnaneSousa.desafios.servicesimplements;
 
-import io.github.becaErnaneSousa.desafios.entities.atividades.Atividade;
-import io.github.becaErnaneSousa.desafios.entities.atividades.Resultado;
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Aluno;
-import io.github.becaErnaneSousa.desafios.repositories.AlunoRepository;
-import io.github.becaErnaneSousa.desafios.repositories.AtividadeRepository;
+import io.github.becaErnaneSousa.desafios.domains.atividades.Resultado;
+import io.github.becaErnaneSousa.desafios.dtos.requests.atividades.ResultadoRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.atividades.GetResultadoListarResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.atividades.GetResultadoObterResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.atividades.ResultadoResponse;
+import io.github.becaErnaneSousa.desafios.mappers.*;
 import io.github.becaErnaneSousa.desafios.repositories.ResultadoRepository;
-import io.github.becaErnaneSousa.desafios.servicesinterface.ServiceInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ResultadoServiceImpl implements ServiceInterface<Resultado> {
+public class ResultadoServiceImpl {
 
-    private final AlunoRepository alunoRepository;
-    private final AtividadeRepository atividadeRepository;
     private final ResultadoRepository resultadoRepository;
+    private final MapperResultadoRequestToResultado mapperResultadoRequestToResultado;
+    private final MapperResultadoToResultadoResponse mapperResultadoToResultadoResponse;
+    private final MapperResultadoAtualizar mapperResultadoAtualizar;
+    private final MapperResultadoToResultadoListarResponse mapperResultadoToResultadoListarResponse;
+    private final MapperResultadoToResultadoObterResponse mapperResultadoToResultadoObterResponse;
 
-    public Resultado criar(Resultado resultado) {
+    public ResultadoResponse criar(ResultadoRequest resultadoRequest) {
 
-        Atividade atividadeObtida = atividadeRepository.findById(resultado.getAtividade().getId()).get();
-        resultado.setAtividade(atividadeObtida);
+        Resultado resultado = mapperResultadoRequestToResultado.toModel(resultadoRequest);
 
-        Aluno alunoObtido = alunoRepository.findById(resultado.getAluno().getId()).get();
-        resultado.setAluno(alunoObtido);
+        resultadoRepository.save(resultado);
 
-        Resultado resultadoSalvo = resultadoRepository.save(resultado);
+        ResultadoResponse resultadoResponse = mapperResultadoToResultadoResponse.toResponse(resultado);
 
-        return resultadoSalvo;
+        resultadoResponse.setMensagem("Resultado criada com sucesso!!!");
+
+        return resultadoResponse;
     }
 
-    @Override
-    public Resultado atualizar(Resultado resultado, Long id) {
+    public ResultadoResponse atualizar(ResultadoRequest resultadoRequest, Long id) {
 
-        Resultado resultadoObtido = this.obter(id);
+        Resultado resultado = resultadoRepository.findById(id).get();
 
-        Atividade atividadeObtida = atividadeRepository.findById(resultado.getAtividade().getId()).get();
-        resultado.setAtividade(atividadeObtida);
+        mapperResultadoAtualizar.atualizar(resultadoRequest, resultado);
 
-        Aluno alunoObtido = alunoRepository.findById(resultado.getAluno().getId()).get();
-        resultado.setAluno(alunoObtido);
+        resultadoRepository.save(resultado);
 
-        Resultado resultadoSalvo = resultadoRepository.save(resultado);
+        ResultadoResponse resultadoResponse = mapperResultadoToResultadoResponse.toResponse(resultado);
 
-        resultadoRepository.save(resultadoObtido);
+        resultadoResponse.setMensagem("Resultado atualizado com sucesso!!!");
 
-        return resultado;
+        return resultadoResponse;
 
     }
 
-    @Override
     public void deletar(Long id) {
         resultadoRepository.deleteById(id);
 
     }
 
-    @Override
-    public List<Resultado> listar() {
+    public List<GetResultadoListarResponse> listar() {
 
-        List<Resultado> listaResultado = resultadoRepository.findAll();
+        List<Resultado> listaResultados = resultadoRepository.findAll();
 
-        return listaResultado;
+        return listaResultados
+                .stream()
+                .map(mapperResultadoToResultadoListarResponse::toListar)
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public Resultado obter(Long id) {
+    public GetResultadoObterResponse obter(Long id) {
 
         Resultado resultado = resultadoRepository.findById(id).get();
 
-        return resultado;
+        if(resultado == null) {
+            throw new RuntimeException("Resultado não encontrado!");
+        }
 
+        GetResultadoObterResponse getResultadoObterResponse = mapperResultadoToResultadoObterResponse.toObter(resultado);
+
+        return getResultadoObterResponse;
     }
 }

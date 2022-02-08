@@ -7,8 +7,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAlunoObterResponse extends GetPessoaObterResponse {
+public class GetAlunoObterResponse {
 
+    private Long id;
+    private String nome;
+    private String cpf;
+    private String endereco;
+    private String telefone;
+    private String dataNascimento;
     private String nomePai;
 
 }

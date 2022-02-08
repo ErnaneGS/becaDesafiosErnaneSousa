@@ -1,85 +1,53 @@
 package io.github.becaErnaneSousa.desafios.servicesimplements;
 
 import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.TurmaRequest;
+import io.github.becaErnaneSousa.desafios.domains.administracao.Turma;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetTurmaListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetTurmaObterResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.TurmaResponse;
-import io.github.becaErnaneSousa.desafios.entities.administracao.Turma;
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Professor;
-import io.github.becaErnaneSousa.desafios.repositories.ProfessorRepository;
+import io.github.becaErnaneSousa.desafios.mappers.*;
 import io.github.becaErnaneSousa.desafios.repositories.TurmaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class TurmaServiceImpl {
 
-    private final ProfessorRepository professorRepository;
     private final TurmaRepository turmaRepository;
+    private final MapperTurmaToTurmaResponse mapperTurmaToTurmaResponse;
+    private final MapperTurmaRequestToTurma mapperTurmaRequestToTurma;
+    private final MapperTurmaAtualizar mapperTurmaAtualizar;
+    private final MapperTurmaToTurmaListarResponse mapperTurmaToTurmaListarResponse;
+    private final MapperTurmaToTurmaObterResponse mapperTurmaToTurmaObterResponse;
 
     public TurmaResponse criar(TurmaRequest turmaRequest) {
 
-        Turma turma = new Turma();
-        turma.setNome(turmaRequest.getNome());
-        turma.setDataInicio(turmaRequest.getDataInicio());
-        turma.setDataFim(turmaRequest.getDataFim());
-        turma.setQuantidadeAluno(turmaRequest.getQuantidadeAluno());
-        turma.setStatus(turmaRequest.isStatus());
+        Turma turma = mapperTurmaRequestToTurma.toModel(turmaRequest);
 
-        if(turmaRequest.getProfessor() != null) {
+       turmaRepository.save(turma);
 
-            Professor professorObtido = professorRepository.findById(turmaRequest.getProfessor().getId()).get();
+       TurmaResponse turmaResponse = mapperTurmaToTurmaResponse.toResponse(turma);
 
-            turma.setProfessor(professorObtido);
-        }
+       turmaResponse.setMensagem("Turma criada com sucesso.");
 
-        Turma turmaSalva = turmaRepository.save(turma);
-
-        TurmaResponse turmaResponse = new TurmaResponse();
-        turmaResponse.setCadastro(turma.getId());
-        turmaResponse.setMensagem("Turma " + turmaSalva.getId() + " - " + turmaSalva.getNome() + " criada com sucesso.");
-
-        return turmaResponse;
+       return turmaResponse;
 
     }
 
     public TurmaResponse atualizar(TurmaRequest turmaRequest, Long id) {
 
-        Turma turmaObtida = turmaRepository.findById(id).get();
+        Turma turma = turmaRepository.findById(id).get();
 
-        if(turmaRequest.getNome() != null) {
-            turmaObtida.setNome(turmaRequest.getNome());
-        }
+        mapperTurmaAtualizar.atualizar(turmaRequest, turma);
 
-        if(turmaRequest.getDataInicio() != null) {
-            turmaObtida.setDataInicio(turmaRequest.getDataInicio());
-        }
+        turmaRepository.save(turma);
 
-        if(turmaRequest.getDataFim() != null) {
-            turmaObtida.setDataFim(turmaRequest.getDataFim());
-        }
+        TurmaResponse turmaResponse = mapperTurmaToTurmaResponse.toResponse(turma);
 
-        if(turmaRequest.getQuantidadeAluno() != 0) {
-            turmaObtida.setQuantidadeAluno(turmaRequest.getQuantidadeAluno());
-        }
-
-        turmaObtida.setStatus(turmaRequest.isStatus());
-
-        if(turmaRequest.getProfessor() != null) {
-
-            Professor professorObtido = professorRepository.findById(turmaRequest.getProfessor().getId()).get();
-
-            turmaObtida.setProfessor(turmaRequest.getProfessor());
-        }
-
-        turmaRepository.save(turmaObtida);
-
-        TurmaResponse turmaResponse = new TurmaResponse();
-        turmaResponse.setCadastro(turmaObtida.getId());
-        turmaResponse.setMensagem("Turma " + turmaObtida.getId() + " - " + turmaObtida.getNome() + " atualizada com sucesso.");
+        turmaResponse.setMensagem("Turma atualizada com sucesso!!!");
 
         return turmaResponse;
 
@@ -92,13 +60,12 @@ public class TurmaServiceImpl {
 
     public List<GetTurmaListarResponse> listar() {
 
-        List<Turma> listatUrma = turmaRepository.findAll();
+        List<Turma> listaTurmas = turmaRepository.findAll();
 
-        List<GetTurmaListarResponse> getTurmaListarResponses = new ArrayList<>();
-
-        listatUrma.stream().forEach(turma ->  getTurmaListarResponses.add(new GetTurmaListarResponse(turma)));
-
-        return getTurmaListarResponses;
+        return listaTurmas
+                .stream()
+                .map(mapperTurmaToTurmaListarResponse::toListar)
+                .collect(Collectors.toList());
     }
 
     public GetTurmaObterResponse obter(Long id) {
@@ -106,18 +73,10 @@ public class TurmaServiceImpl {
         Turma turma = turmaRepository.findById(id).get();
 
         if(turma == null) {
-            throw new RuntimeException("Turma não encontrado!");
+            throw new RuntimeException("Turma não encontrada!");
         }
 
-        GetTurmaObterResponse getTurmaObterResponse = new GetTurmaObterResponse();
-        getTurmaObterResponse.setNome(turma.getNome());
-        getTurmaObterResponse.setDataInicio(turma.getDataInicio());
-        getTurmaObterResponse.setDataFim(turma.getDataFim());
-        getTurmaObterResponse.setQuantidadeAluno(turma.getQuantidadeAluno());
-        getTurmaObterResponse.setStatus(turma.isStatus());
-        getTurmaObterResponse.setProfessor(turma.getProfessor());
-        getTurmaObterResponse.setListaAtividades(turma.getListaAtividades());
-        getTurmaObterResponse.setListaMatriculas(turma.getListaMatriculas());
+        GetTurmaObterResponse getTurmaObterResponse = mapperTurmaToTurmaObterResponse.toObter(turma);
 
         return getTurmaObterResponse;
     }

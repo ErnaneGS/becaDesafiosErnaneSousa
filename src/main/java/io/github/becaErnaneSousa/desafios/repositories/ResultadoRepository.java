@@ -1,6 +1,6 @@
 package io.github.becaErnaneSousa.desafios.repositories;
 
-import io.github.becaErnaneSousa.desafios.entities.atividades.Resultado;
+import io.github.becaErnaneSousa.desafios.domains.atividades.Resultado;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

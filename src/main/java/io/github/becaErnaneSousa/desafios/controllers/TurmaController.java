@@ -8,7 +8,6 @@ import io.github.becaErnaneSousa.desafios.servicesimplements.TurmaServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
 @RequestMapping("/turma")
 public class TurmaController {
 
-    private TurmaServiceImpl turmaService;
+    private final TurmaServiceImpl turmaService;
 
     @PostMapping
     public ResponseEntity<TurmaResponse> criar(@RequestBody @Valid TurmaRequest turmaRequest) {
@@ -27,7 +26,7 @@ public class TurmaController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <TurmaResponse> atualizar(@RequestBody @Valid TurmaRequest turmaRequest, @PathVariable Long id) {
+    public ResponseEntity <TurmaResponse> atualizar(@RequestBody TurmaRequest turmaRequest, @PathVariable Long id) {
         TurmaResponse turmaResponse = turmaService.atualizar(turmaRequest, id);
 
         return ResponseEntity.ok(turmaResponse);

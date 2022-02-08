@@ -25,7 +25,7 @@ public class DiretorController {
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <DiretorResponse> atualizar(@RequestBody @Valid DiretorRequest diretorRequest, @PathVariable Long id) {
+    public ResponseEntity <DiretorResponse> atualizar(@Valid @RequestBody DiretorRequest diretorRequest, @PathVariable Long id) {
         DiretorResponse diretorResponse = diretorService.atualizar(diretorRequest, id);
 
         return ResponseEntity.ok(diretorResponse);

@@ -1,11 +1,13 @@
 package io.github.becaErnaneSousa.desafios.controllers;
 
-import io.github.becaErnaneSousa.desafios.entities.atividades.Resultado;
+import io.github.becaErnaneSousa.desafios.dtos.requests.atividades.ResultadoRequest;
+import io.github.becaErnaneSousa.desafios.dtos.responses.atividades.GetResultadoListarResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.atividades.GetResultadoObterResponse;
+import io.github.becaErnaneSousa.desafios.dtos.responses.atividades.ResultadoResponse;
 import io.github.becaErnaneSousa.desafios.servicesimplements.ResultadoServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -17,17 +19,17 @@ public class ResultadoController {
     private final ResultadoServiceImpl resultadoService;
 
     @PostMapping
-    public ResponseEntity<Resultado> criar(@RequestBody @Valid Resultado resultado) {
-        Resultado resultadoCriado = resultadoService.criar(resultado);
+    public ResponseEntity<ResultadoResponse> criar(@RequestBody @Valid ResultadoRequest resultadoRequest) {
+        ResultadoResponse resultadoResponse = resultadoService.criar(resultadoRequest);
 
-        return ResponseEntity.created(null).body(resultadoCriado);
+        return ResponseEntity.created(null).body(resultadoResponse);
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity <Resultado> atualizar(@RequestBody @Valid Resultado resultado, @PathVariable Long id) {
-        Resultado resultadoAtualizado = resultadoService.atualizar(resultado, id);
+    public ResponseEntity <ResultadoResponse> atualizar(@RequestBody ResultadoRequest resultadoRequest, @PathVariable Long id) {
+        ResultadoResponse resultadoResponse = resultadoService.atualizar(resultadoRequest, id);
 
-        return ResponseEntity.ok(resultadoAtualizado);
+        return ResponseEntity.ok(resultadoResponse);
     }
 
     @DeleteMapping("{id}")
@@ -38,16 +40,16 @@ public class ResultadoController {
     }
 
     @GetMapping
-    public ResponseEntity <List<Resultado>> listar() {
-        List<Resultado> listaResultados = resultadoService.listar();
+    public ResponseEntity <List> listar() {
+        List<GetResultadoListarResponse> getResultadoListarResponses = resultadoService.listar();
 
-        return ResponseEntity.ok(listaResultados);
+        return ResponseEntity.ok(getResultadoListarResponses);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <Resultado> obter(@PathVariable Long id) {
-        Resultado resultadoObtido = resultadoService.obter(id);
+    public ResponseEntity <GetResultadoObterResponse> obter(@PathVariable Long id) {
+        GetResultadoObterResponse getResultadoObterResponse = resultadoService.obter(id);
 
-        return ResponseEntity.ok(resultadoObtido);
+        return ResponseEntity.ok(getResultadoObterResponse);
     }
 }

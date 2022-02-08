@@ -4,43 +4,34 @@ import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.EscolaRequ
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.EscolaResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetEscolaListarResponse;
 import io.github.becaErnaneSousa.desafios.dtos.responses.administracao.GetEscolaObterResponse;
-import io.github.becaErnaneSousa.desafios.entities.administracao.Escola;
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
-import io.github.becaErnaneSousa.desafios.repositories.DiretorRepository;
+import io.github.becaErnaneSousa.desafios.domains.administracao.Escola;
+import io.github.becaErnaneSousa.desafios.mappers.*;
 import io.github.becaErnaneSousa.desafios.repositories.EscolaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class EscolaServiceImpl {
 
-    private final DiretorRepository diretorRepository;
     private final EscolaRepository escolaRepository;
+    private final MapperEscolaRequestToEscola mapperEscolaRequestToEscola;
+    private final MapperEscolaToEscolaResponse mapperEscolaToEscolaResponse;
+    private final MapperEscolaAtualizar mapperEscolaAtualizar;
+    private final MapperEscolaToEscolaListarResponse mapperEscolaToEscolaListarResponse;
+    private final MapperEscolaToEscolaObterResponse mapperEscolaToEscolaObterResponse;
 
     public EscolaResponse criar(EscolaRequest escolaRequest) {
 
-        Escola escola = new Escola();
-        escola.setNome(escolaRequest.getNome());
-        escola.setEndereco(escolaRequest.getEndereco());
-        escola.setCnpj(escolaRequest.getCnpj());
+        Escola escola = mapperEscolaRequestToEscola.toMOdel(escolaRequest);
 
-        if (escolaRequest.getDiretor() != null) {
+        escolaRepository.save(escola);
 
-            Diretor diretorObtido = diretorRepository.findById(escolaRequest.getDiretor().getId()).get();
+        EscolaResponse escolaReponse = mapperEscolaToEscolaResponse.toResponse(escola);
 
-            escola.setDiretor(diretorObtido);
-
-        }
-
-        Escola escolaSalva = escolaRepository.save(escola);
-
-        EscolaResponse escolaReponse = new EscolaResponse();
-        escolaReponse.setCadastro(escolaSalva.getId());
-        escolaReponse.setMensagem("Escola " + escolaSalva.getId() + " - " + escolaSalva.getNome() + " criada com sucesso.");
+        escolaReponse.setMensagem("Escola criada com sucesso!!!");
 
         return escolaReponse;
 
@@ -48,33 +39,18 @@ public class EscolaServiceImpl {
 
     public EscolaResponse atualizar(EscolaRequest escolaRequest, Long id) {
 
-        Escola escolaObtida = escolaRepository.findById(id).get();
+        Escola escola = escolaRepository.findById(id).get();
 
-        if(escolaRequest.getNome() != null) {
-            escolaObtida.setNome(escolaRequest.getNome());
-        }
+        mapperEscolaAtualizar.atualizar(escolaRequest, escola);
 
-        if(escolaRequest.getEndereco() != null) {
-            escolaObtida.setEndereco(escolaRequest.getEndereco());
-        }
+        escolaRepository.save(escola);
 
-        if(escolaRequest.getCnpj() != null) {
-            escolaObtida.setCnpj(escolaRequest.getCnpj());
-        }
+        EscolaResponse escolaResponse = mapperEscolaToEscolaResponse.toResponse(escola);
 
-        if (escolaRequest.getDiretor().getId() != null) {
-            Diretor diretorObtido = diretorRepository.findById(escolaRequest.getDiretor().getId()).get();
+        escolaResponse.setMensagem("Escola atualizada com sucesso!!!");
 
-            escolaObtida.setDiretor(diretorObtido);
-        }
+        return escolaResponse;
 
-        escolaRepository.save(escolaObtida);
-
-        EscolaResponse escolaReponse = new EscolaResponse();
-        escolaReponse.setCadastro(escolaObtida.getId());
-        escolaReponse.setMensagem("Escola " + escolaObtida.getId() + " - " + escolaObtida.getNome() + " atualizada com sucesso.");
-
-        return escolaReponse;
     }
 
     public void deletar(Long id) {
@@ -85,11 +61,10 @@ public class EscolaServiceImpl {
     public List<GetEscolaListarResponse> listar() {
         List<Escola> listaEscola = escolaRepository.findAll();
 
-        List<GetEscolaListarResponse> getEscolaListarResponses = new ArrayList<>();
-
-        listaEscola.stream().forEach(escola ->  getEscolaListarResponses.add(new GetEscolaListarResponse(escola)));
-
-        return getEscolaListarResponses;
+        return listaEscola
+                .stream()
+                .map(mapperEscolaToEscolaListarResponse::toListar)
+                .collect(Collectors.toList());
     }
 
     public GetEscolaObterResponse obter(Long id) {
@@ -99,13 +74,7 @@ public class EscolaServiceImpl {
             throw new RuntimeException("Escola não encontrada!");
         }
 
-        GetEscolaObterResponse getEscolaObterResponse = new GetEscolaObterResponse();
-        getEscolaObterResponse.setId(escola.getId());
-        getEscolaObterResponse.setNome(escola.getNome());
-        getEscolaObterResponse.setCnpj(escola.getCnpj());
-        getEscolaObterResponse.setEndereco(escola.getEndereco());
-        getEscolaObterResponse.setDiretor(escola.getDiretor());
-        getEscolaObterResponse.setListaCursos(escola.getListaCursos());
+        GetEscolaObterResponse getEscolaObterResponse = mapperEscolaToEscolaObterResponse.toObter(escola);
 
         return getEscolaObterResponse;
     }

@@ -1,7 +1,7 @@
 package io.github.becaErnaneSousa.desafios.dtos.requests.administracao;
 
-import io.github.becaErnaneSousa.desafios.entities.administracao.Curso;
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Diretor;
+import io.github.becaErnaneSousa.desafios.dtos.requests.pessoas.DiretorRequest;
+import io.github.becaErnaneSousa.desafios.domains.administracao.Curso;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class EscolaRequest {
     private String cnpj;
 
     @NotNull(message = "{diretor.not.null}")
-    private Diretor diretor;
+    private DiretorRequest diretor;
 
     private List<Curso> listaCursos;
 

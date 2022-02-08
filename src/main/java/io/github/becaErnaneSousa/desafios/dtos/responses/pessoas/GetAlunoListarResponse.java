@@ -1,13 +1,15 @@
 package io.github.becaErnaneSousa.desafios.dtos.responses.pessoas;
 
-import io.github.becaErnaneSousa.desafios.entities.pessoas.Pessoa;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class GetAlunoListarResponse extends GetPessoaListarResponse {
+@AllArgsConstructor
+@NoArgsConstructor
+public class GetAlunoListarResponse {
 
-    public GetAlunoListarResponse(Pessoa pessoa) {
-        super(pessoa);
-    }
+    private String nome;
+    private String dataNascimento;
 
 }
