@@ -7,7 +7,6 @@ import io.github.becaErnaneSousa.desafios.servicesimplements.DiretorServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -41,7 +40,6 @@ public class DiretorController {
 
     @GetMapping
     public ResponseEntity<List> listar() {
-
         List<GetDiretorListarResponse> getDiretorListarResponse = diretorService.listar();
 
         return ResponseEntity.ok(getDiretorListarResponse);

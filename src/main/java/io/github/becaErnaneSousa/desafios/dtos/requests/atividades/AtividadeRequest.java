@@ -4,11 +4,9 @@ import io.github.becaErnaneSousa.desafios.dtos.requests.administracao.TurmaReque
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
@@ -27,4 +25,5 @@ public class AtividadeRequest {
 
     @NotNull(message = "Turma não pode ser nulo")
     private TurmaRequest turma;
+
 }

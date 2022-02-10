@@ -13,7 +13,6 @@ public class GetMatriculaObterResponse {
 
     private Long id;
     private String data;
-//    private boolean status;
     private Aluno aluno;
     private Turma turma;
 

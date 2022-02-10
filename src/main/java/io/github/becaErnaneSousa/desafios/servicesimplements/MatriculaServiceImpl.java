@@ -72,4 +72,5 @@ public class MatriculaServiceImpl {
 
         return new GetMatriculaObterResponse();
     }
+
 }

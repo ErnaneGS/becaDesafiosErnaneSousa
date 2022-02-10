@@ -74,4 +74,5 @@ public class EscolaServiceImpl {
 
         return getEscolaObterResponse;
     }
+
 }
