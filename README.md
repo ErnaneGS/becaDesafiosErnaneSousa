@@ -5,7 +5,7 @@
 + Descrição: O projeto consiste em oito desafios com o objetivo final de desenvolver um Sistema de Gestão Educacional 
 + Resumo da aplicação: A aplicação tem como objetivo a automatização de tarefas manuais e simplificação dos principais processos burocráticos que integram a sala de aula e a diretoria de uma escola. Em sua primeira versão o sistema deverá permitir o cadastro da escola e do seu diretor responsável, além do cadastro de cursos e professores. Através do cadastro de turmas e alunos, a API deverá permitir o gerenciamento de todos as matrículas, além de disponibilizar funcionalidades para o controle de aplicação de atividades, 
 notas e resultados de cada aluno e sua respectiva turma.
-+ Status: Em desenvolvimento ⚠️
++ Status: Em revisão ⚠️
 
 ## Desenvolvimento:
 + Desafio 01 (Concluído 20/01/2021 ✅)
@@ -54,6 +54,12 @@ notas e resultados de cada aluno e sua respectiva turma.
 3) Fazer o tratamento utilizando throw e @ExceptionHandler
 4) Aproveitando o método criado com @ExceptionHandler criar a classe para tratamento de exceptions utilizando @ControllerAdvice
 5) Realizar novos testes, verificar o resultado final e escreva conclusão sobre exceptions
+
++ Desafio 08 -- Disponível na branch desafioOito (Entregue 10/02/2021 ✅)
+1) Criarum docker-compose.yml
+2) Subir um container contendo uma base de dados
+3) Integrar sua Api com a base de dados
+4) Fazer testes de integração com a nova base de dados
 
 ## Diagrama:
 ![Untitled Diagram](https://user-images.githubusercontent.com/97994560/151408488-1300c44b-4d83-466f-9388-3bf805dd7a99.jpg)
